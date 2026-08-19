@@ -1,0 +1,3159 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Fixli · Дизайн-система в коде</title>
+    <link rel="stylesheet" href="../tokens.css" />
+    <style>
+      /*
+       * Витрина style guide: сетка страницы и обёртка образца. Всё, что
+       * описывает бренд, приходит из ../tokens.css — здесь ни одного
+       * фирменного значения. Если для показа компонента понадобился хардкод,
+       * значит в системе не хватает токена, и это находка, а не мелочь.
+       *
+       * Ни сборки, ни JS: файл открывается двойным кликом у дизайнера,
+       * у печатника и у таргетолога, которые про pnpm не знают ничего.
+       */
+      body {
+        margin: 0;
+        background: var(--fx-white);
+        color: var(--fx-ink);
+        font-family: var(--fx-font);
+        font-size: var(--fx-text-body);
+        line-height: var(--fx-text-body-lh);
+        -webkit-font-smoothing: antialiased;
+      }
+      .обёртка {
+        max-width: var(--fx-wrap);
+        margin: 0 auto;
+        padding: var(--fx-space-7) var(--fx-gutter) var(--fx-space-9);
+      }
+      h1 {
+        font-size: var(--fx-text-display);
+        line-height: var(--fx-text-display-lh);
+        font-weight: var(--fx-weight-heavy);
+        color: var(--fx-navy-deep);
+        margin: 0 0 var(--fx-space-4);
+      }
+      h2 {
+        font-size: var(--fx-text-h2);
+        line-height: var(--fx-text-h2-lh);
+        font-weight: var(--fx-weight-bold);
+        color: var(--fx-navy-deep);
+        margin: var(--fx-space-9) 0 var(--fx-space-2);
+        padding-top: var(--fx-space-4);
+        border-top: var(--fx-rule-strong) solid var(--fx-navy);
+      }
+      h3 {
+        font-size: var(--fx-text-h3);
+        line-height: var(--fx-text-h3-lh);
+        font-weight: var(--fx-weight-bold);
+        color: var(--fx-ink);
+        margin: 0 0 var(--fx-space-1);
+      }
+      .лид {
+        font-size: var(--fx-text-lede);
+        line-height: var(--fx-text-lede-lh);
+        color: var(--fx-ink-soft);
+        max-width: 74ch;
+        margin: 0 0 var(--fx-space-5);
+      }
+      .бровь {
+        font-size: var(--fx-text-eyebrow);
+        line-height: var(--fx-text-eyebrow-lh);
+        font-weight: var(--fx-weight-bold);
+        letter-spacing: var(--fx-tracking-caps);
+        text-transform: uppercase;
+        color: var(--fx-orange-text);
+        margin: 0 0 var(--fx-space-2);
+      }
+      .сетка {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: var(--fx-space-4);
+      }
+
+      /* ═══ Оглавление ═══════════════════════════════════════════════════
+       *
+       * Ссылки, а не список: по этой странице ходят за конкретным
+       * компонентом, а не читают её сверху вниз.
+       */
+      .оглавление {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--fx-space-2) var(--fx-space-3);
+        padding: var(--fx-space-4) 0 0;
+        margin: 0 0 var(--fx-space-6);
+        list-style: none;
+        border-top: var(--fx-hairline) solid var(--fx-line);
+      }
+      .оглавление a {
+        display: inline-block;
+        padding: var(--fx-space-1) var(--fx-space-3);
+        border: var(--fx-hairline) solid var(--fx-line);
+        border-radius: var(--fx-radius-pill);
+        font-size: var(--fx-text-small);
+        line-height: var(--fx-text-small-lh);
+        color: var(--fx-navy);
+        text-decoration: none;
+      }
+      .оглавление a:hover {
+        background: var(--fx-navy-wash);
+      }
+      .оглавление a:focus-visible {
+        outline: none;
+        box-shadow: var(--fx-focus-ring);
+      }
+
+      /* ═══ Образец ══════════════════════════════════════════════════════
+       *
+       * Один компонент = один образец: имя, правило применения, сцена.
+       * Правило стоит НАД компонентом, а не под ним: дизайнер, доскроллив
+       * до кнопки, должен прочитать «одна на экран» прежде, чем поставит
+       * три. Сцена на подложке `--fx-mist`, потому что почти все компоненты
+       * белые и на белом фоне их границы не видно.
+       */
+      .образец {
+        margin-bottom: var(--fx-space-6);
+      }
+      .образец__правило {
+        margin: 0 0 var(--fx-space-3);
+        max-width: 84ch;
+        font-size: var(--fx-text-small);
+        line-height: var(--fx-text-small-lh);
+        color: var(--fx-ink-soft);
+      }
+      .образец__сцена {
+        padding: var(--fx-space-5);
+        background: var(--fx-mist);
+        border: var(--fx-hairline) solid var(--fx-line);
+        border-radius: var(--fx-radius-lg);
+      }
+      /* Сцена без подложки — для тех компонентов, которые сами несут фон
+         (подвал, тёмная плашка): подложка под ними читалась бы как рамка
+         носителя, которой в макете не будет. */
+      .образец__сцена--без-подложки {
+        padding: 0;
+        background: none;
+        border: none;
+      }
+      .образец__сцена--ряд {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--fx-space-4);
+        align-items: center;
+      }
+      /* Узкая сцена: карточка наряда живёт в мини-приложении Telegram, и
+         показывать её на всю ширину — врать про условия. Ширина пришла токеном
+         --fx-bp-xs: она же младший брейкпоинт системы и та ширина, на которой
+         снимаются кадры. */
+      .образец__сцена--узкая > * {
+        max-width: var(--fx-bp-xs);
+      }
+      .образец__подпись {
+        margin: var(--fx-space-2) 0 0;
+        font-family: var(--fx-font-mono);
+        font-size: 11px;
+        color: var(--fx-ink-soft);
+      }
+
+      /* ═══ Верно / неверно ══════════════════════════════════════════════
+       *
+       * Запрет показывается рядом с правильным вариантом, иначе он не
+       * читается: «не растягивать логотип» без растянутого логотипа рядом
+       * понимает только тот, кто уже это видел.
+       */
+      .пара {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: var(--fx-space-4);
+      }
+      .верно,
+      .неверно {
+        padding: var(--fx-space-4);
+        border-radius: var(--fx-radius);
+        background: var(--fx-white);
+        border: var(--fx-rule) solid var(--fx-line);
+      }
+      .верно {
+        border-color: var(--fx-success);
+      }
+      .неверно {
+        border-color: var(--fx-danger);
+      }
+      .верно::before,
+      .неверно::before {
+        display: block;
+        margin-bottom: var(--fx-space-3);
+        font-size: var(--fx-text-eyebrow);
+        line-height: var(--fx-text-eyebrow-lh);
+        font-weight: var(--fx-weight-bold);
+        letter-spacing: var(--fx-tracking-caps);
+        text-transform: uppercase;
+      }
+      .верно::before {
+        content: 'Так — да';
+        color: var(--fx-success);
+      }
+      .неверно::before {
+        content: 'Так — нет';
+        color: var(--fx-danger);
+      }
+
+      .низ {
+        margin-top: var(--fx-space-9);
+        padding-top: var(--fx-space-4);
+        border-top: var(--fx-hairline) solid var(--fx-line);
+        font-size: var(--fx-text-small);
+        line-height: var(--fx-text-small-lh);
+        color: var(--fx-ink-soft);
+      }
+      .низ__знак {
+        margin: var(--fx-space-5) 0 0;
+        text-align: end;
+        font-size: 11px;
+        color: var(--fx-ink-soft);
+      }
+
+      /* ═══ маркетинг ═══ */
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Маркетинговый слой: то, что видит клиент до звонка
+ *
+ * Семь групп: кнопка двух уровней, карточка услуги, плашка-оффер,
+ * цифра-акцент, триада ценностей, контактный блок, подвал.
+ *
+ * Ни одного значения своими руками: всё через `var(--fx-*)` из
+ * `brand/tokens.css`. Где токена не хватило — рядом стоит `ТОКЕНА НЕТ`
+ * с указанием, что взято вместо него; такие места — список задач на
+ * пополнение токенов, а не разрешение писать числа.
+ *
+ * Тени здесь не используются вовсе: на носителях заказчика их нет, обе
+ * тени системы служебные и живут в панели.
+ *
+ * Состояния показаны дважды — настоящим `:hover` / `:focus-visible` и
+ * классом-модификатором рядом. Снимок экрана навести курсор не умеет, а
+ * дизайнер обязан видеть все четыре состояния одновременно.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Ряд состояний ───────────────────────────────────────────────────────────
+ *
+ * Мебель витрины моего слоя: подпись под каждым состоянием. Без неё на
+ * снимке невозможно понять, где наведение, а где отключено.
+ */
+.мк-состояния {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fx-space-5);
+}
+
+.мк-состояние {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--fx-space-2);
+}
+
+.мк-состояние__имя {
+  font-family: var(--fx-font-mono);
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  color: var(--fx-ink-soft);
+}
+
+/* ── Кнопка ──────────────────────────────────────────────────────────────────
+ *
+ * Уровней два, и третьего в системе нет: где нужна «тихая» кнопка, ставится
+ * ссылка. Рамка задана обоим уровням, у основного прозрачная, — иначе
+ * контурная кнопка стоит рядом на два пикселя выше.
+ *
+ * Кегль, семейство и вес заданы явно: `<button>` не наследует шрифт от body,
+ * и без этого кнопка приезжает системным шрифтом браузера.
+ */
+.мк-кнопка {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--fx-space-2);
+  padding-block: var(--fx-space-3);
+  padding-inline: var(--fx-space-5);
+  border: var(--fx-rule) solid transparent;
+  border-radius: var(--fx-radius);
+  font-family: var(--fx-font);
+  font-size: var(--fx-text-body);
+  line-height: var(--fx-text-body-lh);
+  font-weight: var(--fx-weight-bold);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--fx-dur-fast) var(--fx-ease),
+    border-color var(--fx-dur-fast) var(--fx-ease),
+    color var(--fx-dur-fast) var(--fx-ease);
+}
+
+/*
+ * Текст на оранжевой заливке тёмно-синий: белый по оранжевому даёт 2,65 и
+ * запрещён в системе.
+ */
+.мк-кнопка--основная {
+  background: var(--fx-orange);
+  color: var(--fx-navy-deep);
+}
+
+/*
+ * Наведение ОСВЕТЛЯЕТ фон, вопреки привычке. Затемнение съедало бы контраст
+ * с тёмно-синим текстом ровно в момент прицеливания: на затемнённом
+ * оранжевом пара падала до 4,12 и переставала проходить AA. Осветление
+ * поднимает её до 5,75.
+ */
+.мк-кнопка--основная:hover,
+.мк-кнопка--основная.мк-кнопка--наведение {
+  background: var(--fx-orange-hover);
+}
+
+/*
+ * Контурная заливается синим на наведении, а не подсвечивает рамку: чистая
+ * смена оттенка рамки на 2 пикселя глазом почти не читается, а заливка
+ * даёт 9,44 на белый текст.
+ */
+.мк-кнопка--вторая {
+  background: transparent;
+  border-color: var(--fx-navy);
+  color: var(--fx-navy);
+}
+
+.мк-кнопка--вторая:hover,
+.мк-кнопка--вторая.мк-кнопка--наведение {
+  background: var(--fx-navy);
+  color: var(--fx-white);
+}
+
+/*
+ * Кольцо фокуса синее и одинаковое у обоих уровней: оранжевая обводка на
+ * белом даёт 2,6 и как индикатор не проходит, а синее кольцо читается и на
+ * оранжевой заливке. `--fx-focus-offset` здесь не участвует — кольцо
+ * сделано тенью, а не обводкой, и отодвигать его от края нечем.
+ */
+.мк-кнопка:focus-visible,
+.мк-кнопка--фокус {
+  outline: none;
+  box-shadow: var(--fx-focus-ring);
+}
+
+/*
+ * Отключённая кнопка теряет фирменный цвет целиком и одинакова у обоих
+ * уровней: приглушённый оранжевый читался бы как «кнопка, но бледная», то
+ * есть как рабочая. Пара «подложка + вторичный текст» уже посчитана — 5,30.
+ *
+ * Правило стоит последним и удвоено по классу намеренно: иначе заливка
+ * уровня и наведение перебивают его по порядку и весу.
+ */
+.мк-кнопка:disabled,
+.мк-кнопка[aria-disabled='true'],
+.мк-кнопка.мк-кнопка--отключено {
+  background: var(--fx-mist);
+  border-color: var(--fx-line);
+  color: var(--fx-ink-soft);
+  cursor: not-allowed;
+}
+
+/* ── Карточка услуги ─────────────────────────────────────────────────────────
+ *
+ * Числа в media-запросах — это `--fx-bp-lg` и `--fx-bp-sm`: переменные внутри
+ * `@media` не работают, поэтому значения продублированы цифрами. Минимальная
+ * ширина колонки не задаётся вовсе — фиксированный `minmax` в пикселях был бы
+ * ровно тем «промежуточным значением», которого в шкале нет.
+ */
+.мк-услуги {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--fx-space-4);
+}
+
+@media (max-width: 1024px) {
+  .мк-услуги {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .мк-услуги {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.мк-услуга {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fx-space-3);
+  padding: var(--fx-space-5);
+  background: var(--fx-white);
+  border: var(--fx-hairline) solid var(--fx-line);
+  border-radius: var(--fx-radius-lg);
+  transition: border-color var(--fx-dur-fast) var(--fx-ease);
+}
+
+/*
+ * Отклик на наведение — цвет рамки, не подъём тенью: фирменный стиль
+ * плоский, а обе тени системы служебные и живут в панели.
+ */
+.мк-услуга:hover,
+.мк-услуга--наведение {
+  border-color: var(--fx-orange);
+}
+
+/*
+ * Слот иконки — круг из знака: кроме прямых углов и окружностей в логотипе
+ * форм нет, поэтому подложка иконки круглая, а не со скруглением.
+ */
+.мк-услуга__слот {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--fx-space-7);
+  height: var(--fx-space-7);
+  background: var(--fx-orange-wash);
+  border-radius: var(--fx-radius-circle);
+  color: var(--fx-orange);
+}
+
+/*
+ * Иконка оранжевая, хотя к подложке даёт 2,43: порог 3,0 действует на
+ * иконки, несущие смысл, а эта дублирует заголовок рядом и является декором.
+ * Останется единственным носителем смысла — цвет меняется на
+ * `--fx-orange-text` (4,54 к подложке).
+ *
+ * ТОКЕНА НЕТ: толщина линии иконки. На сайте она 1,6px, в системе линий
+ * только 1 / 2 / 3 — взят `--fx-rule`, иконка получается чуть жирнее сайта.
+ */
+.мк-услуга__слот svg {
+  width: var(--fx-space-5);
+  height: var(--fx-space-5);
+  stroke: currentColor;
+  stroke-width: var(--fx-rule);
+}
+
+.мк-услуга__имя {
+  margin: 0;
+  font-size: var(--fx-text-h3);
+  line-height: var(--fx-text-h3-lh);
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-navy-deep);
+}
+
+.мк-услуга__текст {
+  margin: 0;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+}
+
+/*
+ * `margin-block-start: auto` прижимает цену к низу: в ряду карточек текст
+ * разной длины, и без этого цены встают на трёх разных уровнях.
+ *
+ * Цвет — `--fx-orange-text`, единственный оранжевый, которым в системе
+ * пишут (4,96 на белом). Фирменный `--fx-orange` здесь дал бы 2,65.
+ */
+.мк-услуга__цена {
+  margin: 0;
+  margin-block-start: auto;
+  font-size: var(--fx-text-body);
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-orange-text);
+}
+
+.мк-услуга__действие {
+  align-self: start;
+  font-size: var(--fx-text-small);
+  font-weight: var(--fx-weight-semibold);
+  color: var(--fx-navy);
+  text-decoration: none;
+}
+
+.мк-услуга__действие:hover,
+.мк-услуга__действие--наведение {
+  text-decoration: underline;
+}
+
+.мк-услуга__действие:focus-visible,
+.мк-услуга__действие--фокус {
+  outline: none;
+  border-radius: var(--fx-radius-sm);
+  box-shadow: var(--fx-focus-ring);
+}
+
+/* ── Плашка-оффер ────────────────────────────────────────────────────────────
+ *
+ * Полное скругление взято с носителей: ценовая плашка в макетах найма и
+ * плашка контактов на визитке скруглены до пилюли. Промежуточных радиусов
+ * бренд не знает — либо `--fx-radius*`, либо пилюля.
+ *
+ * `flex-wrap` обязателен: с длинной подписью плашка иначе вылезает за полосу
+ * набора. При переносе она остаётся пилюлей — форма от двух строк не портится.
+ */
+.мк-оффер {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--fx-space-2) var(--fx-space-4);
+  padding-block: var(--fx-space-3);
+  padding-inline: var(--fx-space-6);
+  border-radius: var(--fx-radius-pill);
+  background: var(--fx-orange);
+  color: var(--fx-navy-deep);
+}
+
+.мк-оффер__подпись {
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  font-weight: var(--fx-weight-bold);
+  letter-spacing: var(--fx-tracking-caps);
+  text-transform: uppercase;
+}
+
+.мк-оффер__сумма {
+  font-size: var(--fx-text-h2);
+  line-height: var(--fx-text-h2-lh);
+  font-weight: var(--fx-weight-heavy);
+}
+
+/*
+ * Синий вариант — не вкусовая альтернатива, а единственный выход, когда
+ * плашка ложится на оранжевое: на фирменной заливке оранжевая пилюля
+ * исчезает. Белый по синему — 9,44.
+ */
+.мк-оффер--синяя {
+  background: var(--fx-navy);
+  color: var(--fx-white);
+}
+
+/* ── Цифра-акцент ────────────────────────────────────────────────────────── */
+.мк-цифры {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--fx-space-5);
+}
+
+@media (max-width: 480px) {
+  .мк-цифры {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/*
+ * Оранжевый приходит линией над числом, а не самим числом: даже на кегле
+ * дисплея фирменный оранжевый даёт 2,65 на белом и не проходит порог даже
+ * для крупного текста (3,0). Линия — декор, порог к ней не применяется.
+ */
+.мк-цифра {
+  padding-block-start: var(--fx-space-3);
+  border-block-start: var(--fx-rule-strong) solid var(--fx-orange);
+}
+
+.мк-цифра__число {
+  display: block;
+  font-size: var(--fx-text-display);
+  line-height: var(--fx-text-display-lh);
+  font-weight: var(--fx-weight-heavy);
+  color: var(--fx-navy-deep);
+}
+
+.мк-цифра__подпись {
+  display: block;
+  margin-block-start: var(--fx-space-2);
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+}
+
+/* ── Триада ценностей ────────────────────────────────────────────────────── */
+.мк-триада {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--fx-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * Капс всегда с разрядкой: без неё он не встречается ни на одном носителе
+ * заказчика — ни «ГРУППА КОМПАНИЙ», ни триада на борту, ни подписи
+ * направлений.
+ */
+.мк-триада__пункт {
+  display: flex;
+  align-items: center;
+  gap: var(--fx-space-3);
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  font-weight: var(--fx-weight-heavy);
+  letter-spacing: var(--fx-tracking-caps);
+  text-transform: uppercase;
+  color: var(--fx-navy);
+}
+
+/*
+ * Точка-разделитель стоит через `::before` у каждого пункта, кроме первого:
+ * в разметке она отсутствует, потому что смысла не несёт и в список
+ * попадать не должна. `::before` встаёт в начало строки в обоих
+ * направлениях письма — отдельного правила для RTL не нужно.
+ *
+ * ТОКЕНА НЕТ: диаметр точки-разделителя. На сайте 6px, в шкале отступов
+ * такого шага нет — взят `--fx-space-1` (4px), точка чуть мельче сайта.
+ */
+.мк-триада__пункт + .мк-триада__пункт::before {
+  content: '';
+  flex: none;
+  width: var(--fx-space-1);
+  height: var(--fx-space-1);
+  background: var(--fx-orange);
+  border-radius: var(--fx-radius-circle);
+}
+
+/* ── Контактный блок ─────────────────────────────────────────────────────── */
+.мк-контакты {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fx-space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * Пилюля — с плашки контактов визитки. Светло-синяя подложка вместо белой:
+ * контакт обязан читаться как действие, а не как строка текста, и рамкой
+ * этого не добиться — она соревнуется с рамкой карточки услуги рядом.
+ * Пара «подложка + синий» даёт 8,24.
+ */
+.мк-контакт {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--fx-space-3);
+  padding-block: var(--fx-space-2);
+  padding-inline: var(--fx-space-4);
+  background: var(--fx-navy-wash);
+  border-radius: var(--fx-radius-pill);
+  font-size: var(--fx-text-body);
+  font-weight: var(--fx-weight-semibold);
+  color: var(--fx-navy);
+  text-decoration: none;
+  transition:
+    background-color var(--fx-dur-fast) var(--fx-ease),
+    color var(--fx-dur-fast) var(--fx-ease);
+}
+
+.мк-контакт:hover,
+.мк-контакт--наведение {
+  background: var(--fx-navy);
+  color: var(--fx-white);
+}
+
+.мк-контакт:focus-visible,
+.мк-контакт--фокус {
+  outline: none;
+  box-shadow: var(--fx-focus-ring);
+}
+
+/*
+ * Обводка иконки — `currentColor`, поэтому кружок переворачивается вместе с
+ * плашкой на наведении и второго правила на это не нужно.
+ */
+.мк-контакт__иконка {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--fx-space-6);
+  height: var(--fx-space-6);
+  border: var(--fx-hairline) solid currentColor;
+  border-radius: var(--fx-radius-circle);
+}
+
+.мк-контакт__иконка svg {
+  width: var(--fx-space-4);
+  height: var(--fx-space-4);
+  stroke: currentColor;
+  stroke-width: var(--fx-rule);
+}
+
+/* ── Подвал ──────────────────────────────────────────────────────────────── */
+.мк-подвал {
+  padding-block: var(--fx-space-7);
+  padding-inline: var(--fx-space-6);
+  background: var(--fx-navy-darkest);
+  color: var(--fx-navy-soft);
+}
+
+/*
+ * ТОКЕНА НЕТ: приглушённого белого для тёмных поверхностей. Сайт пишет в
+ * подвале `white/75` и `white/70`, то есть белый с прозрачностью, — токена
+ * с альфой в системе нет вовсе. Взят `--fx-navy-soft`: он даёт 9,25 к
+ * подвалу, то есть читается лучше полупрозрачного белого, и остаётся
+ * фирменным цветом, а не серым.
+ */
+.мк-подвал__рубрикатор {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--fx-space-6);
+}
+
+@media (max-width: 768px) {
+  .мк-подвал__рубрикатор {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.мк-подвал__заголовок {
+  margin: 0 0 var(--fx-space-3);
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  font-weight: var(--fx-weight-heavy);
+  letter-spacing: var(--fx-tracking-caps);
+  text-transform: uppercase;
+  color: var(--fx-white);
+}
+
+.мк-подвал__список {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fx-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+}
+
+/*
+ * На тёмном фирменный оранжевый писать можно: к подвалу он даёт 6,42 при
+ * запрещённых 2,65 на белом. Это тот же цвет и то же правило — считать
+ * надо пару, а не цвет.
+ */
+.мк-подвал__ссылка {
+  color: var(--fx-navy-soft);
+  text-decoration: none;
+  transition: color var(--fx-dur-fast) var(--fx-ease);
+}
+
+.мк-подвал__ссылка:hover,
+.мк-подвал__ссылка--наведение {
+  color: var(--fx-orange);
+}
+
+/*
+ * ТОКЕНА НЕТ: кольца фокуса для тёмных поверхностей. `--fx-focus-ring` —
+ * полупрозрачное синее свечение, и на почти чёрном синем подвала его не
+ * видно вовсе, а индикатор фокуса обязан давать 3,0 к фону. До появления
+ * токена — оранжевая обводка: 6,42. Здесь же наконец работает
+ * `--fx-focus-offset`: обводка настоящая, её есть куда отодвинуть.
+ */
+.мк-подвал__ссылка:focus-visible,
+.мк-подвал__ссылка--фокус {
+  outline: var(--fx-rule) solid var(--fx-orange);
+  outline-offset: var(--fx-focus-offset);
+}
+
+.мк-подвал__низ {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--fx-space-3);
+  margin-block-start: var(--fx-space-6);
+  padding-block-start: var(--fx-space-4);
+  border-block-start: var(--fx-hairline) solid var(--fx-navy-deep);
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+}
+
+/*
+ * Знак авторства. Правило с сайта (`apps/site/src/components/Footer.astro`):
+ * отдельная тихая строка в самом низу, мельче остального подвала, не
+ * кликабельная, текст не переводится — латиница одинакова в обеих локалях.
+ *
+ * `text-align: end` разворачивается вместе с направлением письма: в русской
+ * версии знак у правого края, в ивритской у левого, то есть всегда в конце
+ * строки.
+ *
+ * ТОКЕНА НЕТ: кегля знака авторства. На сайте 0.69rem — мельче любого шага
+ * шкалы; ближайший `--fx-text-eyebrow` (0.75rem) чуть крупнее.
+ */
+.мк-подвал__знак-автора {
+  margin: var(--fx-space-4) 0 0;
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  color: var(--fx-navy-soft);
+  text-align: end;
+}
+
+      /* ═══ интерфейс ═══ */
+/**
+ * Интерфейсный слой Fixli: панель управления и мини-приложение бота. Префикс `ин-`.
+ *
+ * Ни одного значения своего: цвет, отступ, радиус, длительность — только `var(--fx-*)`
+ * из `brand/tokens.css`. Литералами остаются лишь числа в `@media`: переменные внутри
+ * media-запроса не работают, и токены `--fx-bp-*` живут там как документация.
+ *
+ * Состояния показаны статически, без JS: каждое интерактивное правило продублировано
+ * классом-модификатором (`.ин-поле:focus-visible, .ин-поле--фокус`), поэтому в витрине
+ * фокус и ошибка видны рядом, а не по очереди.
+ *
+ * Тёмной темы нет — у бренда её нет вовсе (см. шапку токенов).
+ */
+
+/* ═══ Служебное витрины слоя ═══════════════════════════════════════════════ */
+
+/*
+ * Два столбца, ниже 768 — один. Брейкпоинт числом: см. шапку.
+ * `minmax(0, 1fr)` вместо `1fr`, иначе таблица с длинной строкой распирает колонку.
+ */
+.ин-ряд {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--fx-space-5);
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .ин-ряд {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Подпись состояния в витрине — не часть компонента. Серая, а не оранжевая:
+   `.бровь` акцентная, и пять акцентов на одном образце спорят с самим образцом. */
+.ин-метка {
+  margin: 0 0 var(--fx-space-2);
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  font-weight: var(--fx-weight-bold);
+  letter-spacing: var(--fx-tracking-caps);
+  text-transform: uppercase;
+  color: var(--fx-ink-soft);
+}
+
+/* ═══ Поле ввода ═══════════════════════════════════════════════════════════ */
+
+.ин-группа {
+  max-inline-size: 42ch;
+}
+
+.ин-подпись {
+  display: block;
+  margin-block-end: var(--fx-space-1);
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  font-weight: var(--fx-weight-semibold);
+  color: var(--fx-ink);
+}
+
+/*
+ * Граница `--fx-line-strong` (3,06 к белому), а не `--fx-line` (1,29): поле — элемент
+ * управления, для него порог 3,0 обязателен. Именно на этом фаза 1 поймала дефект.
+ *
+ * `box-sizing` задан явно: сброса в брендбуке нет, а на ошибке граница меняет цвет,
+ * не толщину — поле не имеет права дёргаться при валидации.
+ */
+.ин-поле {
+  box-sizing: border-box;
+  inline-size: 100%;
+  padding: var(--fx-space-3);
+  border: var(--fx-hairline) solid var(--fx-line-strong);
+  border-radius: var(--fx-radius);
+  background: var(--fx-white);
+  font: inherit;
+  color: var(--fx-ink);
+  transition:
+    border-color var(--fx-dur-instant) var(--fx-ease),
+    box-shadow var(--fx-dur-instant) var(--fx-ease);
+}
+
+.ин-поле::placeholder {
+  color: var(--fx-ink-soft);
+}
+
+/*
+ * Кольцо фокуса синее и на поле, и на кнопке: оранжевая обводка на белом даёт 2,6 и
+ * индикатором фокуса не является. Граница уходит в `--fx-navy` — при высокой
+ * контрастности и в forced-colors кольцо из тени пропадает, а граница остаётся.
+ */
+.ин-поле:focus-visible,
+.ин-поле--фокус {
+  outline: none;
+  border-color: var(--fx-navy);
+  box-shadow: var(--fx-focus-ring);
+}
+
+/* Ошибка красит границу, но сообщение под полем обязательно: цвет — не единственный
+   носитель смысла. Фон полем не заливается — текст `--fx-ink` на белом даёт 15,72,
+   и терять это на состоянии, где человек читает внимательнее всего, нечем. */
+.ин-поле--ошибка {
+  border-color: var(--fx-danger);
+}
+
+/* Отключённое поле: контраст текста держим AA (5,30 на подложке). «Серое и нечитаемое»
+   в панели означает, что диспетчер не видит сумму, которую система посчитала сама.
+   Модификатора-близнеца здесь нет, в отличие от фокуса: `disabled` — настоящий атрибут,
+   он показывается статически сам, а класс поверх него был бы вторым источником правды. */
+.ин-поле:disabled {
+  border-color: var(--fx-line);
+  background: var(--fx-mist);
+  color: var(--fx-ink-soft);
+  cursor: not-allowed;
+}
+
+.ин-подсказка {
+  margin: var(--fx-space-1) 0 0;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+}
+
+.ин-ошибка {
+  margin: var(--fx-space-1) 0 0;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  font-weight: var(--fx-weight-medium);
+  color: var(--fx-danger);
+}
+
+/* ═══ Селект ═══════════════════════════════════════════════════════════════ */
+
+/*
+ * Обёртка нужна из-за стрелки: у `<select>` псевдоэлементы не рендерятся, а фоновая
+ * картинка позиционируется физически — `background-position: right` в иврите оставит
+ * стрелку там, где начинается строка. `inset-inline-end` на псевдоэлементе обёртки
+ * переезжает вместе с направлением, и внешнего файла не требует вовсе.
+ */
+.ин-селект-обёртка {
+  position: relative;
+  display: block;
+}
+
+.ин-селект {
+  box-sizing: border-box;
+  inline-size: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  padding: var(--fx-space-3);
+  /* Место под стрелку: её собственные 8px плюс поля с двух сторон. */
+  padding-inline-end: var(--fx-space-7);
+  border: var(--fx-hairline) solid var(--fx-line-strong);
+  border-radius: var(--fx-radius);
+  background: var(--fx-white);
+  font: inherit;
+  color: var(--fx-ink);
+  cursor: pointer;
+  transition:
+    border-color var(--fx-dur-instant) var(--fx-ease),
+    box-shadow var(--fx-dur-instant) var(--fx-ease);
+}
+
+.ин-селект:focus-visible,
+.ин-селект--фокус {
+  outline: none;
+  border-color: var(--fx-navy);
+  box-shadow: var(--fx-focus-ring);
+}
+
+/*
+ * Стрелка — треугольник на границах: `border-inline` задаёт обе боковые стороны разом,
+ * поэтому фигура симметрична и в RTL не переворачивается. Шеврон из двух смежных
+ * границ так не умеет: `border-inline-end` в иврите станет левой, и «вниз» превратится
+ * в «влево-вниз». Синяя, 9,44 к белому — она несёт смысл, а не украшает.
+ */
+.ин-селект-обёртка::after {
+  content: '';
+  position: absolute;
+  inset-inline-end: var(--fx-space-4);
+  inset-block-start: 50%;
+  inline-size: 0;
+  block-size: 0;
+  margin-block-start: calc(var(--fx-space-1) / -2);
+  border-inline: var(--fx-space-1) solid transparent;
+  border-block-start: var(--fx-space-1) solid var(--fx-navy);
+  pointer-events: none;
+}
+
+/* ═══ Таблица ══════════════════════════════════════════════════════════════ */
+
+/*
+ * Обёртка несёт белый фон, потому что в панели таблица лежит на карточке, а не на
+ * подложке: шапка `--fx-mist` на таком же фоне перестаёт быть шапкой.
+ *
+ * Прокрутка по оси, а не перенос: наряд читают колонками, и разъехавшаяся на две
+ * строки выплата хуже, чем сдвиг вбок. `overflow-inline` поддержан одним браузером,
+ * поэтому ось задана физически — направление текста она не трогает.
+ */
+.ин-таблица-обёртка {
+  overflow-x: auto;
+  border: var(--fx-hairline) solid var(--fx-line);
+  border-radius: var(--fx-radius-lg);
+  background: var(--fx-white);
+}
+
+.ин-таблица {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+}
+
+.ин-таблица__подпись {
+  padding: var(--fx-space-3);
+  text-align: start;
+  font-weight: var(--fx-weight-semibold);
+  color: var(--fx-ink-soft);
+}
+
+/*
+ * Селекторы глубже, чем нужно по смыслу, намеренно: витрина брендбука задаёт `td, th`
+ * и `td:last-child` глобально, специфичность у `.ин-таблица td` вышла бы такой же, и
+ * победитель зависел бы от порядка подключения файлов. `.ин-таблица tbody td` — 0,1,2,
+ * этого хватает всегда.
+ */
+.ин-таблица thead th {
+  padding: var(--fx-space-2) var(--fx-space-3);
+  border-block-end: var(--fx-hairline) solid var(--fx-line);
+  background: var(--fx-mist);
+  text-align: start;
+  font-weight: var(--fx-weight-semibold);
+  color: var(--fx-ink-soft);
+  white-space: nowrap;
+}
+
+.ин-таблица tbody td {
+  padding: var(--fx-space-3);
+  border-block-end: var(--fx-hairline) solid var(--fx-line);
+  text-align: start;
+  font-weight: var(--fx-weight-regular);
+  color: var(--fx-ink);
+  vertical-align: middle;
+}
+
+/* Подсветка строки — единственный способ не потерять глазом строку в списке из
+   двадцати нарядов. Мгновенная: наведение не событие, а слежение за курсором. */
+.ин-таблица tbody tr:hover td {
+  background: var(--fx-mist);
+  transition: background-color var(--fx-dur-fast) var(--fx-ease);
+}
+
+/* Итог отделён линией потолще: это другая величина, а не ещё один работник. */
+.ин-таблица tfoot th,
+.ин-таблица tfoot td {
+  padding: var(--fx-space-3);
+  border-block-start: var(--fx-rule) solid var(--fx-navy);
+  border-block-end: none;
+  text-align: start;
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-navy-deep);
+}
+
+/* Деньги и часы — по краю строки, в её конце. `end`, а не `right`: в иврите колонка
+   сумм переезжает вместе с направлением, иначе она окажется под именами. */
+.ин-таблица .ин-таблица__сумма {
+  text-align: end;
+  white-space: nowrap;
+}
+
+/* ═══ Статус-чип ═══════════════════════════════════════════════════════════ */
+
+.ин-чипы {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fx-space-2);
+  margin: 0 0 var(--fx-space-4);
+}
+
+/*
+ * Без капса и без разрядки — в отличие от маркетингового чипа. Капс на носителях
+ * бренда живёт в коротких словах вроде «ГРУППА КОМПАНИЙ», а «КЛИЕНТ НЕ ПРИШЁЛ» в
+ * строке списка читается вдвое дольше строчных. Статус читают двадцать раз за день.
+ *
+ * Заливка — wash, текст — семантический цвет: все четыре пары проверены (5,20 · 5,70 ·
+ * 5,38 · 8,24), то есть чип проходит AA как обычный текст, хотя кегль у него мелкий.
+ */
+.ин-чип {
+  display: inline-block;
+  padding: var(--fx-space-1) var(--fx-space-3);
+  border: var(--fx-hairline) solid transparent;
+  border-radius: var(--fx-radius-pill);
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  font-weight: var(--fx-weight-semibold);
+  white-space: nowrap;
+}
+
+/* Нейтральный несёт контур: у него нет цветной заливки, и на подложке `--fx-mist`
+   (шапка таблицы, фон панели) чип без границы перестаёт быть чипом. */
+.ин-чип--нейтральный {
+  border-color: var(--fx-line);
+  background: var(--fx-white);
+  color: var(--fx-ink-soft);
+}
+
+.ин-чип--инфо {
+  background: var(--fx-info-wash);
+  color: var(--fx-info);
+}
+
+/* Янтарь, а не оранжевый: фирменный оранжевый в панели занят действием, и
+   предупреждение рядом с кнопкой читалось бы как вторая кнопка. */
+.ин-чип--предупреждение {
+  background: var(--fx-warning-wash);
+  color: var(--fx-warning);
+}
+
+.ин-чип--успех {
+  background: var(--fx-success-wash);
+  color: var(--fx-success);
+}
+
+.ин-чип--опасность {
+  background: var(--fx-danger-wash);
+  color: var(--fx-danger);
+}
+
+/* Разбор смыслов под чипами — документация в витрине, не часть компонента. */
+.ин-разбор {
+  margin: 0;
+  padding-inline-start: var(--fx-space-5);
+  max-inline-size: 74ch;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+}
+
+.ин-разбор li + li {
+  margin-block-start: var(--fx-space-2);
+}
+
+.ин-разбор b {
+  color: var(--fx-ink);
+  font-weight: var(--fx-weight-semibold);
+}
+
+/* ═══ Карточка задачи ══════════════════════════════════════════════════════ */
+
+/*
+ * Своей ширины у карточки нет: на телефоне она сжимается до окна мини-приложения,
+ * в списке панели тянется на всю колонку. Узкую сцену даёт витрина
+ * (`.образец__сцена--узкая`, 375 пикселей), и второй раз это значение здесь не живёт.
+ */
+.ин-карточка {
+  padding: var(--fx-space-4);
+  border-radius: var(--fx-radius-lg);
+  background: var(--fx-white);
+  box-shadow: var(--fx-shadow-card);
+}
+
+.ин-карточка__шапка {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--fx-space-2);
+  margin-block-end: var(--fx-space-2);
+}
+
+.ин-карточка__когда {
+  margin: 0;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  font-weight: var(--fx-weight-semibold);
+  color: var(--fx-ink-soft);
+}
+
+/* Адрес — заголовок карточки: в списке нарядов человек ищет глазами именно его, а не
+   номер наряда. Кегль h3 держим, синий глубокий — как заголовки на сайте. */
+.ин-карточка__адрес {
+  margin: 0 0 var(--fx-space-2);
+  font-size: var(--fx-text-h3);
+  line-height: var(--fx-text-h3-lh);
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-navy-deep);
+}
+
+.ин-карточка__пояснение {
+  margin: 0 0 var(--fx-space-3);
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+}
+
+.ин-карточка__строки {
+  margin: 0;
+}
+
+/* Название в начале строки, значение в конце. Разделитель сверху, а не снизу: у последней
+   строки иначе висит линия, под которой ничего нет. */
+.ин-карточка__строка {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--fx-space-3);
+  padding-block: var(--fx-space-2);
+  border-block-start: var(--fx-hairline) solid var(--fx-line);
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+}
+
+.ин-карточка__строка dt {
+  color: var(--fx-ink-soft);
+}
+
+.ин-карточка__строка dd {
+  margin: 0;
+  text-align: end;
+  color: var(--fx-ink);
+}
+
+/*
+ * Длинное значение — в столбик, а не в конец строки. Проверено на 375: состав
+ * бригады из трёх имён переносится на две строки, и выключка по концу даёт рваный
+ * край, который читается заметно хуже подписи сверху. Правило действует по длине
+ * значения, поэтому это модификатор строки, а не медиа-запрос: карточка живёт и
+ * в списке панели, где места вдвое больше, а имён в бригаде бывает пять.
+ */
+.ин-карточка__строка--столбиком {
+  display: block;
+}
+
+.ин-карточка__строка--столбиком dd {
+  margin-block-start: var(--fx-space-1);
+  text-align: start;
+}
+
+/* Сумма крупнее и синим: это то, зачем грузчик открыл карточку. */
+.ин-карточка__строка--сумма dd {
+  font-size: var(--fx-text-body);
+  line-height: var(--fx-text-body-lh);
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-navy-deep);
+}
+
+.ин-карточка__действие {
+  margin: var(--fx-space-4) 0 0;
+}
+
+/* ═══ Тост ═════════════════════════════════════════════════════════════════ */
+
+/*
+ * `--fx-shadow-pop`, а не card: тост лежит слоем выше карточки, и второй тени в
+ * системе нет ровно для этого случая. Полоса по началу строки — `border-inline-start`,
+ * в иврите она переезжает к правому краю сама.
+ */
+.ин-тост {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--fx-space-3);
+  padding: var(--fx-space-3) var(--fx-space-4);
+  border-radius: var(--fx-radius);
+  border-inline-start: var(--fx-rule-strong) solid transparent;
+  box-shadow: var(--fx-shadow-pop);
+}
+
+/* Текст `--fx-ink`, а не семантический цвет: сообщение бывает в две строки, и читать
+   его надо как текст. Смысл несут полоса и фон. */
+.ин-тост__текст {
+  margin: 0;
+  flex: 1 1 auto;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink);
+}
+
+.ин-тост--успех {
+  border-inline-start-color: var(--fx-success);
+  background: var(--fx-success-wash);
+}
+
+.ин-тост--ошибка {
+  border-inline-start-color: var(--fx-danger);
+  background: var(--fx-danger-wash);
+}
+
+/* ═══ Пустое состояние ═════════════════════════════════════════════════════ */
+
+/*
+ * Белая карточка с обычной границей, а не пунктир на подложке: пунктирный контур
+ * обещает «сюда что-то перетащат», а сюда ничего не перетаскивают — наряд собирают
+ * кнопкой. Пустое состояние занимает то же место, где потом будет список, поэтому и
+ * выглядеть должно как та же карточка.
+ */
+.ин-пусто {
+  padding: var(--fx-space-7) var(--fx-space-5);
+  border: var(--fx-hairline) solid var(--fx-line);
+  border-radius: var(--fx-radius-lg);
+  background: var(--fx-white);
+  text-align: center;
+}
+
+.ин-пусто__заголовок {
+  margin: 0 0 var(--fx-space-2);
+  font-size: var(--fx-text-h3);
+  line-height: var(--fx-text-h3-lh);
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-navy-deep);
+}
+
+/* Мера строки, а не ширина блока: центрированный текст на всю полосу набора
+   нечитаем, а `max-inline-size` в символах не зависит от кегля. */
+.ин-пусто__текст {
+  margin: 0 auto;
+  max-inline-size: 56ch;
+  font-size: var(--fx-text-body);
+  line-height: var(--fx-text-body-lh);
+  color: var(--fx-ink-soft);
+}
+
+.ин-пусто__действие {
+  margin: var(--fx-space-5) 0 0;
+}
+
+      /* ═══ графика-и-rtl ═══ */
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Графический и RTL-слои живого style guide. Префикс класса — `гр-`.
+ *
+ * Все значения приходят из `brand/tokens.css`. Литералов цвета здесь нет ни
+ * одного, включая SVG: в разметке стоит `fill="var(--fx-orange)"` — презентационный
+ * атрибут SVG браузер разрешает как CSS-объявление, подстановка переменной в нём
+ * работает. Проверено в Chromium перед сдачей.
+ *
+ * Свойства только логические. Причина не в чистоте: этот же файл показывает
+ * RTL-слой, и любой `left`/`right` в нём соврал бы про то, что демонстрирует.
+ * Единственное намеренное зеркалирование — `transform: scaleX(-1)`, и каждое
+ * такое место подписано, зачем.
+ *
+ * Тёмной темы у бренда нет — это решение, а не пропуск.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/* ───────────────────────────────────────────────────────────────────────────
+ * Служебное
+ * ───────────────────────────────────────────────────────────────────────── */
+
+/*
+ * Спрайт со знаком и маркой. Контуры логотипа — 2 КБ данных пути, и в разделах
+ * они встречаются шесть раз; `<symbol>` + `<use>` держит их в документе один
+ * раз. Никакого JS это не требует, ссылка идёт внутри того же файла.
+ * Спрайт вынут из потока нулевым размером, иначе он занимает строку.
+ */
+.гр-спрайт {
+  position: absolute;
+  inline-size: 0;
+  block-size: 0;
+  overflow: hidden;
+}
+
+/* Ряд образцов. По низу, потому что марка стоит на нижнем крае viewBox —
+   на фургоне её так же срезает юбка кузова, и по центру она висит в воздухе. */
+.гр-ряд {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--fx-space-6);
+}
+
+.гр-ряд--центр {
+  align-items: center;
+}
+
+/* Элемент с подписью под ним. Ширина ограничена рядом: без этого носитель с
+   фиксированной шириной выносил страницу за край на телефоне (замерено на 375). */
+.гр-стопка {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--fx-space-2);
+  max-inline-size: 100%;
+}
+
+.гр-стопка--центр {
+  align-items: center;
+}
+
+/* Стопка на всю ширину: несколько панелей одна под другой. */
+.гр-стопка--растянуть {
+  align-items: stretch;
+  gap: var(--fx-space-4);
+}
+
+/* Второй ряд иконок — тот же набор в кольце и на плашке. */
+.гр-иконки + .гр-ряд {
+  margin-block-start: var(--fx-space-6);
+}
+
+/*
+ * Подпись у образца: что именно перед глазами.
+ *
+ * Русский текст подписи внутри RTL-панели завёрнут в `.гр-лат` — тем же
+ * приёмом, который документирует раздел «Телефон и латиница». Без него подписи
+ * этого документа воспроизводили ровно тот дефект, который он описывает: точка
+ * уезжала в начало фразы, кавычки расходились, а `dir="rtl"` читался как
+ * `"dir="rtl`. Нашлось глазами на снимке, тестом такое не ловится.
+ *
+ * Именно завёрнутый инлайн, а не `unicode-bidi: plaintext` на всей подписи:
+ * `plaintext` меняет и базовое направление строки, значит `text-align: start`
+ * уводит подпись к левому краю, и она перестаёт переезжать вместе с панелью.
+ */
+.гр-метка {
+  margin: 0;
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  color: var(--fx-ink-soft);
+  text-align: start;
+}
+
+/* Оговорка под сценой — там, где наша отрисовка расходится с носителем. */
+.гр-сноска {
+  margin-block: var(--fx-space-4) 0;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+  max-inline-size: 62ch;
+}
+
+/* Вердикт «так можно / так нельзя». Капс с разрядкой — на носителях заказчика
+   капс без разрядки не встречается ни разу. */
+.гр-вердикт {
+  margin: 0;
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  font-weight: var(--fx-weight-semibold);
+  letter-spacing: var(--fx-tracking-caps);
+  text-transform: uppercase;
+  text-align: start;
+}
+
+.гр-вердикт--да {
+  color: var(--fx-success);
+}
+
+.гр-вердикт--нет {
+  color: var(--fx-danger);
+}
+
+/* Две колонки «правильно / неправильно». Ширина колонки выведена из шкалы
+   отступов, а не выбрана на глаз: 2 × 128 px. */
+.гр-два {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(calc(var(--fx-space-10) * 2), 1fr));
+  gap: var(--fx-space-5);
+}
+
+/* Панель с явным направлением текста. Метка внутри прижата к началу строки:
+   в RTL-панели она обязана переехать сама, иначе образец врёт про то, что
+   показывает. */
+.гр-панель {
+  border: var(--fx-hairline) solid var(--fx-line);
+  border-radius: var(--fx-radius);
+  padding: var(--fx-space-4);
+  background: var(--fx-white);
+}
+
+.гр-панель > * + * {
+  margin-block-start: var(--fx-space-4);
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+ * Знак и марка: общая геометрия
+ *
+ * Блок стоит ВЫШЕ разделов, которые ставят знак и марку в контекст (круг,
+ * носитель). Порядок здесь несущий: и «знак в углу», и «марка в круге»
+ * переопределяют размер одним классом, а при равной специфичности побеждает
+ * тот, что ниже в файле. Пока эти правила лежали внизу, марка вылезала из
+ * круга, а знак на визитке занимал 59 % ширины вместо 46 %.
+ * ───────────────────────────────────────────────────────────────────────── */
+
+/* Словесный знак. Зеркалить нельзя нигде — это написание бренда. */
+.гр-логотип {
+  display: block;
+  inline-size: var(--fx-space-10);
+}
+
+.гр-марка {
+  /* Пропорция viewBox 22,7 × 59,8 — геометрия знака, не значение системы.
+     Без неё inline-svg получает ширину по shrink-to-fit, она не совпадает с
+     viewBox, и рисунок вписывается с полями, отрываясь от нижнего края. */
+  aspect-ratio: 227 / 598;
+  block-size: var(--fx-space-10);
+}
+
+/* Цвет приходит через `currentColor`: марка живёт в двух цветах и внутри
+   круга, а значение цвета остаётся в токене. */
+.гр-марка--тёплая {
+  color: var(--fx-orange);
+}
+
+.гр-марка--холодная {
+  color: var(--fx-navy);
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+ * Круг-акцент
+ * ───────────────────────────────────────────────────────────────────────── */
+
+.гр-круг {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: var(--fx-radius-circle);
+  background: var(--fx-orange);
+}
+
+/*
+ * ТОКЕНА НЕТ: диаметра круга-акцента в системе не существует — на носителях его
+ * задаёт сам носитель (на корме фургона он равен ширине тела фигуры, на визитке
+ * уходит за угол). Здесь взяты два шага шкалы отступов как опорные размеры.
+ */
+.гр-круг--малый {
+  inline-size: var(--fx-space-8); /* 64 px */
+}
+
+.гр-круг--большой {
+  inline-size: var(--fx-space-10); /* 128 px */
+}
+
+/*
+ * Марка внутри круга — синяя, не белая: белое по оранжевому даёт 2,65 и в
+ * системе запрещено даже там, где это не буквы.
+ *
+ * Размер задаётся по ширине, а `block-size` сбрасывается в `auto`. Процент
+ * высоты здесь не работает: высота круга сама выведена из `aspect-ratio`, и
+ * ссылка ребёнка на неё замыкается в кольцо — круг переставал быть кругом и
+ * вытягивался в эллипс. Нашлось глазами на снимке.
+ */
+.гр-круг__марка {
+  inline-size: 24%;
+  block-size: auto;
+  color: var(--fx-navy);
+}
+
+/* Цифра внутри круга — тёмно-синяя (5,13 на оранжевом, AA). Табличные цифры,
+   потому что в офферах круг чаще всего несёт число. */
+.гр-круг__цифра {
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-navy-deep);
+}
+
+.гр-круг--малый .гр-круг__цифра {
+  font-size: var(--fx-text-h3);
+  line-height: var(--fx-text-h3-lh);
+}
+
+.гр-круг--большой .гр-круг__цифра {
+  font-size: var(--fx-text-h2);
+  line-height: var(--fx-text-h2-lh);
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+ * Угловой знак: композиция носителя
+ * ───────────────────────────────────────────────────────────────────────── */
+
+.гр-носитель {
+  position: relative;
+  /* Пропорция визитки 85 × 55 мм — размер носителя, не токен системы. */
+  aspect-ratio: 85 / 55;
+  /* Не просто `100%`: во флекс-ряду ширина по содержимому, и носитель
+     схлопывался до размера подписи под ним (216 px вместо 384). И не просто
+     фиксированная: тогда он выносит страницу за край на телефоне. */
+  inline-size: min(calc(var(--fx-space-10) * 3), 100%);
+  overflow: hidden;
+  border: var(--fx-hairline) solid var(--fx-line);
+  border-radius: var(--fx-radius);
+  /* Бумага визитки замерена как #FDFDFD, а не чистый белый. */
+  background: var(--fx-paper);
+}
+
+/* Рамка поля — только для показа правила, на самом носителе её нет. */
+.гр-носитель__поле {
+  position: absolute;
+  inset: var(--fx-space-5);
+  border: var(--fx-hairline) dashed var(--fx-line-strong);
+  border-radius: var(--fx-radius-sm);
+}
+
+.гр-носитель__знак {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  /* Доля от ширины носителя — пропорция композиции, токеном не задаётся. */
+  inline-size: 46%;
+  translate: -50% -50%;
+}
+
+/*
+ * Диск за углом у конца строки и марка у начала — строго по диагонали, как на
+ * лицевой стороне визитки. Углы заданы логически: в RTL композиция
+ * переворачивается целиком, и оба элемента переезжают сами.
+ */
+.гр-носитель__круг {
+  position: absolute;
+  inset-block-start: calc(-1 * var(--fx-space-6));
+  inset-inline-end: calc(-1 * var(--fx-space-5));
+  inline-size: var(--fx-space-9);
+}
+
+.гр-носитель__марка {
+  position: absolute;
+  /* Навылет: марку срезает кромка носителя так же, как юбка кузова на фургоне. */
+  inset-block-end: calc(-1 * var(--fx-space-4));
+  inset-inline-start: var(--fx-space-5);
+  block-size: var(--fx-space-8);
+  color: var(--fx-navy);
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+ * Марка-фигура
+ * ───────────────────────────────────────────────────────────────────────── */
+
+/*
+ * Зеркальная копия. Вынос-рука направленный, поэтому вторая фигура — это та же
+ * марка, отражённая по горизонтали: так `i` в `li` стоит в самом знаке и так же
+ * марка нарисована на втором борту фургона.
+ */
+.гр-марка--зеркальная {
+  transform: scaleX(-1);
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+ * Разделители
+ * ───────────────────────────────────────────────────────────────────────── */
+
+.гр-линейка {
+  margin: 0;
+  border: 0;
+  border-block-start: var(--fx-rule) solid var(--fx-orange);
+  inline-size: var(--fx-space-8);
+}
+
+.гр-линейка--сильная {
+  border-block-start-width: var(--fx-rule-strong);
+  border-block-start-color: var(--fx-navy);
+  inline-size: 100%;
+}
+
+/* Блок, в котором линейка показана в работе, а не отрезком в воздухе. */
+.гр-разделитель-пример {
+  inline-size: calc(var(--fx-space-10) * 3);
+  max-inline-size: 100%;
+}
+
+.гр-разделитель-пример > * + * {
+  margin-block-start: var(--fx-space-3);
+}
+
+.гр-разделитель-пример__имя {
+  margin: 0;
+  font-size: var(--fx-text-h3);
+  line-height: var(--fx-text-h3-lh);
+  font-weight: var(--fx-weight-semibold);
+  color: var(--fx-navy-deep);
+}
+
+.гр-разделитель-пример__роль {
+  margin: 0;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+}
+
+.гр-разделитель-пример__шапка {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--fx-space-4);
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+ * Иконки в обводке
+ * ───────────────────────────────────────────────────────────────────────── */
+
+/*
+ * Сетка 24 × 24, обводка 2 px (`--fx-rule`) — одна на весь набор, заливки нет.
+ * Цвет берётся из `currentColor`, поэтому один и тот же файл иконки работает и
+ * на белом, и на синей плашке, и в оранжевом кольце визитки.
+ */
+.гр-иконка {
+  inline-size: var(--fx-space-5); /* 24 px — совпадает с сеткой viewBox */
+  block-size: var(--fx-space-5);
+  fill: none;
+  stroke: currentColor;
+  /* ТОКЕНА НЕТ: толщины иконочной обводки в системе нет. Взят `--fx-rule` (2 px,
+     разделитель визитки) — при сетке 24 × 24 это стандартная толщина, и одно
+     значение на весь набор важнее, чем отдельное имя под него. */
+  stroke-width: var(--fx-rule);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.гр-иконки {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  gap: var(--fx-space-6);
+  /* Смысловая иконка обязана держать 3,0 к фону. Фирменный оранжевый на белом
+     даёт 2,65 и порога не берёт, поэтому глиф пишет `--fx-orange-text` (4,96),
+     а не заливочный оранжевый. */
+  color: var(--fx-orange-text);
+}
+
+/* Контактная плашка из макетов найма: те же иконки на синем, цвет наследуется. */
+.гр-иконки--на-синем {
+  padding: var(--fx-space-4) var(--fx-space-5);
+  border-radius: var(--fx-radius-pill);
+  background: var(--fx-navy);
+  color: var(--fx-white);
+}
+
+/* Кольцо с оборота визитки: обводка — декор (заливочный оранжевый), глиф внутри
+   несёт смысл и остаётся в текстовом оранжевом. */
+.гр-кружок {
+  display: grid;
+  place-items: center;
+  padding: var(--fx-space-2);
+  border: var(--fx-rule) solid var(--fx-orange);
+  border-radius: var(--fx-radius-circle);
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+ * RTL-слой
+ * ───────────────────────────────────────────────────────────────────────── */
+
+/*
+ * Перечёркивание запрещённого варианта. Рисуется градиентом, потому что файл
+ * открывается двойным кликом и внешних картинок у него быть не может.
+ * Толщина линии — две волосяные (`--fx-hairline`), чтобы не спорить с обводками.
+ */
+.гр-неверно {
+  /* Обжимает содержимое: иначе перечёркивание тянется на всю ширину панели и
+     превращается из знака запрета в декоративную диагональ. */
+  display: inline-block;
+  position: relative;
+}
+
+.гр-неверно::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top right,
+    transparent calc(50% - var(--fx-hairline)),
+    var(--fx-danger) calc(50% - var(--fx-hairline)),
+    var(--fx-danger) calc(50% + var(--fx-hairline)),
+    transparent calc(50% + var(--fx-hairline))
+  );
+}
+
+/*
+ * Единственное, что зеркалит логотип на этой странице, — образец «так нельзя».
+ * В продукте такого правила нет и быть не может: знак — это написание бренда.
+ */
+.гр-логотип--отражён {
+  transform: scaleX(-1);
+}
+
+/*
+ * Автоматическое зеркалирование по направлению документа. Вешается на марку и
+ * на направленные иконки, и только на них: это и есть весь список того, что
+ * в RTL переворачивается.
+ */
+[dir='rtl'] .гр-автозеркало {
+  transform: scaleX(-1);
+}
+
+/* Латинская вставка внутри ивритской строки.
+ *
+ * Замерено, а не выведено из документации: `unicode-bidi: isolate` в одиночку
+ * номер НЕ лечит — внутри изолята направление остаётся унаследованным RTL, и
+ * группы числа по-прежнему раскладываются справа налево. Работает только пара
+ * «направление + изоляция», и `dir="ltr"` в HTML даёт обе разом (у него в
+ * таблице стилей браузера уже стоит `unicode-bidi: isolate`). Класс держит то
+ * же самое на случай, если атрибут потеряется при сборке шаблона.
+ */
+.гр-лат {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Полумера для образца: изоляция без направления. Оставлена намеренно —
+   показывает, что так номер не собирается. */
+.гр-лат--без-направления {
+  unicode-bidi: isolate;
+}
+
+.гр-строка {
+  margin: 0;
+  font-size: var(--fx-text-lede);
+  line-height: var(--fx-text-lede-lh);
+  color: var(--fx-ink);
+  text-align: start;
+}
+
+.гр-строка--сломано {
+  color: var(--fx-danger);
+}
+
+/* Смешанная строка для показа подъёма иврита. Кегль крупный: на 12 px разница
+   в 6 % есть, но глазом она ловится хуже, чем на заголовке. */
+.гр-кегль {
+  margin: 0;
+  font-size: var(--fx-text-h2);
+  line-height: var(--fx-text-h2-lh);
+  font-weight: var(--fx-weight-medium);
+  color: var(--fx-navy-deep);
+  text-align: start;
+}
+
+.гр-кегль--мелко {
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  font-weight: var(--fx-weight-regular);
+  color: var(--fx-ink);
+}
+
+/*
+ * ТОКЕНА НЕТ: коэффициент подъёма иврита живёт значением `size-adjust: 106%`
+ * внутри `@font-face` и переменной не имеет — из CSS его не достать. Здесь он
+ * отменяется обратной дробью, чтобы рядом стояли строка с подъёмом и строка
+ * без него. Это приём образца; в продукте так делать нельзя.
+ */
+.гр-кегль--без-подъёма .гр-иврит {
+  font-size: calc(100% / 1.06);
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="обёртка">
+      <p class="бровь">Fixli · дизайн-система · v1</p>
+      <h1>Компоненты</h1>
+      <p class="лид">
+        Всё, из чего собираются носители Fixli: маркетинговый слой, интерфейсный слой панели и
+        Telegram-бота, графика знака и правила письма справа налево. Ни одного значения цвета или
+        размера на этой странице нет — они живут в
+        <code>brand/tokens.css</code>, и смена значения там перекрашивает и эту страницу, и сайт, и
+        креативы разом.
+      </p>
+      <p class="лид">
+        Правила применения, do и don't — рядом, в <code>brand/system/README.md</code>. Здесь видно,
+        как это выглядит; там написано, чего с этим делать нельзя и что именно ломалось, когда
+        делали.
+      </p>
+
+      <ul class="оглавление">
+        <li><a href="#кнопки">Кнопки</a></li>
+        <li><a href="#карточка-услуги">Карточка услуги</a></li>
+        <li><a href="#плашка-оффер">Плашка-оффер</a></li>
+        <li><a href="#цифра-акцент">Цифра-акцент</a></li>
+        <li><a href="#триада-ценностей">Триада ценностей</a></li>
+        <li><a href="#контактный-блок">Контактный блок</a></li>
+        <li><a href="#подвал">Подвал</a></li>
+        <li><a href="#интерфейс-панель-и-бот">Интерфейс: панель и бот</a></li>
+        <li><a href="#графика">Графический слой</a></li>
+        <li><a href="#rtl">Справа налево</a></li>
+      </ul>
+
+      <!-- ═══ маркетинг ═══ -->
+<!-- ═══ Маркетинговый слой ═══════════════════════════════════════════════════
+     Семь групп компонентов, которые видит клиент до звонка. Заголовки внутри
+     образцов — `h4`: `h2` занят секцией, `h3` подписью образца, а уровень
+     заголовка описывает структуру документа, не кегль. В носителе уровень
+     выбирается по документу, кегль задаёт класс.
+     ═══════════════════════════════════════════════════════════════════════ -->
+
+<section id="кнопки">
+  <h2>Кнопки</h2>
+  <p class="лид">
+    Уровней два: оранжевая заливка — одно главное действие на экран, синий контур — всё остальное.
+    Третьего уровня нет; где нужна тихая кнопка, ставится ссылка.
+  </p>
+
+  <div class="образец">
+    <h3 class="образец__имя">Кнопка, основной уровень</h3>
+    <p class="образец__правило">
+      Одна на экран. Текст тёмно-синий: белый по оранжевому даёт 2,65. Наведение фон
+      <strong>осветляет</strong> — затемнение уронило бы пару до 4,12 ровно в тот момент, когда
+      человек целится в кнопку; осветление поднимает её до 5,75.
+    </p>
+    <div class="образец__сцена">
+      <div class="мк-состояния">
+        <div class="мк-состояние">
+          <button class="мк-кнопка мк-кнопка--основная" type="button">Оставить заявку</button>
+          <span class="мк-состояние__имя">обычное</span>
+        </div>
+        <div class="мк-состояние">
+          <button class="мк-кнопка мк-кнопка--основная мк-кнопка--наведение" type="button">
+            Оставить заявку
+          </button>
+          <span class="мк-состояние__имя">наведение</span>
+        </div>
+        <div class="мк-состояние">
+          <button class="мк-кнопка мк-кнопка--основная мк-кнопка--фокус" type="button">
+            Оставить заявку
+          </button>
+          <span class="мк-состояние__имя">фокус</span>
+        </div>
+        <div class="мк-состояние">
+          <button class="мк-кнопка мк-кнопка--основная мк-кнопка--отключено" type="button" disabled>
+            Оставить заявку
+          </button>
+          <span class="мк-состояние__имя">отключено</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Кнопка, второй уровень</h3>
+    <p class="образец__правило">
+      Контур синим. На наведении заливается синим целиком, а не подсвечивает рамку: смена оттенка
+      двухпиксельной линии глазом почти не читается, а белый по синему даёт 9,44.
+    </p>
+    <div class="образец__сцена">
+      <div class="мк-состояния">
+        <div class="мк-состояние">
+          <button class="мк-кнопка мк-кнопка--вторая" type="button">Как считается цена</button>
+          <span class="мк-состояние__имя">обычное</span>
+        </div>
+        <div class="мк-состояние">
+          <button class="мк-кнопка мк-кнопка--вторая мк-кнопка--наведение" type="button">
+            Как считается цена
+          </button>
+          <span class="мк-состояние__имя">наведение</span>
+        </div>
+        <div class="мк-состояние">
+          <button class="мк-кнопка мк-кнопка--вторая мк-кнопка--фокус" type="button">
+            Как считается цена
+          </button>
+          <span class="мк-состояние__имя">фокус</span>
+        </div>
+        <div class="мк-состояние">
+          <button class="мк-кнопка мк-кнопка--вторая мк-кнопка--отключено" type="button" disabled>
+            Как считается цена
+          </button>
+          <span class="мк-состояние__имя">отключено</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Два уровня рядом</h3>
+    <p class="образец__правило">
+      Так они стоят на носителе. Отключённая кнопка теряет фирменный цвет у обоих уровней:
+      приглушённый оранжевый читался бы как рабочая кнопка, а кнопка, которая выглядит рабочей и
+      ничего не делает, у заказчика уже один раз убила доверие ко всей системе.
+    </p>
+    <div class="образец__сцена образец__сцена--ряд">
+      <button class="мк-кнопка мк-кнопка--основная" type="button">Рассчитать стоимость</button>
+      <button class="мк-кнопка мк-кнопка--вторая" type="button">Посмотреть услуги</button>
+    </div>
+  </div>
+</section>
+
+<section id="карточка-услуги">
+  <h2>Карточка услуги</h2>
+  <p class="лид">
+    Слот иконки, заголовок, две строки о содержании работы, пол цены и одно действие. Девять услуг
+    выкладываются одной сеткой — карточка обязана держать любую из них без правок.
+  </p>
+
+  <div class="образец">
+    <h3 class="образец__имя">Ряд карточек</h3>
+    <p class="образец__правило">
+      «от 500 ₪» — минимальный заказ, единственный пол цены, который у компании есть: собственных
+      цен по услугам не существует, каждый заказ считается по объёму. Сумма набрана
+      <code>.fx-nums</code>: где деньги — там табличные цифры. Иконка оранжевая, потому что
+      дублирует заголовок и является декором; останется единственным носителем смысла — цвет
+      меняется на <code>--fx-orange-text</code>.
+    </p>
+    <div class="образец__сцена">
+      <div class="мк-услуги">
+        <article class="мк-услуга">
+          <span class="мк-услуга__слот" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M1 3h11v13H1z M12 8h4.5l3.5 3.5V16h-8z M4 19a2 2 0 1 0 4 0 2 2 0 1 0-4 0 M15 19a2 2 0 1 0 4 0 2 2 0 1 0-4 0"
+              ></path>
+            </svg>
+          </span>
+          <h4 class="мк-услуга__имя">Переезды и грузоперевозки</h4>
+          <p class="мк-услуга__текст">
+            Квартиры, офисы, отдельные вещи. Свой транспорт и своя бригада.
+          </p>
+          <p class="мк-услуга__цена">от <span class="fx-nums">500 ₪</span></p>
+          <!-- Адреса собираются из реестра страниц сайта; в витрине это заглушка. -->
+          <a class="мк-услуга__действие" href="#">Подробнее</a>
+        </article>
+
+        <article class="мк-услуга">
+          <span class="мк-услуга__слот" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M4 20v-7h16v7 M6 13V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v7 M4 20v2 M20 20v2 M9 8h6"
+              ></path>
+            </svg>
+          </span>
+          <h4 class="мк-услуга__имя">Сборка и разборка мебели</h4>
+          <p class="мк-услуга__текст">
+            Шкафы, кухни, кровати. Разбираем на старом адресе, собираем на новом.
+          </p>
+          <p class="мк-услуга__цена">от <span class="fx-nums">500 ₪</span></p>
+          <a class="мк-услуга__действие" href="#">Подробнее</a>
+        </article>
+
+        <article class="мк-услуга">
+          <span class="мк-услуга__слот" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M14.7 6.3a4 4 0 0 0 5 5L21 21H3l7.5-7.5a4 4 0 0 1 5-5z M14.5 3.5a4 4 0 0 1 5.5 5.5"
+              ></path>
+            </svg>
+          </span>
+          <h4 class="мк-услуга__имя">Хендимен</h4>
+          <p class="мк-услуга__текст">
+            Сантехника, электрика, мелкий ремонт и всё, что «просто некому сделать».
+          </p>
+          <p class="мк-услуга__цена">от <span class="fx-nums">500 ₪</span></p>
+          <a class="мк-услуга__действие" href="#">Подробнее</a>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Карточка на наведении</h3>
+    <p class="образец__правило">
+      Отклик — цвет рамки, не подъём тенью. Теней в системе две, обе служебные и живут в панели: на
+      носителях заказчика тени нет ни одной, фирменный стиль плоский.
+    </p>
+    <div class="образец__сцена">
+      <div class="мк-услуги">
+        <article class="мк-услуга мк-услуга--наведение">
+          <span class="мк-услуга__слот" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M4 20v-7h16v7 M6 13V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v7 M4 20v2 M20 20v2 M9 8h6"
+              ></path>
+            </svg>
+          </span>
+          <h4 class="мк-услуга__имя">Название услуги</h4>
+          <p class="мк-услуга__текст">
+            Две строки о том, что входит в работу. Ровно столько, чтобы человек понял, его это или
+            не его.
+          </p>
+          <p class="мк-услуга__цена">от <span class="fx-nums">500 ₪</span></p>
+          <a class="мк-услуга__действие мк-услуга__действие--наведение" href="#">Подробнее</a>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="плашка-оффер">
+  <h2>Плашка-оффер</h2>
+  <p class="лид">
+    Ценовой блок с макетов найма: пилюля, крупная сумма, подпись капсом. Полное скругление взято
+    именно оттуда — промежуточных форм бренд не знает.
+  </p>
+
+  <div class="образец">
+    <h3 class="образец__имя">Оффер на светлом</h3>
+    <p class="образец__правило">
+      Сумма тёмно-синим по оранжевому (5,13). Плашка называет пол цены, а не цену: фиксированную
+      сумму, срок и страховку обещать нельзя — ни того, ни другого, ни третьего у компании нет.
+    </p>
+    <div class="образец__сцена">
+      <p class="мк-оффер">
+        <span class="мк-оффер__подпись">Минимальный заказ</span>
+        <span class="мк-оффер__сумма fx-nums">500 ₪</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Оффер на оранжевом поле</h3>
+    <p class="образец__правило">
+      Синий вариант — не вкусовая альтернатива: на фирменной заливке оранжевая пилюля исчезает.
+      Белый по синему — 9,44.
+    </p>
+    <div class="образец__сцена">
+      <p class="мк-оффер мк-оффер--синяя">
+        <span class="мк-оффер__подпись">Работаем от</span>
+        <span class="мк-оффер__сумма fx-nums">500 ₪</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="цифра-акцент">
+  <h2>Цифра-акцент</h2>
+  <p class="лид">
+    Три числа, которые заказчик подтвердил сам. Больше трёх в ряд не ставится: четвёртое число
+    превращает довод в отчёт.
+  </p>
+
+  <div class="образец">
+    <h3 class="образец__имя">Ряд из трёх</h3>
+    <p class="образец__правило">
+      Оранжевый приходит линией над числом, а не самим числом: даже на кегле дисплея фирменный
+      оранжевый даёт 2,65 на белом и не проходит порог даже для крупного текста. Знак «+» читается
+      как «более» — точной цифры у заказчика нет, а округлять вверх было бы неправдой.
+    </p>
+    <div class="образец__сцена">
+      <div class="мк-цифры">
+        <p class="мк-цифра">
+          <span class="мк-цифра__число fx-nums">1 000+</span>
+          <span class="мк-цифра__подпись">выполненных заказов</span>
+        </p>
+        <p class="мк-цифра">
+          <span class="мк-цифра__число fx-nums">5+</span>
+          <span class="мк-цифра__подпись">лет на рынке Израиля</span>
+        </p>
+        <p class="мк-цифра">
+          <span class="мк-цифра__число fx-nums">9</span>
+          <span class="мк-цифра__подпись">направлений в одной команде</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="триада-ценностей">
+  <h2>Триада ценностей</h2>
+  <p class="лид">
+    Качество, ответственность, результат — строка с борта фургона. Она есть на носителях, и её не
+    придумывали мы.
+  </p>
+
+  <div class="образец">
+    <h3 class="образец__имя">Триада</h3>
+    <p class="образец__правило">
+      Капс всегда с разрядкой: без неё он не встречается ни на одном носителе заказчика. Точки —
+      оранжевые, из разметки они убраны: смысла не несут и в список попадать не должны.
+    </p>
+    <div class="образец__сцена">
+      <ul class="мк-триада">
+        <li class="мк-триада__пункт">Качество</li>
+        <li class="мк-триада__пункт">Ответственность</li>
+        <li class="мк-триада__пункт">Результат</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="контактный-блок">
+  <h2>Контактный блок</h2>
+  <p class="лид">
+    Телефон, WhatsApp, Telegram — тремя пилюлями с плашки контактов визитки. В Израиле пишут в
+    WhatsApp почти все, поэтому он стоит рядом с номером, а не вместо него.
+  </p>
+
+  <div class="образец">
+    <h3 class="образец__имя">Контакты</h3>
+    <p class="образец__правило">
+      Номер набран <code>.fx-nums</code> и обёрнут <code>dir="ltr"</code>: без этого в ивритской
+      версии он разворачивается и читается неверно. Обводка иконки — <code>currentColor</code>,
+      поэтому кружок переворачивается вместе с плашкой и второго правила не требует. Иконки здесь
+      геометрические заглушки: официальные марки мессенджеров приходят из их собственных китов.
+    </p>
+    <div class="образец__сцена">
+      <ul class="мк-контакты">
+        <li>
+          <a class="мк-контакт" href="tel:+972552947783">
+            <span class="мк-контакт__иконка" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M5 3h3.6l1.4 4-2 1.2a11 11 0 0 0 5.8 5.8L15 12l4 1.4V17a2 2 0 0 1-2.2 2A16 16 0 0 1 3 5.2 2 2 0 0 1 5 3z"
+                ></path>
+              </svg>
+            </span>
+            <span class="fx-nums" dir="ltr">+972 55-2947783</span>
+          </a>
+        </li>
+        <li>
+          <a class="мк-контакт" href="https://wa.me/972552947783">
+            <span class="мк-контакт__иконка" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"></path>
+              </svg>
+            </span>
+            <span>WhatsApp</span>
+          </a>
+        </li>
+        <li>
+          <!-- Клиентский вход в Telegram ещё не заведён (фаза 2 плана первичного
+               ответа) — адрес здесь заглушка, а не забытая ссылка. -->
+          <a class="мк-контакт" href="#">
+            <span class="мк-контакт__иконка" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 4 2.5 10.8l6.6 2.6L12 21z M9.1 13.4 21 4"></path>
+              </svg>
+            </span>
+            <span>Telegram</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Контакт на наведении и в фокусе</h3>
+    <p class="образец__правило">
+      Плашка заливается синим — тот же ход, что у контурной кнопки: в системе действие отзывается
+      заливкой, а не сменой оттенка линии.
+    </p>
+    <div class="образец__сцена">
+      <ul class="мк-контакты">
+        <li>
+          <a class="мк-контакт мк-контакт--наведение" href="tel:+972552947783">
+            <span class="мк-контакт__иконка" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M5 3h3.6l1.4 4-2 1.2a11 11 0 0 0 5.8 5.8L15 12l4 1.4V17a2 2 0 0 1-2.2 2A16 16 0 0 1 3 5.2 2 2 0 0 1 5 3z"
+                ></path>
+              </svg>
+            </span>
+            <span class="fx-nums" dir="ltr">+972 55-2947783</span>
+          </a>
+        </li>
+        <li>
+          <a class="мк-контакт мк-контакт--фокус" href="https://wa.me/972552947783">
+            <span class="мк-контакт__иконка" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z"></path>
+              </svg>
+            </span>
+            <span>WhatsApp</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="подвал">
+  <h2>Подвал</h2>
+  <p class="лид">
+    Самая тёмная плашка системы и рубрикатор ссылок. Здесь же живёт знак авторства — некликабельная
+    строка в самом низу.
+  </p>
+
+  <div class="образец">
+    <h3 class="образец__имя">Подвал целиком</h3>
+    <p class="образец__правило">
+      На тёмном фирменный оранжевый писать можно: к подвалу он даёт 6,42 при запрещённых 2,65 на
+      белом — считается пара, а не цвет. Кольцо фокуса здесь другое: синее свечение
+      <code>--fx-focus-ring</code> на почти чёрном синем не видно вовсе, поэтому обводка оранжевая.
+      Знак авторства прижат к концу строки логическим выравниванием: в ивритской версии он
+      окажется у левого края, текст не переводится.
+    </p>
+    <!-- Сцена без подложки: подвал несёт свой фон, и `--fx-mist` вокруг него
+         читался бы как рамка носителя, которой в макете нет. -->
+    <div class="образец__сцена образец__сцена--без-подложки">
+      <footer class="мк-подвал">
+        <!-- Колонка со знаком и дескриптором — за графическим слоем: рисовать
+             словесный знак шрифтом нельзя, буквы логотипа нарисованы, а не
+             набраны. -->
+        <div class="мк-подвал__рубрикатор">
+          <div>
+            <h4 class="мк-подвал__заголовок">Услуги</h4>
+            <ul class="мк-подвал__список">
+              <li><a class="мк-подвал__ссылка" href="#">Переезды и грузоперевозки</a></li>
+              <li><a class="мк-подвал__ссылка" href="#">Офисные переезды</a></li>
+              <li><a class="мк-подвал__ссылка" href="#">Грузчики, погрузка и разгрузка</a></li>
+              <li><a class="мк-подвал__ссылка" href="#">Упаковка</a></li>
+              <li><a class="мк-подвал__ссылка" href="#">Сборка и разборка мебели</a></li>
+              <li><a class="мк-подвал__ссылка" href="#">Бережная перевозка дорогих вещей</a></li>
+              <li><a class="мк-подвал__ссылка" href="#">Хендимен</a></li>
+              <li><a class="мк-подвал__ссылка" href="#">Вывоз мусора и хлама</a></li>
+              <li><a class="мк-подвал__ссылка" href="#">Уборка после переезда</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="мк-подвал__заголовок">Компания</h4>
+            <ul class="мк-подвал__список">
+              <li><a class="мк-подвал__ссылка мк-подвал__ссылка--наведение" href="#">О компании</a></li>
+              <li><a class="мк-подвал__ссылка" href="#">Отзывы</a></li>
+              <li><a class="мк-подвал__ссылка мк-подвал__ссылка--фокус" href="#">Контакты</a></li>
+              <li><a class="мк-подвал__ссылка" href="#">Конфиденциальность</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="мк-подвал__заголовок">Связаться</h4>
+            <ul class="мк-подвал__список">
+              <li>База — Нетания, работаем по центру Израиля</li>
+              <li>
+                <a class="мк-подвал__ссылка fx-nums" href="tel:+972552947783" dir="ltr">
+                  +972 55-2947783
+                </a>
+              </li>
+              <li><a class="мк-подвал__ссылка" href="https://wa.me/972552947783">WhatsApp</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="мк-подвал__низ">
+          <span>© <span class="fx-nums">2026</span> Группа компаний Fixli · פיקסלי</span>
+        </div>
+
+        <p class="мк-подвал__знак-автора">Made by Dmitry Khinkis</p>
+      </footer>
+    </div>
+  </div>
+</section>
+
+      <!-- ═══ интерфейс ═══ -->
+<!-- Интерфейсный слой: панель управления и мини-приложение бота. Классы `ин-*`. -->
+<section id="интерфейс-панель-и-бот">
+  <h2>Интерфейс: панель и бот</h2>
+  <p class="лид">
+    Вторая поверхность бренда — не витрина, а рабочий стол: панель, в которой диспетчер за день
+    трогает обращение, заказ, наряд, отчёт и отзыв, и та же карточка наряда в Telegram у грузчика.
+    Сейчас панель выглядит как shadcn из коробки, то есть как чужой продукт. Правила ниже — про
+    плотность и однозначность, а не про красоту: оранжевый здесь занят действием, поэтому
+    предупреждение янтарное, статус подписан словом, а не только цветом, а деньги набраны
+    табличными цифрами, чтобы колонка сумм не ехала от строки к строке.
+  </p>
+
+  <div class="образец">
+    <h3 class="образец__имя">Поле ввода</h3>
+    <p class="образец__правило">
+      Граница --fx-line-strong: 3,06 к белому, порог для элемента управления. Ошибка объясняется
+      текстом, а не только красной рамкой: рамку не видит ни дальтоник, ни человек в фургоне на
+      солнце.
+    </p>
+    <div class="образец__сцена">
+      <div class="ин-ряд">
+        <div class="ин-группа">
+          <p class="ин-метка">Обычное</p>
+          <label class="ин-подпись" for="ин-адрес">Адрес загрузки</label>
+          <input class="ин-поле" id="ин-адрес" type="text" value="Нетания, Вейцман 42" />
+          <p class="ин-подсказка">Улица и дом. Этажа и лифта хватит в следующем поле.</p>
+        </div>
+
+        <div class="ин-группа">
+          <p class="ин-метка">Фокус</p>
+          <label class="ин-подпись" for="ин-адрес-фокус">Адрес выгрузки</label>
+          <input
+            class="ин-поле ин-поле--фокус"
+            id="ин-адрес-фокус"
+            type="text"
+            value="Герцлия, Соколов 7"
+          />
+          <p class="ин-подсказка">Кольцо фокуса синее: оранжевое на белом даёт 2,6 и не читается.</p>
+        </div>
+
+        <div class="ин-группа">
+          <p class="ин-метка">Ошибка</p>
+          <label class="ин-подпись" for="ин-телефон">Телефон клиента</label>
+          <input
+            class="ин-поле ин-поле--ошибка"
+            id="ин-телефон"
+            type="tel"
+            value="055-294"
+            aria-invalid="true"
+            aria-describedby="ин-телефон-ошибка"
+          />
+          <p class="ин-ошибка" id="ин-телефон-ошибка">
+            Не хватает цифр: израильский мобильный — десять, начинается с 05.
+          </p>
+        </div>
+
+        <div class="ин-группа">
+          <p class="ин-метка">Отключено</p>
+          <label class="ин-подпись" for="ин-сумма">Сумма заказа</label>
+          <input
+            class="ин-поле fx-nums"
+            id="ин-сумма"
+            type="text"
+            value="2&nbsp;600&nbsp;₪"
+            disabled
+            aria-describedby="ин-сумма-подсказка"
+          />
+          <p class="ин-подсказка" id="ин-сумма-подсказка">
+            Считается из часов и бригады. Руками правится только через «Пересчитать».
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Селект</h3>
+    <p class="образец__правило">
+      Нативный &lt;select&gt;, стрелка — псевдоэлемент на обёртке, а не фоновая картинка:
+      background-position физическая, и в иврите стрелка осталась бы справа, где у поля уже начало
+      строки. Порядок значений — из панели: грузчик первым, потому что это девять назначений из
+      десяти, а список, где частое лежит третьим, стоит лишнего тапа на каждом наряде.
+    </p>
+    <div class="образец__сцена">
+      <div class="ин-ряд">
+        <div class="ин-группа">
+          <p class="ин-метка">Обычное</p>
+          <label class="ин-подпись" for="ин-роль">Кем идёт в наряд</label>
+          <span class="ин-селект-обёртка">
+            <select class="ин-селект" id="ин-роль">
+              <option>Грузчик</option>
+              <option>Бригадир</option>
+              <option>Водитель</option>
+              <option>Сборщик</option>
+              <option>Мастер</option>
+            </select>
+          </span>
+          <p class="ин-подсказка">Один и тот же человек в разных нарядах идёт разной ролью.</p>
+        </div>
+
+        <div class="ин-группа">
+          <p class="ин-метка">Фокус</p>
+          <label class="ин-подпись" for="ин-источник">Откуда узнали о нас</label>
+          <span class="ин-селект-обёртка">
+            <select class="ин-селект ин-селект--фокус" id="ин-источник">
+              <option>Рекомендация</option>
+              <option>Facebook</option>
+              <option>Google</option>
+              <option>Машина на улице</option>
+              <option>Визитка</option>
+              <option>Был клиентом раньше</option>
+            </select>
+          </span>
+          <p class="ин-подсказка">Обязательное поле приёма: без источника отчёт по рекламе пуст.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Таблица наряда</h3>
+    <p class="образец__правило">
+      Суммы — класс fx-nums и выравнивание по inline-end: колонка денег, набранная
+      пропорциональными цифрами, едет от строки к строке, и глаз не может сложить её столбиком.
+      Невышедший в итог не входит — иначе диспетчер видит завышенную цифру ровно в тот момент,
+      когда ищет, кем закрыть дыру в бригаде. Имена, часы и суммы в образце **выдуманные**: этот
+      документ уходит подрядчикам ссылкой, и настоящей выплате настоящего человека в нём места нет.
+    </p>
+    <div class="образец__сцена">
+      <div class="ин-таблица-обёртка">
+        <table class="ин-таблица">
+          <caption class="ин-таблица__подпись">
+            Наряд № 148 · Нетания → Герцлия · 14 августа
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Работник</th>
+              <th scope="col">Роль</th>
+              <th scope="col">Назначение</th>
+              <th scope="col" class="ин-таблица__сумма">Часы</th>
+              <th scope="col" class="ин-таблица__сумма">Выплата</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ави</td>
+              <td>Бригадир</td>
+              <td><span class="ин-чип ин-чип--успех">Отработал</span></td>
+              <td class="ин-таблица__сумма fx-nums">4,5</td>
+              <td class="ин-таблица__сумма fx-nums">405&nbsp;₪</td>
+            </tr>
+            <tr>
+              <td>Саша</td>
+              <td>Грузчик</td>
+              <td><span class="ин-чип ин-чип--успех">Отработал</span></td>
+              <td class="ин-таблица__сумма fx-nums">4,5</td>
+              <td class="ин-таблица__сумма fx-nums">360&nbsp;₪</td>
+            </tr>
+            <tr>
+              <td>Миша</td>
+              <td>Грузчик</td>
+              <td><span class="ин-чип ин-чип--опасность">Не вышел</span></td>
+              <td class="ин-таблица__сумма">—</td>
+              <td class="ин-таблица__сумма">—</td>
+            </tr>
+            <tr>
+              <td>Дани</td>
+              <td>Водитель</td>
+              <td><span class="ин-чип ин-чип--инфо">Принял</span></td>
+              <td class="ин-таблица__сумма fx-nums">4,5</td>
+              <td class="ин-таблица__сумма fx-nums">450&nbsp;₪</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th scope="row" colspan="3">Стоимость наряда</th>
+              <td class="ин-таблица__сумма fx-nums">13,5</td>
+              <td class="ин-таблица__сумма fx-nums">1&nbsp;215&nbsp;₪</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Статус-чип</h3>
+    <p class="образец__правило">
+      Статусов в панели тридцать девять: шесть у обращения, восемь у заказа, семь у наряда, пять у
+      назначения и тринадцать у рабочего объекта. Смыслов пять, и чипов пять — иначе интерфейс
+      требует помнить справочник. Слово в чипе всегда то, которое диспетчер скажет вслух; цвет его
+      дублирует, а не заменяет.
+    </p>
+    <div class="образец__сцена">
+      <p class="ин-чипы">
+        <span class="ин-чип ин-чип--нейтральный">Черновик</span>
+        <span class="ин-чип ин-чип--инфо">В работе</span>
+        <span class="ин-чип ин-чип--предупреждение">Оценка названа</span>
+        <span class="ин-чип ин-чип--успех">Выполнен</span>
+        <span class="ин-чип ин-чип--опасность">Отменён</span>
+      </p>
+      <ul class="ин-разбор">
+        <li><b>Нейтральный</b> — ещё не в игре: черновик заказа и наряда, входящие, отложено, архив.</li>
+        <li><b>Синий</b> — двигаемся мы: новое, в расписании, объявлен, принят, в пути, в работе.</li>
+        <li>
+          <b>Янтарный</b> — ждём не мы: оценка названа, назначение предложено, ждём, требует
+          решения, заблокировано. Оранжевого здесь нет намеренно — он занят кнопкой действия, и
+          рядом с ней предупреждение читалось бы как «нажми».
+        </li>
+        <li><b>Зелёный</b> — факт есть: выполнен, стало заказом, отчёт принят, отработал.</li>
+        <li>
+          <b>Красный</b> — не случилось: отменён, клиент не пришёл, заказом не стало, отказался,
+          не вышел.
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Карточка задачи</h3>
+    <p class="образец__правило">
+      Показана на 375 пикселях — узкое окно мини-приложения Telegram, где карточку читает грузчик
+      с телефона в руке. Сама карточка ширины не знает и тянется по контейнеру, поэтому та же
+      разметка идёт в список нарядов панели. Тень --fx-shadow-card существует ровно для этого
+      случая — отделить карточку от подложки; на белом фоне ставить её незачем.
+    </p>
+    <div class="образец__сцена образец__сцена--узкая">
+      <article class="ин-карточка">
+        <div class="ин-карточка__шапка">
+          <p class="ин-карточка__когда"><time datetime="2026-08-14T09:00">Чт, 14 августа · 09:00</time></p>
+          <span class="ин-чип ин-чип--инфо">Объявлен</span>
+        </div>
+        <h4 class="ин-карточка__адрес">Нетания, Вейцман 42 → Герцлия, Соколов 7</h4>
+        <p class="ин-карточка__пояснение">
+          Трёшка, третий этаж без лифта. Пианино нет, крупногабарит — диван и шкаф.
+        </p>
+        <dl class="ин-карточка__строки">
+          <div class="ин-карточка__строка ин-карточка__строка--столбиком">
+            <dt>Бригада</dt>
+            <dd>Ави (бригадир), Саша, Дани</dd>
+          </div>
+          <div class="ин-карточка__строка">
+            <dt>Ты в наряде</dt>
+            <dd>Грузчик · 4,5 ч</dd>
+          </div>
+          <div class="ин-карточка__строка ин-карточка__строка--сумма">
+            <dt>Твоя выплата</dt>
+            <dd class="fx-nums">360&nbsp;₪</dd>
+          </div>
+        </dl>
+        <p class="ин-карточка__действие">
+          <button class="мк-кнопка мк-кнопка--основная" type="button">Принять наряд</button>
+        </p>
+      </article>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Тост</h3>
+    <p class="образец__правило">
+      Тень --fx-shadow-pop, а не card: тост всплывает над карточкой, и вторая тень в системе
+      существует только по этой причине. Ошибка обязана сказать, что уцелело, — «не ушло» без
+      «наряд сохранён» заставляет человека делать работу заново.
+    </p>
+    <div class="образец__сцена">
+      <div class="ин-ряд">
+        <div class="ин-тост ин-тост--успех" role="status">
+          <p class="ин-тост__текст">
+            Отчёт по наряду № 148 принят: 6 фотографий, 9,0 часа. Заказ закрыт.
+          </p>
+          <button class="мк-кнопка мк-кнопка--вторая" type="button">Открыть</button>
+        </div>
+
+        <div class="ин-тост ин-тост--ошибка" role="alert">
+          <p class="ин-тост__текст">
+            Сообщение бригадиру не ушло: Telegram вернул отказ. Наряд сохранён, бригада не
+            уведомлена.
+          </p>
+          <button class="мк-кнопка мк-кнопка--основная" type="button">Повторить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Пустое состояние</h3>
+    <p class="образец__правило">
+      Одно действие, не два. Пустой экран — это место, где человек не знает, что делать дальше;
+      меню из трёх кнопок здесь возвращает его в то же незнание. Объяснение говорит, что произойдёт
+      после нажатия, а не что список пуст, — это и так видно.
+    </p>
+    <div class="образец__сцена">
+      <div class="ин-пусто">
+        <h4 class="ин-пусто__заголовок">Нарядов на сегодня нет</h4>
+        <p class="ин-пусто__текст">
+          Два заказа в расписании есть, но ни один не разбит на наряды. Разберёте — бригада увидит
+          работу в Telegram и примет её со своего телефона.
+        </p>
+        <p class="ин-пусто__действие">
+          <button class="мк-кнопка мк-кнопка--основная" type="button">Собрать наряд</button>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+      <!-- ═══ графика-и-rtl ═══ -->
+<!--
+  Графический слой и слой RTL. Префикс классов — `гр-`, стили — в `графика-и-rtl.css`.
+
+  Всё, что здесь нарисовано, — инлайновый SVG: файл открывается двойным кликом,
+  внешних картинок и скриптов у него нет. Контуры логотипа и марки лежат в
+  спрайте один раз, дальше идут ссылками `<use>`.
+
+  Источник знака — `.business/assets/fixli-logo-разобранный.svg`, семь именованных
+  объектов. Фигура человека в знаке — это буква `i`, и таких букв две, зеркальных:
+  точка — голова, палочка — тело, вынос сбоку — рука. Оранжевая `i` в `fix` тянет
+  руку вправо, синяя в `li` — влево, и они идут навстречу друг другу через `x` и `l`.
+  Буква `l` — простой брусок, фигуры в нём нет.
+-->
+
+<svg class="гр-спрайт" aria-hidden="true" focusable="false" width="0" height="0">
+  <defs>
+    <!-- Словесный знак, семь объектов из вектора. Цвета зашиты в контур: у логотипа
+         они не параметр, а часть знака. -->
+    <symbol id="gr-znak" viewBox="0 0 436 198">
+      <path
+        id="gr-znak-f"
+        fill="var(--fx-orange)"
+        d="M 68.68 10.5 L 102.5 10.08 A 4.26 4.26 0 0 1 105.3 15.5 L 105.17 37.5 A 6.91 6.91 0 0 1 98.5 39.53 L 73.5 40.22 A 15.26 15.26 0 0 0 63.89 47.5 A 33.39 33.39 0 0 0 61.19 64.5 L 61.5 70.82 L 64.5 71.69 L 100.5 71.73 L 101.58 73.5 L 93.5 100.53 L 88.5 101.31 L 62.48 101.5 L 61.4 103.5 L 61.08 188.5 L 59.5 189.63 L 29.96 189.5 L 28.87 185.5 L 28.5 102.22 L 22.5 101.26 L 12.5 100.81 L 11.13 99.5 L 11.5 72.26 L 27.56 71.5 L 28.81 68.5 L 29.87 47.5 L 33.71 35.5 L 40.14 25.5 L 49.69 17.5 L 56.5 13.89 L 70.5 10.12 Z"
+      />
+      <path
+        id="gr-znak-i1-stem"
+        fill="var(--fx-orange)"
+        d="M 132.14 70.5 A 13.67 13.67 0 0 1 144.73 77.5 L 156.5 93.51 L 163.88 99.5 L 173.03 104.5 L 173.5 105.69 A 18.06 18.06 0 0 1 160.5 109.93 L 153.58 110.5 L 153.1 188.5 L 152.5 189.66 L 121.78 189.5 A 8.75 8.75 0 0 1 120.8 183.5 L 120.85 83.5 L 121.98 77.5 A 12.44 12.44 0 0 1 143.93 76.5 Z"
+      />
+      <circle id="gr-znak-i1-dot" cx="138.95" cy="46.42" r="18.82" fill="var(--fx-orange)" />
+      <path
+        id="gr-znak-x"
+        fill="var(--fx-orange)"
+        d="M 179 71.5 L 214.5 71.56 A 8.45 8.45 0 0 1 218.5 75.74 L 240.5 103.86 L 241.55 104.5 L 266.81 72.5 L 269.5 71.48 L 304.5 71.55 L 305.41 72.5 L 300.5 80.62 L 262.86 129.5 A 7.85 7.85 0 0 0 265.88 134.5 L 300.5 178.94 L 307.44 188.5 L 307.33 189.5 L 270.5 189.91 L 262.5 180.4 L 242.5 155.11 L 241.5 154.07 L 236.03 160.5 L 213.5 189.55 L 176.5 189.74 A 1.7 1.7 0 0 1 176.5 186.38 L 219.5 131.22 L 219.35 128.5 L 178.5 75.2 L 177.5 72.19 A 7.81 7.81 0 0 1 183.5 71.3 Z"
+      />
+      <path
+        id="gr-znak-l"
+        fill="var(--fx-navy)"
+        d="M 330.25 21.5 L 359.5 21.69 L 360.81 22.5 L 360.9 187.5 L 359.5 189.56 L 330.5 189.39 L 329 188.5 L 328.21 172.5 L 328.5 22.47 L 331.5 21.35 Z"
+      />
+      <path
+        id="gr-znak-i2-stem"
+        fill="var(--fx-navy)"
+        d="M 408.44 71.5 A 12.39 12.39 0 0 1 423.6 76.5 A 18.17 18.17 0 0 1 425.22 87.5 L 425 188.5 L 419.5 189.6 L 393.5 189.23 L 392.12 186.5 L 391.8 110.5 L 380.5 109.8 L 373.42 106.5 L 373.01 104.5 L 385.13 97.5 A 40.56 40.56 0 0 0 394.82 86.5 L 404.5 73.71 A 12.9 12.9 0 0 1 414.5 70.78 Z"
+      />
+      <circle id="gr-znak-i2-dot" cx="406.28" cy="46.37" r="18.89" fill="var(--fx-navy)" />
+    </symbol>
+
+    <!--
+      Марка-фигура: увеличенная буква `i`. Геометрия ровно та, что стоит на сайте
+      (`apps/site/src/components/brand/Figure.astro`) и в фавиконе — снята замером
+      пикселей брендировочного макета. Цвет через `currentColor`: марка живёт и в
+      тёплом, и в холодном варианте, а значение остаётся в токене.
+    -->
+    <symbol id="gr-marka" viewBox="0 0 22.7 59.8">
+      <circle cx="8.9" cy="8.2" r="8.2" fill="currentColor" />
+      <path
+        fill="currentColor"
+        d="M0 59.8 L0 28.5 C0.2 24.5 4 22.2 8.5 22.2 C10.5 22.4 16 25.5 22.7 35 C23.5 36.8 22.9 38.2 20.5 38.6 L15 39 L15 59.8 Z"
+      />
+    </symbol>
+  </defs>
+</svg>
+
+<section id="графика">
+  <h2>Графический слой</h2>
+  <p class="лид">
+    Пять элементов, которые заказчик уже носит на себе: круг-акцент, знак в углу носителя,
+    марка-фигура, разделители и контактные иконки. Все нарисованы контуром прямо в документе —
+    ни одной внешней картинки, ни одного значения цвета вне токенов. Иконки берут цвет из
+    <code>currentColor</code>, поэтому один и тот же рисунок работает на белом, на синей плашке
+    и в оранжевом кольце визитки.
+  </p>
+
+  <div class="образец">
+    <h3 class="образец__имя">Круг-акцент</h3>
+    <p class="образец__правило">
+      Внутри круга живёт либо марка, либо цифра — третьего наполнения нет. Пустой круг остаётся
+      пятном и уходит за кромку носителя. Роль круга меняется по носителю: на фургоне это сама
+      голова знака, и туда марку не вкладывают; вкладывают только там, где круг — самостоятельное
+      пятно (визитка, макеты найма). Цифра и марка внутри — тёмно-синие: белое по оранжевому даёт
+      2,65 и в системе запрещено.
+    </p>
+    <div class="образец__сцена">
+      <div class="гр-ряд">
+        <div class="гр-стопка гр-стопка--центр">
+          <div class="гр-круг гр-круг--большой" aria-hidden="true"></div>
+          <p class="гр-метка">128 px · пустое пятно</p>
+        </div>
+        <div class="гр-стопка гр-стопка--центр">
+          <div class="гр-круг гр-круг--большой">
+            <svg class="гр-марка гр-круг__марка" viewBox="0 0 22.7 59.8" aria-hidden="true"><use href="#gr-marka" /></svg>
+          </div>
+          <p class="гр-метка">128 px · внутри марка</p>
+        </div>
+        <div class="гр-стопка гр-стопка--центр">
+          <div class="гр-круг гр-круг--большой">
+            <span class="гр-круг__цифра fx-nums">80</span>
+          </div>
+          <p class="гр-метка">128 px · внутри цифра</p>
+        </div>
+        <div class="гр-стопка гр-стопка--центр">
+          <div class="гр-круг гр-круг--малый">
+            <span class="гр-круг__цифра fx-nums">80</span>
+          </div>
+          <p class="гр-метка">64 px · цифра</p>
+        </div>
+        <div class="гр-стопка гр-стопка--центр">
+          <div class="гр-круг гр-круг--малый">
+            <svg class="гр-марка гр-круг__марка" viewBox="0 0 22.7 59.8" aria-hidden="true"><use href="#gr-marka" /></svg>
+          </div>
+          <p class="гр-метка">64 px · марка</p>
+        </div>
+      </div>
+      <p class="гр-сноска">
+        Диаметра круга в токенах нет, и это правильно: на носителях его задаёт носитель, а не
+        система — на корме фургона он равен ширине тела фигуры. Здесь взяты два шага шкалы
+        отступов, 64 и 128 px, как опорные размеры для экрана.
+      </p>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Угловой знак</h3>
+    <p class="образец__правило">
+      Как на лицевой стороне визитки: два угловых элемента строго по диагонали, оба навылет —
+      оранжевый диск за углом у конца строки, марка у начала. Середина носителя остаётся пустой,
+      знак стоит по центру. Поле по кромке — не меньше диаметра головы <code>i</code>: на векторе
+      это 0,21 высоты знака, то есть при знаке высотой 80 px минимум 17 px. Поставлено 24 px
+      (<code>--fx-space-5</code>) — ближайший шаг шкалы. В поле не заходит ничего, кроме самих
+      навылетных элементов.
+    </p>
+    <div class="образец__сцена">
+      <div class="гр-ряд">
+        <div class="гр-стопка">
+          <div class="гр-носитель">
+            <div class="гр-носитель__поле" aria-hidden="true"></div>
+            <div class="гр-носитель__круг гр-круг" aria-hidden="true"></div>
+            <svg class="гр-логотип гр-носитель__знак" viewBox="0 0 436 198" role="img" aria-label="fixli">
+              <use href="#gr-znak" />
+            </svg>
+            <svg class="гр-марка гр-носитель__марка" viewBox="0 0 22.7 59.8" aria-hidden="true">
+              <use href="#gr-marka" />
+            </svg>
+          </div>
+          <p class="гр-метка">Пунктир — поле, на носителе его нет</p>
+        </div>
+      </div>
+      <p class="гр-сноска">
+        Углы заданы логическими свойствами, поэтому в ивритском макете композиция переворачивается
+        целиком и оба угловых элемента переезжают сами. Точное охранное поле числом — решение
+        раздела 01 брендбука; здесь показан рабочий минимум, выведенный из геометрии знака.
+      </p>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Марка-фигура</h3>
+    <p class="образец__правило">
+      Голова с зазором и тело с выносом-рукой. Фигур две, они зеркальны и идут навстречу друг
+      другу: тёплая тянет руку к концу строки, холодная — к началу. Фигура стоит на нижнем крае
+      рисунка, поэтому в разметке её ставят на низ блока: по центру она висит в воздухе.
+      <strong>Отрисовка расходится с оригиналом в трёх местах</strong> — расхождение
+      воспроизведено намеренно, чтобы марка на сайте, в фавиконе и здесь была одним знаком, а не
+      тремя разными.
+    </p>
+    <div class="образец__сцена">
+      <div class="гр-ряд">
+        <div class="гр-стопка">
+          <svg class="гр-марка гр-марка--тёплая" viewBox="0 0 22.7 59.8" aria-hidden="true"><use href="#gr-marka" /></svg>
+          <p class="гр-метка">Тёплая · рука к концу строки · <code>i</code> из <code>fix</code></p>
+        </div>
+        <div class="гр-стопка">
+          <svg class="гр-марка гр-марка--холодная гр-марка--зеркальная" viewBox="0 0 22.7 59.8" aria-hidden="true">
+            <use href="#gr-marka" />
+          </svg>
+          <p class="гр-метка">Холодная · рука к началу · <code>i</code> из <code>li</code></p>
+        </div>
+      </div>
+      <p class="гр-сноска">
+        Три расхождения с носителем, которые правятся, когда придёт вектор от дизайнера: зазор
+        голова↔тело у нас 0,35 диаметра головы против 0,26–0,31 на фургоне и 0,18 в самой букве;
+        вынос-рука сидит ниже (0,34 высоты тела против 0,23); тело приземистее (высота к ширине
+        1,66 против 2,21). На корме фургона у той же марки голова оранжевая, а тело синее — этот
+        двухцветный вариант стоит в фавиконе.
+      </p>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Разделители</h3>
+    <p class="образец__правило">
+      Их два. <code>--fx-rule</code> — 2 px оранжевого, короткий отрезок под именем: так он стоит
+      на обороте визитки. <code>--fx-rule-strong</code> — 3 px синего на всю ширину, линия под
+      шапкой документа. Волосяная линия в 1 px (<code>--fx-hairline</code>) разделителем не
+      считается: это граница карточки, таблицы и поля ввода.
+    </p>
+    <div class="образец__сцена">
+      <div class="гр-ряд">
+        <div class="гр-разделитель-пример">
+          <p class="гр-разделитель-пример__имя">Игорь</p>
+          <hr class="гр-линейка" />
+          <p class="гр-разделитель-пример__роль">Менеджер сервиса и качества</p>
+          <p class="гр-метка"><code>--fx-rule</code> · 2 px · визитка</p>
+        </div>
+        <div class="гр-разделитель-пример">
+          <div class="гр-разделитель-пример__шапка">
+            <svg class="гр-логотип" viewBox="0 0 436 198" role="img" aria-label="fixli"><use href="#gr-znak" /></svg>
+            <p class="гр-разделитель-пример__роль">Наряд № 148 · 14 августа 2026</p>
+          </div>
+          <hr class="гр-линейка гр-линейка--сильная" />
+          <p class="гр-метка"><code>--fx-rule-strong</code> · 3 px · шапка документа</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Иконки контактов в обводке</h3>
+    <p class="образец__правило">
+      Единая сетка 24 × 24, обводка 2 px (<code>--fx-rule</code>) на весь набор, заливки нет,
+      цвет — <code>currentColor</code>. Глиф несёт смысл, значит обязан держать контраст 3,0:
+      заливочный <code>--fx-orange</code> на белом даёт 2,65 и порога не берёт, поэтому иконка
+      пишет <code>--fx-orange-text</code>. Оранжевое кольцо с визитки — декор, ему порог не нужен.
+      Формы WhatsApp и Telegram — наши упрощённые силуэты, а не товарные знаки этих сервисов.
+    </p>
+    <div class="образец__сцена">
+      <div class="гр-иконки">
+        <div class="гр-стопка гр-стопка--центр">
+          <svg class="гр-иконка" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M6.4 2.8h2.8a1.4 1.4 0 0 1 1.4 1.4v3a1.4 1.4 0 0 1-1.4 1.4H8.2a12 12 0 0 0 5.6 5.6v-1a1.4 1.4 0 0 1 1.4-1.4h3a1.4 1.4 0 0 1 1.4 1.4v2.8a4.6 4.6 0 0 1-5 4.6A15.6 15.6 0 0 1 1.8 7.8a4.6 4.6 0 0 1 4.6-5z"
+            />
+          </svg>
+          <p class="гр-метка">Телефон</p>
+        </div>
+        <div class="гр-стопка гр-стопка--центр">
+          <svg class="гр-иконка" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9.1 18.9 3.2 21.2 5.1 15.8A8.4 8.4 0 1 1 9.1 18.9Z" />
+            <path d="M9.4 8.9a5.6 5.6 0 0 0 5.6 5.6" />
+          </svg>
+          <p class="гр-метка">WhatsApp</p>
+        </div>
+        <div class="гр-стопка гр-стопка--центр">
+          <svg class="гр-иконка" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21.4 2.6 14.3 21.6 10.6 13.4 2.4 9.7Z" />
+            <path d="M21.4 2.6 10.6 13.4" />
+          </svg>
+          <p class="гр-метка">Telegram</p>
+        </div>
+        <div class="гр-стопка гр-стопка--центр">
+          <svg class="гр-иконка" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2.6" y="4.8" width="18.8" height="14.4" rx="2" />
+            <path d="M3.6 6.4 12 13l8.4-6.6" />
+          </svg>
+          <p class="гр-метка">Почта</p>
+        </div>
+      </div>
+
+      <div class="гр-ряд гр-ряд--центр">
+        <div class="гр-стопка">
+          <div class="гр-иконки">
+            <span class="гр-кружок">
+              <svg class="гр-иконка" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M6.4 2.8h2.8a1.4 1.4 0 0 1 1.4 1.4v3a1.4 1.4 0 0 1-1.4 1.4H8.2a12 12 0 0 0 5.6 5.6v-1a1.4 1.4 0 0 1 1.4-1.4h3a1.4 1.4 0 0 1 1.4 1.4v2.8a4.6 4.6 0 0 1-5 4.6A15.6 15.6 0 0 1 1.8 7.8a4.6 4.6 0 0 1 4.6-5z"
+                />
+              </svg>
+            </span>
+            <span class="гр-кружок">
+              <svg class="гр-иконка" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9.1 18.9 3.2 21.2 5.1 15.8A8.4 8.4 0 1 1 9.1 18.9Z" />
+                <path d="M9.4 8.9a5.6 5.6 0 0 0 5.6 5.6" />
+              </svg>
+            </span>
+          </div>
+          <p class="гр-метка">Кольцо с оборота визитки</p>
+        </div>
+        <div class="гр-стопка">
+          <div class="гр-иконки гр-иконки--на-синем">
+            <svg class="гр-иконка" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9.1 18.9 3.2 21.2 5.1 15.8A8.4 8.4 0 1 1 9.1 18.9Z" />
+              <path d="M9.4 8.9a5.6 5.6 0 0 0 5.6 5.6" />
+            </svg>
+            <svg class="гр-иконка" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21.4 2.6 14.3 21.6 10.6 13.4 2.4 9.7Z" />
+              <path d="M21.4 2.6 10.6 13.4" />
+            </svg>
+            <svg class="гр-иконка" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2.6" y="4.8" width="18.8" height="14.4" rx="2" />
+              <path d="M3.6 6.4 12 13l8.4-6.6" />
+            </svg>
+          </div>
+          <p class="гр-метка">Контактная плашка: цвет пришёл из <code>currentColor</code></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rtl">
+  <h2>Справа налево</h2>
+  <p class="лид">
+    Иврит — не сноска к брендбуку, а второй режим всей системы: ивритская локаль сайта, визитка,
+    наряд, рекламный креатив. Правила ниже показаны вживую — каждый образец стоит в блоке с
+    настоящим <code>dir="rtl"</code>, а не описан словами. Всё, что зеркалится, зеркалится через
+    <code>transform: scaleX(-1)</code> по направлению документа; всё остальное переезжает само,
+    потому что в системе нет ни одного <code>left</code> и <code>right</code>.
+  </p>
+
+  <div class="образец">
+    <h3 class="образец__имя">Логотип в RTL</h3>
+    <p class="образец__правило">
+      Не зеркалится: это написание бренда, а не направленный знак. Ни на одном носителе заказчика
+      отражённого логотипа нет — на втором борту фургона зеркалится марка, а знак остаётся как
+      есть. Ивритское написание — <span lang="he" dir="rtl">פיקסלי</span>, и это отдельное слово,
+      а не перевёрнутая латиница.
+    </p>
+    <div class="образец__сцена">
+      <div class="гр-два">
+        <div class="гр-панель" dir="rtl" lang="he">
+          <p class="гр-вердикт гр-вердикт--да"><span class="гр-лат">Так</span></p>
+          <svg class="гр-логотип" viewBox="0 0 436 198" role="img" aria-label="fixli"><use href="#gr-znak" /></svg>
+          <p class="гр-метка">כרטיס ביקור · הלוגו לא מתהפך</p>
+        </div>
+        <div class="гр-панель" dir="rtl" lang="he">
+          <p class="гр-вердикт гр-вердикт--нет"><span class="гр-лат">Так нельзя</span></p>
+          <div class="гр-неверно">
+            <svg class="гр-логотип гр-логотип--отражён" viewBox="0 0 436 198" role="img" aria-label="ilxif">
+              <use href="#gr-znak" />
+            </svg>
+          </div>
+          <p class="гр-метка"><span class="гр-лат">Зеркальный знак читается «ilxif»</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Марка в RTL</h3>
+    <p class="образец__правило">
+      Зеркалится. Вынос-рука направленный, и на фургоне действует правило: рука всегда смотрит на
+      кабину, то есть вперёд по ходу движения, — значит борта зеркальны. В разметке это одно
+      правило на класс <code>гр-автозеркало</code>, и список того, что его носит, короткий: марка
+      и направленные иконки.
+    </p>
+    <div class="образец__сцена">
+      <div class="гр-два">
+        <div class="гр-панель" dir="ltr">
+          <p class="гр-метка"><code>dir="ltr"</code> · рука к концу строки</p>
+          <div class="гр-ряд">
+            <svg class="гр-марка гр-марка--холодная гр-автозеркало" viewBox="0 0 22.7 59.8" aria-hidden="true">
+              <use href="#gr-marka" />
+            </svg>
+          </div>
+        </div>
+        <div class="гр-панель" dir="rtl">
+          <p class="гр-метка"><span class="гр-лат"><code>dir="rtl"</code> · рука к началу строки</span></p>
+          <div class="гр-ряд">
+            <svg class="гр-марка гр-марка--холодная гр-автозеркало" viewBox="0 0 22.7 59.8" aria-hidden="true">
+              <use href="#gr-marka" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Иконки в RTL</h3>
+    <p class="образец__правило">
+      Предметные не зеркалятся, направленные зеркалятся. Телефон и коробка — предметы: отражённая
+      трубка выглядит сломанной вещью, а не ивритской версией вещи. Стрелка и шеврон означают
+      «дальше» и «раскрыть», а «дальше» в иврите — налево, поэтому они переворачиваются вместе с
+      макетом. Оба ряда ниже стоят в блоках с настоящим направлением текста.
+    </p>
+    <div class="образец__сцена">
+      <div class="гр-два">
+        <div class="гр-панель" dir="ltr">
+          <p class="гр-метка"><code>dir="ltr"</code></p>
+          <div class="гр-иконки">
+            <svg class="гр-иконка" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M6.4 2.8h2.8a1.4 1.4 0 0 1 1.4 1.4v3a1.4 1.4 0 0 1-1.4 1.4H8.2a12 12 0 0 0 5.6 5.6v-1a1.4 1.4 0 0 1 1.4-1.4h3a1.4 1.4 0 0 1 1.4 1.4v2.8a4.6 4.6 0 0 1-5 4.6A15.6 15.6 0 0 1 1.8 7.8a4.6 4.6 0 0 1 4.6-5z"
+              />
+            </svg>
+            <svg class="гр-иконка" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.8 7.8v8.4L12 20.9 3.2 16.2V7.8L12 3.1z" />
+              <path d="M3.2 7.8 12 12.5l8.8-4.7M12 12.5v8.4" />
+              <path d="M7.6 5.4 16.4 10.1v3.2" />
+            </svg>
+            <svg class="гр-иконка гр-автозеркало" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 12h15.4m-5.8-5.8L19.4 12l-5.8 5.8" />
+            </svg>
+            <svg class="гр-иконка гр-автозеркало" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9.6 5.4 16.2 12l-6.6 6.6" />
+            </svg>
+          </div>
+          <p class="гр-метка">Трубка · коробка · стрелка · шеврон</p>
+        </div>
+        <div class="гр-панель" dir="rtl" lang="he">
+          <p class="гр-метка"><span class="гр-лат"><code>dir="rtl"</code></span></p>
+          <div class="гр-иконки">
+            <svg class="гр-иконка" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M6.4 2.8h2.8a1.4 1.4 0 0 1 1.4 1.4v3a1.4 1.4 0 0 1-1.4 1.4H8.2a12 12 0 0 0 5.6 5.6v-1a1.4 1.4 0 0 1 1.4-1.4h3a1.4 1.4 0 0 1 1.4 1.4v2.8a4.6 4.6 0 0 1-5 4.6A15.6 15.6 0 0 1 1.8 7.8a4.6 4.6 0 0 1 4.6-5z"
+              />
+            </svg>
+            <svg class="гр-иконка" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.8 7.8v8.4L12 20.9 3.2 16.2V7.8L12 3.1z" />
+              <path d="M3.2 7.8 12 12.5l8.8-4.7M12 12.5v8.4" />
+              <path d="M7.6 5.4 16.4 10.1v3.2" />
+            </svg>
+            <svg class="гр-иконка гр-автозеркало" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 12h15.4m-5.8-5.8L19.4 12l-5.8 5.8" />
+            </svg>
+            <svg class="гр-иконка гр-автозеркало" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9.6 5.4 16.2 12l-6.6 6.6" />
+            </svg>
+          </div>
+          <p class="гр-метка"><span class="гр-лат">Ряд переехал целиком, трубка и коробка не тронуты</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Телефон и латиница внутри ивритской строки</h3>
+    <p class="образец__правило">
+      Номер и сумма в ивритской строке рассыпаются, и это не редкость, а поведение по умолчанию.
+      Плюс и пробелы внутри числа — символы без собственного направления: они получают направление
+      абзаца, то есть RTL, и разбивают число на два острова, которые раскладываются справа налево.
+      Лечит только пара «направление + изоляция», и <code>dir="ltr"</code> даёт обе разом.
+      <strong>Один <code>unicode-bidi: isolate</code> не лечит</strong> — внутри изолята
+      направление остаётся унаследованным. Замерено в Chromium, а не выведено из документации.
+    </p>
+    <div class="образец__сцена">
+      <div class="гр-панель" dir="rtl" lang="he">
+        <p class="гр-вердикт гр-вердикт--нет"><span class="гр-лат">Без изоляции</span></p>
+        <p class="гр-строка гр-строка--сломано">טלפון: +972 55-2947783</p>
+        <p class="гр-строка гр-строка--сломано">המחיר: 2 500 ₪</p>
+        <p class="гр-метка">
+          <span class="гр-лат">
+            Код страны уезжает в конец номера, плюс отрывается от него; в сумме меняются местами
+            тысячи и сотни, а шекель встаёт перед числом.
+          </span>
+        </p>
+      </div>
+
+      <div class="гр-панель" dir="rtl" lang="he">
+        <p class="гр-вердикт гр-вердикт--нет"><span class="гр-лат">Изоляция без направления</span></p>
+        <p class="гр-строка гр-строка--сломано">
+          טלפון: <span class="гр-лат--без-направления">+972 55-2947783</span>
+        </p>
+        <p class="гр-метка">
+          <span class="гр-лат">
+            <code>unicode-bidi: isolate</code> без <code>direction</code> — то же самое, что без
+            изоляции вовсе. Изолят защищает соседей, а не своё содержимое.
+          </span>
+        </p>
+      </div>
+
+      <div class="гр-панель" dir="rtl" lang="he">
+        <p class="гр-вердикт гр-вердикт--да"><span class="гр-лат">Так</span></p>
+        <p class="гр-строка">
+          טלפון: <span class="гр-лат" dir="ltr">+972 55-2947783</span>
+        </p>
+        <p class="гр-строка">
+          המחיר: <span class="гр-лат fx-nums" dir="ltr">2 500 ₪</span>
+        </p>
+        <p class="гр-строка">שירות <span class="гр-лат" dir="ltr">Fixli</span> בנתניה</p>
+        <p class="гр-метка">
+          <span class="гр-лат">
+            Правило для шаблонов: в изолят заворачивается любая подстановка — телефон, сумма,
+            адрес латиницей, имя файла. Слово латиницей без цифр рядом (<code>Fixli</code>) не
+            ломается, но заворачивается тоже: подстановка не знает, что в неё положат.
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="образец">
+    <h3 class="образец__имя">Иврит крупнее на 6 %</h3>
+    <p class="образец__правило">
+      У ивритских букв нет верхних выносных, и при равном кегле рядом с латиницей они кажутся
+      мельче. Правило типографики: ивритский знак должен лежать между x-height и cap-height
+      латиницы. В токенах это <code>size-adjust: 106%</code> на ивритском подмножестве Rubik —
+      двигается только иврит, латиница и кириллица не шелохнутся. Ниже одна и та же строка с
+      подъёмом и без него.
+    </p>
+    <div class="образец__сцена">
+      <div class="гр-стопка гр-стопка--растянуть">
+        <div class="гр-стопка">
+          <p class="гр-кегль">
+            Fixli · <span class="гр-иврит" lang="he" dir="rtl">פיקסלי</span> · Фиксли
+          </p>
+          <p class="гр-метка">Как в токенах: иврит поднят на 6 %</p>
+        </div>
+        <div class="гр-стопка">
+          <p class="гр-кегль гр-кегль--без-подъёма">
+            Fixli · <span class="гр-иврит" lang="he" dir="rtl">פיקסלי</span> · Фиксли
+          </p>
+          <p class="гр-метка">Подъём отменён — иврит просел под латиницу</p>
+        </div>
+        <div class="гр-стопка">
+          <p class="гр-кегль гр-кегль--мелко">
+            <span class="гр-иврит" lang="he" dir="rtl">פיקסלי — שירות אחד לבית</span> ·
+            <span class="гр-лат" dir="ltr">Fixli</span> · кегль визитки, 12 px
+          </p>
+          <p class="гр-метка">На мелком кегле подъём и решает читаемость</p>
+        </div>
+      </div>
+      <p class="гр-сноска">
+        Следствие, о котором легко забыть: <code>size-adjust</code> тянет за собой метрики строки,
+        поэтому межстрочное в системе задаётся числом, а не <code>normal</code>. В Safari
+        <code>ascent-override</code> не работает вовсе, подпереть иначе нечем.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+      <div class="низ">
+        <p>
+          Fixli · дизайн-система, фаза 2. Значения — <code>brand/tokens.css</code>, контрасты —
+          <code>brand/контрасты.md</code> (считает <code>scripts/бренд-контрасты.py</code>, править
+          надо токены, а не таблицу). Тёмной темы у бренда нет: это решение, а не пропуск.
+        </p>
+        <p class="низ__знак">Made by Dmitry Khinkis</p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,337 @@
+/**
+ * Схемы раскладки транспорта и спецодежды Fixli — оформление документа.
+ *
+ * Ни одного фирменного значения здесь нет: цвет, кегль, отступ приходят из
+ * ../../tokens.css. Понадобился литерал — значит в системе не хватает токена,
+ * и это находка, а не мелочь. Стережёт `node brand/kit/transport/собрать.mjs`.
+ *
+ * Свойства только логические (`padding-inline`, `inset-inline-*`, `text-align:
+ * start`). Схемы читает не только русскоязычный оклейщик: тот же документ
+ * уходит израильскому подрядчику, у которого интерфейс справа налево.
+ *
+ * Ни сборки, ни JS: файл открывается двойным кликом в мастерской, где про pnpm
+ * не знают ничего, и печатается на A4 — правила `@media print` внизу.
+ *
+ * Тёмной темы нет намеренно, как и во всём брендбуке: чертёж читают на бумаге
+ * и на экране мастерской, и он обязан выглядеть одинаково у всех.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: var(--fx-space-8) var(--fx-gutter);
+  background: var(--fx-paper);
+  color: var(--fx-ink);
+  font-family: var(--fx-font);
+  font-size: var(--fx-text-body);
+  line-height: var(--fx-text-body-lh);
+}
+
+.полоса {
+  max-width: var(--fx-wrap);
+  margin-inline: auto;
+}
+
+/* ═══ Шапка ═══════════════════════════════════════════════════════════════ */
+
+.шапка {
+  border-bottom: var(--fx-rule-strong);
+  padding-bottom: var(--fx-space-5);
+  margin-bottom: var(--fx-space-7);
+}
+
+.шапка__крошки {
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  letter-spacing: var(--fx-tracking-caps);
+  text-transform: uppercase;
+  color: var(--fx-ink-soft);
+  margin: 0 0 var(--fx-space-2);
+}
+
+.шапка__крошки a {
+  color: inherit;
+}
+
+h1 {
+  font-size: var(--fx-text-display);
+  line-height: var(--fx-text-display-lh);
+  font-weight: var(--fx-weight-heavy);
+  color: var(--fx-navy);
+  margin: 0 0 var(--fx-space-3);
+}
+
+.шапка__лид {
+  font-size: var(--fx-text-lede);
+  line-height: var(--fx-text-lede-lh);
+  color: var(--fx-ink-soft);
+  margin: 0;
+  max-width: 62ch;
+}
+
+h2 {
+  font-size: var(--fx-text-h2);
+  line-height: var(--fx-text-h2-lh);
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-navy);
+  margin: var(--fx-space-8) 0 var(--fx-space-3);
+}
+
+h3 {
+  font-size: var(--fx-text-h3);
+  line-height: var(--fx-text-h3-lh);
+  font-weight: var(--fx-weight-semibold);
+  margin: var(--fx-space-6) 0 var(--fx-space-2);
+}
+
+p,
+li {
+  max-width: 74ch;
+}
+
+code {
+  font-family: var(--fx-font-mono);
+  font-size: 0.9em;
+  background: var(--fx-mist);
+  padding: 0.1em 0.35em;
+  border-radius: var(--fx-radius-sm);
+}
+
+/* ═══ Метки сорта утверждения — те же три, что в брендбуке ════════════════ */
+
+.метка {
+  display: inline-block;
+  font-size: var(--fx-text-small);
+  line-height: 1;
+  font-weight: var(--fx-weight-semibold);
+  letter-spacing: var(--fx-tracking-caps);
+  text-transform: uppercase;
+  padding: 0.35em 0.6em;
+  border-radius: var(--fx-radius-pill);
+  vertical-align: middle;
+}
+
+.метка--факт {
+  background: var(--fx-success-wash);
+  color: var(--fx-success);
+}
+
+.метка--решение {
+  background: var(--fx-info-wash);
+  color: var(--fx-info);
+}
+
+.метка--вопрос {
+  background: var(--fx-warning-wash);
+  color: var(--fx-warning);
+}
+
+/* ═══ Чертёж ══════════════════════════════════════════════════════════════ */
+
+.чертёж {
+  margin: var(--fx-space-5) 0 var(--fx-space-6);
+  border: var(--fx-rule);
+  border-radius: var(--fx-radius);
+  background: var(--fx-white);
+  padding: var(--fx-space-5);
+  overflow-x: auto;
+}
+
+.чертёж svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.чертёж__подпись {
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+  margin: var(--fx-space-3) 0 0;
+  max-width: none;
+}
+
+/* Слои чертежа. Цвет каждого сверяется с токеном в собрать.mjs. */
+.кузов {
+  fill: var(--fx-white);
+  stroke: var(--fx-line-strong);
+  stroke-width: 3;
+}
+
+.юбка {
+  fill: var(--fx-mist);
+  stroke: var(--fx-line-strong);
+  stroke-width: 3;
+}
+
+.кабина {
+  fill: var(--fx-mist);
+  stroke: var(--fx-line);
+  stroke-width: 3;
+  stroke-dasharray: 12 10;
+}
+
+.круг {
+  fill: var(--fx-orange);
+}
+
+.фигура {
+  fill: var(--fx-navy);
+}
+
+.плашка {
+  fill: var(--fx-navy);
+}
+
+.плашка--бледная {
+  fill: var(--fx-navy-soft);
+}
+
+.размер {
+  stroke: var(--fx-orange-text);
+  stroke-width: 2;
+  fill: none;
+}
+
+.выноска {
+  stroke: var(--fx-ink-soft);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 6;
+  fill: none;
+}
+
+.подпись {
+  font-family: var(--fx-font);
+  font-size: 30px;
+  font-weight: var(--fx-weight-medium);
+  fill: var(--fx-ink);
+}
+
+.подпись--мелко {
+  font-size: 24px;
+  fill: var(--fx-ink-soft);
+}
+
+.подпись--размер {
+  font-size: 26px;
+  font-weight: var(--fx-weight-semibold);
+  fill: var(--fx-orange-text);
+}
+
+.подпись--выворотка {
+  fill: var(--fx-white);
+}
+
+/* Текст, который реально нанесён на носитель, — фирменным синим и жирным.
+   Отдельный класс, а не атрибут fill: в атрибуте var() резолвится не везде, а
+   собрать.mjs сверяет цвет каждого слоя с его токеном. */
+.подпись--знак {
+  fill: var(--fx-navy);
+  font-weight: var(--fx-weight-heavy);
+}
+
+/*
+ * Адрес сайта на кузове. Оранжевым, потому что рядом уже стоит тёмно-синий
+ * номер: две одинаковые строки подряд читались бы одной. Оранжевый на белом
+ * борту — тот единственный, которым в системе разрешено писать текстом.
+ *
+ * Появился 2026-08-19, когда домен начал отвечать. На плёнке, живущей годами,
+ * адрес, который не открывается, стоит дороже, чем на любом другом носителе, —
+ * поэтому запрет держали до последнего.
+ */
+.подпись--сайт {
+  fill: var(--fx-orange-text);
+  font-weight: var(--fx-weight-bold);
+}
+
+.подпись--тонко {
+  font-weight: var(--fx-weight-semibold);
+}
+
+/* Силуэт футболки: та же роль, что у кузова на чертеже машины */
+.ткань {
+  fill: var(--fx-navy);
+  stroke: var(--fx-line-strong);
+  stroke-width: 3;
+}
+
+/* ═══ Таблицы ═════════════════════════════════════════════════════════════ */
+
+.таблица {
+  overflow-x: auto;
+  margin: var(--fx-space-4) 0 var(--fx-space-6);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 34rem;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+}
+
+th,
+td {
+  text-align: start;
+  vertical-align: top;
+  padding: var(--fx-space-2) var(--fx-space-3);
+  border-bottom: var(--fx-hairline);
+}
+
+thead th {
+  border-bottom: var(--fx-rule-strong);
+  font-weight: var(--fx-weight-semibold);
+  color: var(--fx-navy);
+}
+
+/* ═══ Врезки ══════════════════════════════════════════════════════════════ */
+
+.врезка {
+  border-inline-start: 4px solid var(--fx-orange);
+  background: var(--fx-orange-wash);
+  padding: var(--fx-space-4) var(--fx-space-5);
+  border-radius: var(--fx-radius-sm);
+  margin: var(--fx-space-5) 0;
+}
+
+.врезка--стоп {
+  border-inline-start-color: var(--fx-danger);
+  background: var(--fx-danger-wash);
+}
+
+.врезка p:last-child,
+.врезка ul:last-child {
+  margin-bottom: 0;
+}
+
+.врезка__шапка {
+  font-weight: var(--fx-weight-bold);
+  margin: 0 0 var(--fx-space-2);
+}
+
+/* ═══ Печать ══════════════════════════════════════════════════════════════ */
+
+@media print {
+  body {
+    padding: 0;
+    font-size: 10pt;
+  }
+
+  .чертёж {
+    break-inside: avoid;
+    border-color: var(--fx-line-strong);
+  }
+
+  h2 {
+    break-after: avoid;
+  }
+
+  .печать-скрыть {
+    display: none;
+  }
+}

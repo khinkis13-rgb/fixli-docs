@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Fixli">
+  <title>Fixli</title>
+  <rect width="512" height="512" rx="102.4" fill="#061b3d" />
+  <g transform="translate(208.03 90.68) scale(5.5292)">
+    <circle cx="8.9" cy="8.2" r="8.2" fill="#f38025" />
+    <path fill="#ffffff" d="M0 59.8 L0 28.5 C0.2 24.5 4 22.2 8.5 22.2 C10.5 22.4 16 25.5 22.7 35 C23.5 36.8 22.9 38.2 20.5 38.6 L15 39 L15 59.8 Z" />
+  </g>
+</svg>

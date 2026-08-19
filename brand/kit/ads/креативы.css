@@ -1,0 +1,577 @@
+/**
+ * Рекламные креативы Fixli — оформление шаблонов.
+ *
+ * Ни одного значения здесь нет: всё приходит из `brand/tokens.css`. Смена
+ * краски или кегля в том файле перекрашивает разом сайт, дизайн-систему,
+ * брендбук и эти креативы — расходиться им негде.
+ *
+ * Свойства только логические (`inset-inline-*`, `padding-inline`, `text-align:
+ * start`): каждый креатив существует в двух версиях, русской и ивритской, и
+ * ивритская — это тот же файл с `dir="rtl"`. Физическое свойство здесь ломает
+ * не «отступ не в ту сторону», а сам макет носителя.
+ *
+ * Стережёт `node brand/kit/ads/собрать.mjs` — он не начинает экспорт, если в
+ * этом файле появился литерал цвета или физическое свойство.
+ */
+
+/* ─── Страница-витрина. В PNG не попадает: снимаются только сами креативы ─── */
+
+body {
+  margin: 0;
+  padding: var(--fx-space-7) var(--fx-gutter);
+  background: var(--fx-mist);
+  font-family: var(--fx-font);
+  color: var(--fx-ink);
+  font-size: var(--fx-text-body);
+  line-height: var(--fx-text-body-lh);
+}
+
+.витрина {
+  max-width: var(--fx-ad-cover-w);
+  margin-inline: auto;
+}
+
+.витрина h1 {
+  font-size: var(--fx-text-h2);
+  line-height: var(--fx-text-h2-lh);
+  color: var(--fx-navy-deep);
+  margin: 0 0 var(--fx-space-4);
+}
+
+/*
+ * Только СВОИ абзацы витрины, отсюда `>`. Без него селектор `.витрина p` имеет
+ * специфичность (0,1,1) и бьёт `.кр-надпись` (0,1,0) — то есть подпись самой
+ * страницы перекрашивала оранжевую надпись, цену и телефон внутри креативов в
+ * серый. Дефект нашли глаза: числа в токенах были верные, а картинка врала.
+ */
+.витрина > p {
+  max-width: var(--fx-wrap);
+  color: var(--fx-ink-soft);
+  margin: 0 0 var(--fx-space-4);
+}
+
+.витрина code {
+  font-family: var(--fx-font-mono);
+  font-size: var(--fx-text-small);
+}
+
+.подпись {
+  margin: var(--fx-space-7) 0 var(--fx-space-3);
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+  text-transform: uppercase;
+  letter-spacing: var(--fx-tracking-caps);
+}
+
+.подпись b {
+  color: var(--fx-navy);
+}
+
+/*
+ * Витрина показывает креативы уменьшенными — иначе полоса в 1080 px не влезает
+ * в экран и посмотреть их подряд нельзя. `zoom` выбран вместо `transform:
+ * scale()` намеренно: scale не меняет занимаемое место, и соседние карточки
+ * налезали бы друг на друга. На экспорт это не влияет вовсе — скрипт снимает
+ * элемент в его собственных пикселях.
+ */
+.лента {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fx-space-6);
+  zoom: 0.32;
+}
+
+/*
+ * Режим экспорта. Скрипт ставит на `<body>` атрибут `data-режим="экспорт"`
+ * перед съёмкой — иначе он снял бы креатив в уменьшенном виде витрины и отдал
+ * бы PNG шириной 345 px вместо 1080. Уменьшение живёт в CSS, а не в скрипте,
+ * чтобы масштаб витрины и масштаб экспорта нельзя было развести по разным
+ * файлам и потом гадать, кто из них главный.
+ */
+body[data-режим='экспорт'] .лента {
+  zoom: normal;
+}
+
+body[data-режим='экспорт'] .кр {
+  outline: 0;
+}
+
+/* ─── Холст креатива ─────────────────────────────────────────────────────── */
+
+.кр {
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  /* Промежуток между полосами холста не меньше охранного поля знака (0,21 его
+     высоты = 22,9 px при знаке 240): знак стоит в верхней полосе, а сразу под
+     ней начинается текст. Сторож поймал ровно это — 20,4 px при норме 22,9. */
+  gap: var(--fx-space-6);
+  padding: var(--fx-ad-pad);
+  background: var(--fx-white);
+  color: var(--fx-ink);
+  font-family: var(--fx-font);
+  /* Тени у бренда нет ни на одном носителе — рамка только чтобы отделить
+     креатив от подложки витрины. В PNG она не попадает: снимается содержимое
+     элемента, и рамка лежит по его внешнему краю. */
+  outline: var(--fx-hairline) solid var(--fx-line);
+}
+
+.кр--1x1 {
+  inline-size: var(--fx-ad-w);
+  block-size: var(--fx-ad-h-square);
+}
+
+.кр--4x5 {
+  inline-size: var(--fx-ad-w);
+  block-size: var(--fx-ad-h-portrait);
+}
+
+.кр--9x16 {
+  inline-size: var(--fx-ad-w);
+  block-size: var(--fx-ad-h-story);
+}
+
+/*
+ * У сторис два отличия от ленты, и оба вынужденные.
+ *
+ * Первое — поля сверху и снизу: там лежит обвязка площадки (аватар с подписью
+ * и строка ответа), и всё, что туда попадёт, будет перекрыто. Первая сборка это
+ * показала: номер телефона стоял в 80 px от нижней кромки, то есть ровно под
+ * строкой ответа.
+ *
+ * Второе — кегль. Сторис смотрят во весь экран, и шкала ленты на холсте вдвое
+ * большей высоты давала посреди макета 870 px пустоты, которая читается как
+ * ошибка вёрстки, а не как воздух.
+ */
+.кр--9x16 {
+  padding-block-start: var(--fx-ad-safe-top);
+  padding-block-end: var(--fx-ad-safe-bottom);
+}
+
+.кр--9x16 .кр-заголовок {
+  font-size: var(--fx-ad-story-h1);
+}
+
+.кр--9x16 .кр-цифра {
+  font-size: var(--fx-ad-story-display);
+}
+
+.кр--9x16 .кр-строка {
+  font-size: var(--fx-ad-story-body);
+}
+
+.кр--9x16 .кр-строка--крупно {
+  font-size: var(--fx-ad-story-lede);
+}
+
+.кр--9x16 .кр-мелко {
+  font-size: var(--fx-ad-body);
+}
+
+.кр--обложка {
+  inline-size: var(--fx-ad-cover-w);
+  block-size: var(--fx-ad-cover-h);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/*
+ * Тёмный вариант — только для сторис. Это не тёмная тема (её у бренда нет и не
+ * будет), а отдельный носитель: сторис показывается в полный экран телефона,
+ * и белое полотно там слепит. Знак на тёмном ставится файлом выворотки,
+ * а не инверсией — `fix` остаётся оранжевым, `li` становится белым.
+ */
+.кр--тёмный {
+  background: var(--fx-navy-deep);
+  color: var(--fx-white);
+}
+
+/* ─── Знак и марка ───────────────────────────────────────────────────────── */
+
+/*
+ * Знак ставится файлом из `brand/знак/`, а не набирается шрифтом: буквы в нём
+ * нарисованы, вырез-рука есть в обеих `i`, подстановкой гарнитуры его не
+ * воспроизвести. `flex: none` — от растяжения во флексе: логотип в подвале
+ * сайта однажды разъехался с 66 до 350 px именно так.
+ */
+.кр-знак {
+  display: block;
+  inline-size: var(--fx-ad-logo);
+  block-size: auto;
+  flex: none;
+}
+
+/*
+ * Марка навылет за нижний край — единственный приём бренда, при котором
+ * элемент срезается кромкой носителя. Так на всех четырёх ракурсах фургона:
+ * фигуру срезает юбка кузова.
+ */
+.кр-марка {
+  position: absolute;
+  inset-block-end: calc(-1 * var(--fx-ad-mark-bleed));
+  inset-inline-end: var(--fx-ad-pad);
+  block-size: var(--fx-ad-mark);
+  inline-size: auto;
+}
+
+/*
+ * Марка направленная — рука смотрит вперёд, — поэтому в ивритской версии она
+ * зеркалится вслед за направлением текста. Сам знак не зеркалится никогда:
+ * это написание бренда, а не указатель.
+ */
+[dir='rtl'] .кр-марка {
+  transform: scaleX(-1);
+}
+
+.кр-круг {
+  position: absolute;
+  inline-size: var(--fx-ad-circle);
+  block-size: var(--fx-ad-circle);
+  border-radius: var(--fx-radius-circle);
+  background: var(--fx-orange);
+  inset-block-start: calc(-1 * var(--fx-ad-circle) / 2);
+  inset-inline-end: calc(-1 * var(--fx-ad-circle) / 4);
+}
+
+/*
+ * Круга внизу в системе нет, и это решение по факту дефекта. В сторис он стоял
+ * в нижнем углу со стороны начала строки — ровно там, где лежит телефон, — и
+ * белый номер оказывался НА оранжевом: 2,65 при пороге 4,5, то есть прямой
+ * запрет бренда. Тень, подложка или z-index лечили бы симптом; круг живёт
+ * только в верхнем углу, где текста нет ни в одном макете.
+ */
+
+/* ─── Текстовые слои ─────────────────────────────────────────────────────── */
+
+.кр-верх,
+.кр-низ {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--fx-space-5);
+  flex: none;
+}
+
+.кр-тело {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--fx-space-5);
+  flex: 1;
+  text-align: start;
+}
+
+/*
+ * Плотная раскладка: вся шкала отступов макета опускается на один шаг.
+ *
+ * Нужна там, где русский текст длиннее холста. На `01-переезд-ru` заголовок
+ * встаёт в три строки, а триада в футере — тоже в три (в иврите та же триада
+ * укладывается в одну), и содержимое перестаёт помещаться в 1080 px: до правки
+ * оно переливалось на 23 px, то есть футер заходил в поле креатива. Глазами
+ * этого не было видно — контакт стоял одной строкой и центрировался внутри
+ * высокого футера, — и нашёл перелив замер. Правило 10 сборки теперь роняет
+ * экспорт на любом таком переливе.
+ *
+ * Шаг шкалы, а не подобранное число: 23 px «добираются» подгонкой, а шаг
+ * повторяем на любом будущем макете, где текст не влезет.
+ */
+.кр--плотно {
+  gap: var(--fx-space-5);
+}
+
+.кр--плотно .кр-тело {
+  gap: var(--fx-space-4);
+}
+
+.кр-надпись {
+  margin: 0;
+  font-size: var(--fx-ad-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  font-weight: var(--fx-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--fx-tracking-caps);
+  color: var(--fx-orange-text);
+}
+
+.кр--тёмный .кр-надпись {
+  color: var(--fx-orange);
+}
+
+.кр-заголовок {
+  margin: 0;
+  font-size: var(--fx-ad-h1);
+  line-height: var(--fx-ad-h1-lh);
+  font-weight: var(--fx-weight-heavy);
+  letter-spacing: var(--fx-tracking-slogan);
+  color: var(--fx-navy-deep);
+  text-wrap: balance;
+}
+
+.кр--тёмный .кр-заголовок {
+  color: var(--fx-white);
+}
+
+.кр-заголовок--мельче {
+  font-size: var(--fx-ad-h2);
+}
+
+/*
+ * Иврит держим в 400–700: в 800–900 его критикуют носители языка, а
+ * синтезированный жирный разваливал ивритский Rubik в Firefox. Тяжёлые веса —
+ * латиница и кириллица.
+ */
+[lang='he'] .кр-заголовок,
+[lang='he'] .кр-цифра {
+  font-weight: var(--fx-weight-bold);
+}
+
+.кр-цифра {
+  margin: 0;
+  font-size: var(--fx-ad-display);
+  line-height: var(--fx-ad-display-lh);
+  font-weight: var(--fx-weight-heavy);
+  color: var(--fx-orange-text);
+}
+
+.кр--тёмный .кр-цифра {
+  color: var(--fx-orange);
+}
+
+.кр-строка {
+  margin: 0;
+  font-size: var(--fx-ad-body);
+  line-height: var(--fx-ad-body-lh);
+  color: var(--fx-ink-soft);
+  max-inline-size: 42ch;
+}
+
+.кр--тёмный .кр-строка {
+  color: var(--fx-navy-soft);
+}
+
+.кр-строка--крупно {
+  font-size: var(--fx-ad-lede);
+  color: var(--fx-ink);
+}
+
+.кр--тёмный .кр-строка--крупно {
+  color: var(--fx-white);
+}
+
+.кр-мелко {
+  margin: 0;
+  font-size: var(--fx-ad-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+}
+
+.кр--тёмный .кр-мелко {
+  color: var(--fx-navy-soft);
+}
+
+.кр-линейка {
+  inline-size: var(--fx-ad-circle);
+  max-inline-size: 100%;
+  block-size: var(--fx-ad-rule);
+  background: var(--fx-orange);
+  border: 0;
+  margin: 0;
+}
+
+/* ─── Плашка ─────────────────────────────────────────────────────────────── */
+
+/*
+ * Пилл взят с носителей: ценовая плашка и плашка контактов в макетах найма
+ * скруглены полностью. Текст на оранжевом — тёмно-синий: белым по оранжевому
+ * нельзя вовсе, 2,65 при пороге 4,5.
+ */
+/*
+ * Плашка — обычный строчный блок, а не флекс, и это исправление дефекта.
+ * Флексом каждый кусок разметки внутри становился отдельным элементом раскладки:
+ * «Больше», «5», «лет на рынке и больше», «1 000», «заказов» — пять штук с
+ * промежутками по 12 px. При переносе они рассыпались, и на креативе читалось
+ * «Больше 5 лет на рынке и / 1 / заказов / больше / 000». Строчный поток
+ * заодно правильнее ведёт себя в иврите: порядок кусков определяет алгоритм
+ * bidi, а не направление флекс-оси.
+ */
+.кр-плашка {
+  display: inline-block;
+  align-self: flex-start;
+  text-align: start;
+  padding: var(--fx-space-4) var(--fx-space-6);
+  border-radius: var(--fx-radius-pill);
+  background: var(--fx-orange);
+  color: var(--fx-navy-deep);
+  font-size: var(--fx-ad-lede);
+  line-height: var(--fx-text-eyebrow-lh);
+  font-weight: var(--fx-weight-bold);
+}
+
+.кр-плашка--светлая {
+  background: var(--fx-orange-wash);
+  color: var(--fx-orange-darkest);
+}
+
+.кр-плашка b {
+  font-weight: var(--fx-weight-heavy);
+}
+
+[lang='he'] .кр-плашка b {
+  font-weight: var(--fx-weight-bold);
+}
+
+/* ─── Контакты и триада ──────────────────────────────────────────────────── */
+
+/*
+ * Контакты стали в две строки 2026-08-19, когда у сайта появился свой адрес.
+ * Колонка, а не вторая ячейка футера: справа стоит триада, и третий элемент
+ * в строке с `space-between` растащил бы её к кромке.
+ */
+.кр-связь {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fx-space-2);
+}
+
+.кр-контакт {
+  margin: 0;
+  font-size: var(--fx-ad-lede);
+  line-height: var(--fx-text-eyebrow-lh);
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-navy-deep);
+  white-space: nowrap;
+}
+
+.кр--тёмный .кр-контакт {
+  color: var(--fx-white);
+}
+
+/*
+ * Адрес сайта — вторая строка контактов, а не замена первой.
+ *
+ * Писать человек всё равно будет в WhatsApp: это единственный канал, где ему
+ * отвечает живой человек, и автоответ там включён. На сайт идёт тот, кто хочет
+ * сначала посмотреть и посчитать сам, — поэтому адрес стоит ниже и мельче.
+ *
+ * Оранжевым, а не тёмно-синим: в футере уже есть тёмная жирная строка, и вторая
+ * такая же читалась бы её продолжением. Оранжевый здесь — единственный, которым
+ * в системе разрешено писать текстом (`--fx-orange-text` на светлом,
+ * `--fx-orange` на тёмном); белый по оранжевому и оранжевый по белому мельче
+ * этого кегля таблица контрастов запрещает.
+ */
+.кр-сайт {
+  margin: 0;
+  font-size: var(--fx-ad-body);
+  line-height: var(--fx-text-small-lh);
+  font-weight: var(--fx-weight-semibold);
+  color: var(--fx-orange-text);
+  white-space: nowrap;
+}
+
+.кр--тёмный .кр-сайт {
+  color: var(--fx-orange);
+}
+
+.кр-триада {
+  margin: 0;
+  font-size: var(--fx-ad-small);
+  line-height: var(--fx-text-small-lh);
+  font-weight: var(--fx-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--fx-tracking-caps);
+  color: var(--fx-ink-soft);
+}
+
+.кр--тёмный .кр-триада {
+  color: var(--fx-navy-soft);
+}
+
+/* Разделитель триады — точка, а не тире и не слэш. На носителях она оранжевая;
+   здесь взят единственный оранжевый, которым в системе разрешено писать. */
+.кр-точка {
+  color: var(--fx-orange-text);
+}
+
+.кр--тёмный .кр-точка {
+  color: var(--fx-orange);
+}
+
+/* ─── Обложка страницы ───────────────────────────────────────────────────── */
+
+/*
+ * Площадка режет обложку от центра и по-разному на телефоне и на компьютере.
+ * Поэтому содержимое живёт внутри безопасной ширины, выведенной из самой узкой
+ * известной обрезки (16:9, вписанная в высоту 664 → 1180 px), а фон за её
+ * пределами обязан оставаться пустым.
+ */
+/*
+ * Промежуток здесь не «на глаз»: под знаком сразу идёт текст, а охранное поле
+ * знака — 0,21 его высоты, то есть 22,9 px при знаке 240 px. Шаг шкалы 24 px
+ * прошёл бы впритык, поэтому взят следующий — 32. Первая сборка споткнулась
+ * ровно об это: стояло 16 px, и сторож не пустил.
+ */
+.кр-обложка-центр {
+  position: relative;
+  z-index: 1;
+  inline-size: var(--fx-ad-cover-safe);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--fx-space-6);
+}
+
+/* ─── Аватар ─────────────────────────────────────────────────────────────── */
+
+.кр--аватар {
+  align-items: center;
+  justify-content: center;
+}
+
+.кр-аватар-марка {
+  block-size: var(--fx-ad-avatar-mark);
+  inline-size: auto;
+}
+
+/* ─── Шаблон под будущую съёмку ──────────────────────────────────────────── */
+
+/*
+ * Реальных фотографий работ у проекта нет: имеющийся архив заказчик забраковал
+ * («все в разнобое, кто-то в синей футболке, кто-то в зелёной»), а единой формы
+ * бригады ещё нет. Поэтому здесь не креатив, а разметка кадра: сколько места
+ * под фотографию, где она обрезается и что снимать.
+ */
+.кр-фото {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--fx-ad-pad);
+  box-sizing: border-box;
+  border: var(--fx-rule-strong) dashed var(--fx-line-strong);
+  border-radius: var(--fx-radius-lg);
+  background: repeating-linear-gradient(
+    135deg,
+    var(--fx-mist),
+    var(--fx-mist) var(--fx-space-3),
+    var(--fx-white) var(--fx-space-3),
+    var(--fx-white) var(--fx-space-5)
+  );
+}
+
+.кр-фото p {
+  margin: 0;
+  font-size: var(--fx-ad-body);
+  line-height: var(--fx-ad-body-lh);
+  color: var(--fx-ink-soft);
+  max-inline-size: 34ch;
+}

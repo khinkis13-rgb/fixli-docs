@@ -1,0 +1,524 @@
+/**
+ * Электронный брендбук Fixli — оформление документа.
+ *
+ * Здесь нет ни одного фирменного значения: цвет, кегль, отступ и радиус
+ * приходят из ../tokens.css. Если для показа чего-нибудь понадобился хардкод,
+ * значит в системе не хватает токена, и это находка, а не мелочь — ровно то же
+ * правило, что у дизайн-системы (brand/system/components.html).
+ *
+ * Ни сборки, ни JS: страницы открываются двойным кликом у дизайнера, печатника
+ * и таргетолога, которые про pnpm не знают ничего. Навигация поэтому на чистом
+ * CSS — на узком экране она превращается в сетку, где видны все одиннадцать
+ * разделов сразу, а не в ленту, где активный уезжает за кромку и его нечем
+ * подтянуть без скрипта.
+ *
+ * Тёмной темы нет намеренно: весь фирменный стиль стоит на белом, а отчёт
+ * партнёрам лишился тёмной темы 2026-08-11 после того, как открылся почти
+ * нечитаемым. Не добавляйте `prefers-color-scheme: dark` «на всякий случай».
+ */
+
+/* ═══ Основа ══════════════════════════════════════════════════════════════ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fx-white);
+  color: var(--fx-ink);
+  font-family: var(--fx-font);
+  font-size: var(--fx-text-body);
+  line-height: var(--fx-text-body-lh);
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Ссылка для клавиатуры. Брендбук читают глазами, но требование доступности в
+ * проекте общее: если по документу можно ходить табом, первым делом надо уметь
+ * перепрыгнуть навигацию из одиннадцати ссылок.
+ */
+.бб-скип {
+  position: absolute;
+  inset-block-start: var(--fx-space-2);
+  inset-inline-start: var(--fx-space-2);
+  z-index: 2;
+  padding: var(--fx-space-2) var(--fx-space-4);
+  background: var(--fx-navy);
+  color: var(--fx-white);
+  border-radius: var(--fx-radius);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+.бб-скип:focus {
+  transform: none;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--fx-focus-ring);
+  border-radius: var(--fx-radius-sm);
+}
+
+/* ═══ Шапка и навигация ═══════════════════════════════════════════════════ */
+
+.бб-шапка {
+  border-block-end: var(--fx-hairline) solid var(--fx-line);
+  background: var(--fx-white);
+}
+.бб-шапка__полоса {
+  max-width: var(--fx-wrap);
+  margin: 0 auto;
+  padding: var(--fx-space-4) var(--fx-gutter);
+  display: flex;
+  align-items: center;
+  gap: var(--fx-space-4);
+  flex-wrap: wrap;
+}
+.бб-шапка__знак {
+  display: block;
+  /* Ширина числом плюс shrink-0: логотип во флексе с шириной auto растягивается
+     по поперечной оси — так он однажды разъехался с 66 до 350 px (Don't №5). */
+  inline-size: 110px;
+  flex-shrink: 0;
+}
+.бб-шапка__знак img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+.бб-шапка__подпись {
+  margin: 0;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+}
+
+.бб-навигация {
+  border-block-start: var(--fx-hairline) solid var(--fx-line);
+  background: var(--fx-mist);
+}
+.бб-навигация__полоса {
+  max-width: var(--fx-wrap);
+  margin: 0 auto;
+  padding: var(--fx-space-3) var(--fx-gutter);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--fx-space-1) var(--fx-space-2);
+  list-style: none;
+}
+.бб-навигация a {
+  display: flex;
+  align-items: baseline;
+  gap: var(--fx-space-2);
+  padding: var(--fx-space-2) var(--fx-space-3);
+  border-radius: var(--fx-radius);
+  color: var(--fx-navy);
+  text-decoration: none;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+}
+.бб-навигация a:hover {
+  background: var(--fx-navy-wash);
+}
+.бб-навигация__номер {
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-orange-text);
+}
+.бб-навигация a[aria-current='page'] {
+  background: var(--fx-navy);
+  color: var(--fx-white);
+  font-weight: var(--fx-weight-medium);
+}
+.бб-навигация a[aria-current='page'] .бб-навигация__номер {
+  color: var(--fx-orange);
+}
+
+/* ═══ Полоса набора и заголовки ═══════════════════════════════════════════ */
+
+.бб-полоса {
+  max-width: var(--fx-wrap);
+  margin: 0 auto;
+  padding: var(--fx-space-7) var(--fx-gutter) var(--fx-space-9);
+}
+
+.бб-бровь {
+  margin: 0 0 var(--fx-space-2);
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  font-weight: var(--fx-weight-bold);
+  letter-spacing: var(--fx-tracking-caps);
+  text-transform: uppercase;
+  color: var(--fx-orange-text);
+}
+
+h1 {
+  margin: 0 0 var(--fx-space-4);
+  font-size: var(--fx-text-display);
+  line-height: var(--fx-text-display-lh);
+  font-weight: var(--fx-weight-heavy);
+  color: var(--fx-navy-deep);
+}
+h2 {
+  margin: var(--fx-space-9) 0 var(--fx-space-3);
+  padding-block-start: var(--fx-space-4);
+  border-block-start: var(--fx-rule-strong) solid var(--fx-navy);
+  font-size: var(--fx-text-h2);
+  line-height: var(--fx-text-h2-lh);
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-navy-deep);
+}
+h3 {
+  margin: var(--fx-space-6) 0 var(--fx-space-2);
+  font-size: var(--fx-text-h3);
+  line-height: var(--fx-text-h3-lh);
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-ink);
+}
+h4 {
+  margin: var(--fx-space-5) 0 var(--fx-space-1);
+  font-size: var(--fx-text-body);
+  line-height: var(--fx-text-h3-lh);
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-ink);
+}
+
+p,
+ul,
+ol {
+  max-width: 78ch;
+}
+.бб-лид {
+  max-width: 74ch;
+  margin: 0 0 var(--fx-space-6);
+  font-size: var(--fx-text-lede);
+  line-height: var(--fx-text-lede-lh);
+  color: var(--fx-ink-soft);
+}
+
+a {
+  color: var(--fx-navy);
+}
+
+code {
+  font-family: var(--fx-font-mono);
+  font-size: 0.92em;
+  padding: 0 var(--fx-space-1);
+  border-radius: var(--fx-radius-sm);
+  background: var(--fx-mist);
+}
+
+/* ═══ Пометка сорта утверждения ═══════════════════════════════════════════
+ *
+ * Главное правило этого документа. Бренд Fixli существовал до нас, и ревизия
+ * 2026-08-13 трижды опровергла то, что проект считал фактом, — включая разбор
+ * знака. Поэтому каждое утверждение о бренде подписано: «факт» подтверждён
+ * носителем заказчика, «наше решение» — правило, которого на носителях нет.
+ * Спорить со вторым можно, для этого оно и помечено.
+ */
+.бб-метка {
+  display: inline-block;
+  padding: 0 var(--fx-space-2);
+  border-radius: var(--fx-radius-pill);
+  font-size: var(--fx-text-eyebrow);
+  line-height: 1.9;
+  font-weight: var(--fx-weight-bold);
+  letter-spacing: var(--fx-tracking-caps);
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.бб-метка--факт {
+  background: var(--fx-navy-wash);
+  color: var(--fx-navy);
+}
+.бб-метка--решение {
+  background: var(--fx-orange-wash);
+  color: var(--fx-orange-darkest);
+}
+.бб-метка--вопрос {
+  background: var(--fx-warning-wash);
+  color: var(--fx-warning);
+}
+
+/* ═══ Блоки ═══════════════════════════════════════════════════════════════ */
+
+.бб-сцена {
+  padding: var(--fx-space-5);
+  margin-block-end: var(--fx-space-5);
+  background: var(--fx-mist);
+  border: var(--fx-hairline) solid var(--fx-line);
+  border-radius: var(--fx-radius-lg);
+}
+.бб-сцена--белая {
+  background: var(--fx-white);
+}
+.бб-сцена--тёмная {
+  background: var(--fx-navy-darkest);
+  border-color: var(--fx-navy-darkest);
+  color: var(--fx-white);
+}
+
+.бб-подпись {
+  margin: var(--fx-space-2) 0 0;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+}
+
+/* Заметка на полях: то, чего у бренда нет, и то, что ждёт ответа заказчика. */
+.бб-заметка {
+  margin: var(--fx-space-5) 0;
+  padding: var(--fx-space-4) var(--fx-space-5);
+  border-inline-start: var(--fx-rule-strong) solid var(--fx-navy-soft);
+  background: var(--fx-navy-wash);
+  border-radius: 0 var(--fx-radius) var(--fx-radius) 0;
+}
+.бб-заметка > :first-child {
+  margin-block-start: 0;
+}
+.бб-заметка > :last-child {
+  margin-block-end: 0;
+}
+.бб-заметка--вопрос {
+  border-inline-start-color: var(--fx-warning);
+  background: var(--fx-warning-wash);
+}
+/* Заметка о принятом решении. Появилась вместе с разделом печати: заметка
+   базового вида читается как справка, а решение надо отличать от факта — иначе
+   повторяется ошибка, из-за которой в проекте трижды исправляли «факты». */
+.бб-заметка--решение {
+  border-inline-start-color: var(--fx-orange);
+  background: var(--fx-orange-wash);
+}
+
+/* Пара «можно / нельзя». Сцена, а не текст: правило, которое видно, спорить
+   с собой не даёт. */
+.бб-пары {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--fx-space-4);
+  margin-block-end: var(--fx-space-5);
+}
+.бб-пара {
+  border: var(--fx-hairline) solid var(--fx-line);
+  border-radius: var(--fx-radius-lg);
+  overflow: hidden;
+  background: var(--fx-white);
+}
+.бб-пара__шапка {
+  padding: var(--fx-space-2) var(--fx-space-4);
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  font-weight: var(--fx-weight-bold);
+}
+.бб-пара--можно .бб-пара__шапка {
+  background: var(--fx-success-wash);
+  color: var(--fx-success);
+}
+.бб-пара--нельзя .бб-пара__шапка {
+  background: var(--fx-danger-wash);
+  color: var(--fx-danger);
+}
+.бб-пара__сцена {
+  padding: var(--fx-space-5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 120px;
+  background: var(--fx-mist);
+}
+.бб-пара__сцена--белая {
+  background: var(--fx-white);
+}
+.бб-пара__текст {
+  margin: 0;
+  padding: var(--fx-space-3) var(--fx-space-4);
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+}
+/* Сцена, в которой показывают не картинку, а фразу: текст выключен в начало
+   строки и не центрируется, иначе формулировка читается как лозунг. */
+.бб-пара__сцена--текст {
+  display: block;
+  min-block-size: 0;
+  padding: var(--fx-space-5);
+}
+.бб-фраза {
+  margin: 0;
+  font-size: var(--fx-text-h3);
+  line-height: var(--fx-text-lede-lh);
+  color: var(--fx-ink);
+}
+/* Отвергнутая формулировка. Зачёркивание, а не серый цвет: серым в системе
+   пишется вторичное, а не запрещённое. */
+.бб-фраза--снята {
+  color: var(--fx-ink-soft);
+  text-decoration: line-through;
+  text-decoration-thickness: var(--fx-hairline);
+}
+.бб-источник {
+  display: block;
+  margin-block-start: var(--fx-space-2);
+  font-family: var(--fx-font-mono);
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  color: var(--fx-ink-soft);
+  word-break: break-all;
+}
+
+/* ═══ Таблица ═════════════════════════════════════════════════════════════
+ *
+ * Обёртка с прокруткой обязательна: на 375 таблица уезжает за кромку, и это
+ * правильное поведение — перенос колонки читается хуже сдвига вбок. Уехать
+ * без прокрутки нельзя, это ловит сторож кадров.
+ */
+.бб-прокрутка {
+  overflow-x: auto;
+  margin-block-end: var(--fx-space-5);
+  border: var(--fx-hairline) solid var(--fx-line);
+  border-radius: var(--fx-radius-lg);
+}
+.бб-таблица {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+}
+.бб-таблица th,
+.бб-таблица td {
+  padding: var(--fx-space-3) var(--fx-space-4);
+  text-align: start;
+  vertical-align: top;
+  border-block-end: var(--fx-hairline) solid var(--fx-line);
+}
+.бб-таблица thead th {
+  background: var(--fx-mist);
+  color: var(--fx-navy-deep);
+  font-weight: var(--fx-weight-bold);
+  white-space: nowrap;
+}
+.бб-таблица tbody tr:last-child th,
+.бб-таблица tbody tr:last-child td {
+  border-block-end: none;
+}
+.бб-таблица td[data-число] {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ═══ Плитка раздела (главная) ════════════════════════════════════════════ */
+
+.бб-плитки {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--fx-space-4);
+  margin-block-end: var(--fx-space-6);
+  padding: 0;
+  list-style: none;
+}
+.бб-плитка a {
+  display: block;
+  block-size: 100%;
+  padding: var(--fx-space-5);
+  border: var(--fx-hairline) solid var(--fx-line);
+  border-radius: var(--fx-radius-lg);
+  text-decoration: none;
+  color: var(--fx-ink);
+  transition: border-color var(--fx-dur-fast) var(--fx-ease);
+}
+.бб-плитка a:hover {
+  border-color: var(--fx-navy-soft);
+  background: var(--fx-mist);
+}
+.бб-плитка__номер {
+  display: block;
+  margin-block-end: var(--fx-space-2);
+  font-size: var(--fx-text-eyebrow);
+  font-weight: var(--fx-weight-bold);
+  letter-spacing: var(--fx-tracking-caps);
+  color: var(--fx-orange-text);
+  font-variant-numeric: tabular-nums;
+}
+.бб-плитка__имя {
+  display: block;
+  margin-block-end: var(--fx-space-1);
+  font-size: var(--fx-text-h3);
+  line-height: var(--fx-text-h3-lh);
+  font-weight: var(--fx-weight-bold);
+  color: var(--fx-navy-deep);
+}
+.бб-плитка__что {
+  display: block;
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-ink-soft);
+}
+
+/* ═══ Подвал ══════════════════════════════════════════════════════════════ */
+
+.бб-подвал {
+  background: var(--fx-navy-darkest);
+  color: var(--fx-white);
+}
+.бб-подвал__полоса {
+  max-width: var(--fx-wrap);
+  margin: 0 auto;
+  padding: var(--fx-space-7) var(--fx-gutter) var(--fx-space-5);
+}
+.бб-подвал p {
+  margin: 0 0 var(--fx-space-2);
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+  color: var(--fx-navy-soft);
+}
+.бб-подвал a {
+  color: var(--fx-white);
+}
+/*
+ * Знак авторства. Клиентский проект — значит вариант «микро»: отдельная тихая
+ * строка мельче остального подвала, некликабельная, прижата к концу строки
+ * логическим выравниванием, текст не переводится.
+ */
+.бб-знак-авторства {
+  margin: var(--fx-space-6) 0 0;
+  padding-block-start: var(--fx-space-3);
+  border-block-start: var(--fx-hairline) solid var(--fx-navy);
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  color: var(--fx-navy-soft);
+  text-align: end;
+}
+
+/* ═══ Печать ══════════════════════════════════════════════════════════════
+ *
+ * Печатается не весь брендбук, а съёмочный лист: его открывают на телефоне в
+ * смену и распечатывают на А4. Навигация и подвал на бумаге — мусор.
+ */
+@media print {
+  .бб-навигация,
+  .бб-скип {
+    display: none;
+  }
+  .бб-полоса {
+    padding: 0;
+    max-width: none;
+  }
+  .бб-сцена,
+  .бб-прокрутка,
+  .бб-заметка {
+    break-inside: avoid;
+  }
+  .бб-подвал {
+    background: none;
+    color: var(--fx-ink);
+  }
+  .бб-подвал p,
+  .бб-знак-авторства {
+    color: var(--fx-ink-soft);
+  }
+}

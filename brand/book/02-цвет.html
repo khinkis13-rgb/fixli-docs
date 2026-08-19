@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>02 Цвет · Брендбук Fixli</title>
+    <!-- Марка, а не словесный знак: в 16 px вкладки от букв остаётся пятно.
+         Это правило раздела 01, и документ обязан соблюдать своё же правило. -->
+    <link rel="icon" href="../знак/fixli-марка.svg" />
+    <link rel="stylesheet" href="../tokens.css" />
+    <link rel="stylesheet" href="стили.css" />
+    <style>
+      /*
+       * Свотчи. Краска показывается через `style="background: var(--fx-*)"` —
+       * это ссылка на токен, а не значение: HEX в этом разделе живёт текстом,
+       * как содержание документа, и ни один цвет не задан числом в стилях.
+       */
+      .цв-ряд {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        gap: var(--fx-space-4);
+        margin-block-end: var(--fx-space-6);
+        padding: 0;
+        list-style: none;
+      }
+      .цв-плитка {
+        border: var(--fx-hairline) solid var(--fx-line);
+        border-radius: var(--fx-radius-lg);
+        overflow: hidden;
+      }
+      .цв-плитка__краска {
+        block-size: 96px;
+      }
+      .цв-плитка--крупная .цв-плитка__краска {
+        block-size: 168px;
+      }
+      .цв-плитка__подпись {
+        padding: var(--fx-space-3) var(--fx-space-4);
+        font-size: var(--fx-text-small);
+        line-height: var(--fx-text-small-lh);
+      }
+      .цв-плитка__имя {
+        display: block;
+        font-family: var(--fx-font-mono);
+        font-size: 0.82rem;
+        color: var(--fx-navy);
+        word-break: break-all;
+      }
+      .цв-плитка__числа {
+        display: block;
+        margin-block-start: var(--fx-space-1);
+        color: var(--fx-ink-soft);
+        font-variant-numeric: tabular-nums;
+      }
+      .цв-плитка__роль {
+        display: block;
+        margin-block-start: var(--fx-space-1);
+        color: var(--fx-ink);
+      }
+      /* Образец пары: настоящий текст на настоящем фоне, а не два квадрата
+         рядом. Контраст читается глазом только так. */
+      .цв-пара {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-block-size: 92px;
+        padding: var(--fx-space-4);
+        border-radius: var(--fx-radius);
+        font-size: var(--fx-text-h3);
+        font-weight: var(--fx-weight-bold);
+      }
+    </style>
+  </head>
+  <body>
+    <a class="бб-скип" href="#содержание">К содержанию</a>
+
+    <header class="бб-шапка">
+      <div class="бб-шапка__полоса">
+        <a class="бб-шапка__знак" href="index.html" aria-label="Брендбук Fixli, на главную">
+          <img src="../знак/fixli-знак.svg" alt="fixli" />
+        </a>
+        <p class="бб-шапка__подпись">
+          Брендбук · версия <span data-число>2026-08-18</span> · русский и иврит
+        </p>
+      </div>
+      <nav class="бб-навигация" aria-label="Разделы брендбука">
+        <ul class="бб-навигация__полоса">
+          <li><a href="index.html"><span class="бб-навигация__номер">00</span>Главная</a></li>
+          <li><a href="01-знак.html"><span class="бб-навигация__номер">01</span>Знак</a></li>
+          <li><a href="02-цвет.html" aria-current="page"><span class="бб-навигация__номер">02</span>Цвет</a></li>
+          <li><a href="03-шрифт.html"><span class="бб-навигация__номер">03</span>Шрифт</a></li>
+          <li><a href="04-иврит.html"><span class="бб-навигация__номер">04</span>Иврит и RTL</a></li>
+          <li><a href="05-графика.html"><span class="бб-навигация__номер">05</span>Графика</a></li>
+          <li><a href="06-фото.html"><span class="бб-навигация__номер">06</span>Фото и видео</a></li>
+          <li><a href="07-голос.html"><span class="бб-навигация__номер">07</span>Голос</a></li>
+          <li><a href="08-носители.html"><span class="бб-навигация__номер">08</span>Носители</a></li>
+          <li><a href="09-стоп-лист.html"><span class="бб-навигация__номер">09</span>Стоп-лист</a></li>
+          <li><a href="10-статус.html"><span class="бб-навигация__номер">10</span>Статус</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="содержание" class="бб-полоса">
+      <p class="бб-бровь">Раздел 02</p>
+      <h1>Цвет</h1>
+      <p class="бб-лид">
+        Красок у бренда две, и обе взяты из самого знака: оранжевый и синий. Всё остальное —
+        нейтрали и служебные цвета панели, выведенные из этих двух. Каждая пара «фон × текст»
+        имеет посчитанный контраст: числа ниже считает скрипт из значений токенов, а не глаз.
+      </p>
+
+      <h2>Две фирменные краски</h2>
+
+      <p>
+        <span class="бб-метка бб-метка--факт">факт</span> Оранжевый — это цвет букв
+        <code>f</code>, <code>i</code>, <code>x</code> в знаке, синий — цвет <code>l</code> и
+        второй <code>i</code>. Так же они работают на носителях: оранжевый несёт заливку и
+        акцент, синий — текст и плашки.
+      </p>
+
+      <ul class="цв-ряд">
+        <li class="цв-плитка цв-плитка--крупная">
+          <div class="цв-плитка__краска" style="background: var(--fx-orange)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-orange</span>
+            <span class="цв-плитка__числа">#F38025 · rgb(243 128 37)</span>
+            <span class="цв-плитка__роль">Заливка, кнопка, круг-акцент, цифры в офферах. Текстом — нельзя.</span>
+          </div>
+        </li>
+        <li class="цв-плитка цв-плитка--крупная">
+          <div class="цв-плитка__краска" style="background: var(--fx-navy)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-navy</span>
+            <span class="цв-плитка__числа">#12438F · rgb(18 67 143)</span>
+            <span class="цв-плитка__роль">Заголовки, ссылки, плашки, фигура-знак. Основной цвет текста бренда.</span>
+          </div>
+        </li>
+      </ul>
+
+      <div class="бб-заметка">
+        <p>
+          <strong>Палитр на носителях две, и логотип живёт в обеих.</strong>
+          <span class="бб-метка бб-метка--факт">факт</span> Там, где логотип вставлен готовой
+          картинкой, он даёт мягкую пару #F38025 / #12438F. Там, где графику рисовали заново
+          (визитка, оба макета найма), краски горячее. Доказательство лежит внутри одного файла:
+          в макете «набираем команду» логотип даёт #F28027 / #13438E, а собственная графика того
+          же макета — #F8650A / #01184E.
+        </p>
+        <p>
+          <span class="бб-метка бб-метка--решение">наше решение</span> Стандарт — палитра
+          логотипа. Вторая пара палитрой не является: единого синего в ней нет, три разных
+          уровня (141 → 108 → 89 → 78 по синему каналу). Печатные носители приводятся к
+          стандарту следующим тиражом; вопрос заказчику открыт и стоит в разделе
+          <a href="10-статус.html">10</a>.
+        </p>
+      </div>
+
+      <h2>Шкалы</h2>
+
+      <p>
+        Оттенки — не украшение, а рабочие роли: подложка, рамка, наведение, текст. Промежуточных
+        значений между ними в системе не существует.
+        <span class="бб-метка бб-метка--решение">наше решение</span> — на носителях заказчика
+        оттенков нет вовсе, там только две чистые краски.
+      </p>
+
+      <h3>Оранжевая шкала</h3>
+      <ul class="цв-ряд">
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-orange-wash)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-orange-wash</span>
+            <span class="цв-плитка__числа">#FFF3E8 · rgb(255 243 232)</span>
+            <span class="цв-плитка__роль">Фон плашки, подложка выделения</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-orange-soft)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-orange-soft</span>
+            <span class="цв-плитка__числа">#FCC999 · rgb(252 201 153)</span>
+            <span class="цв-плитка__роль">Рамки и разделители на оранжевом фоне</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-orange)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-orange</span>
+            <span class="цв-плитка__числа">#F38025 · rgb(243 128 37)</span>
+            <span class="цв-плитка__роль">Базовый: заливки, кнопка, круг</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-orange-hover)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-orange-hover</span>
+            <span class="цв-плитка__числа">#F58F3D · rgb(245 143 61)</span>
+            <span class="цв-плитка__роль">Кнопка под курсором — светлее базового, а не темнее</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-orange-text)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-orange-text</span>
+            <span class="цв-плитка__числа">#B5540B · rgb(181 84 11)</span>
+            <span class="цв-плитка__роль">Единственный оранжевый, которым можно писать</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-orange-darkest)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-orange-darkest</span>
+            <span class="цв-плитка__числа">#7C3906 · rgb(124 57 6)</span>
+            <span class="цв-плитка__роль">Оранжевый текстом на светло-оранжевой плашке</span>
+          </div>
+        </li>
+      </ul>
+
+      <h3>Синяя шкала</h3>
+      <ul class="цв-ряд">
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-navy-wash)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-navy-wash</span>
+            <span class="цв-плитка__числа">#EAF0FA · rgb(234 240 250)</span>
+            <span class="цв-плитка__роль">Фон информационной плашки</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-navy-soft)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-navy-soft</span>
+            <span class="цв-плитка__числа">#A9C0E4 · rgb(169 192 228)</span>
+            <span class="цв-плитка__роль">Рамки на синем, неактивное состояние, вторичный текст в подвале</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-navy)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-navy</span>
+            <span class="цв-плитка__числа">#12438F · rgb(18 67 143)</span>
+            <span class="цв-плитка__роль">Базовый: заголовки, ссылки, плашки</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-navy-hover)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-navy-hover</span>
+            <span class="цв-плитка__числа">#0E3776 · rgb(14 55 118)</span>
+            <span class="цв-плитка__роль">Синяя кнопка под курсором и при нажатии</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-navy-deep)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-navy-deep</span>
+            <span class="цв-плитка__числа">#0B2C60 · rgb(11 44 96)</span>
+            <span class="цв-плитка__роль">Крупные заголовки, текст на оранжевой кнопке, тёмная плашка</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-navy-darkest)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-navy-darkest</span>
+            <span class="цв-плитка__числа">#061B3D · rgb(6 27 61)</span>
+            <span class="цв-плитка__роль">Подвал, максимальная глубина</span>
+          </div>
+        </li>
+      </ul>
+
+      <h3>Нейтрали</h3>
+      <p>
+        <span class="бб-метка бб-метка--решение">наше решение</span> Серая шкала сдвинута в
+        синий: рядом с фирменным navy чистый серый выглядит грязным. Носители при этом
+        нейтральны — бумага визитки и фоны макетов совпадают с точностью до двух единиц.
+      </p>
+      <ul class="цв-ряд">
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-white); box-shadow: inset 0 0 0 var(--fx-hairline) var(--fx-line)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-white</span>
+            <span class="цв-плитка__числа">#FFFFFF · rgb(255 255 255)</span>
+            <span class="цв-плитка__роль">Основной фон бренда</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-paper); box-shadow: inset 0 0 0 var(--fx-hairline) var(--fx-line)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-paper</span>
+            <span class="цв-плитка__числа">#FDFDFD · rgb(253 253 253)</span>
+            <span class="цв-плитка__роль">Бумага визитки и фон логотип-файла — замер, а не чистый белый</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-mist)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-mist</span>
+            <span class="цв-плитка__числа">#F2F5FA · rgb(242 245 250)</span>
+            <span class="цв-плитка__роль">Подложка секции, фон таблицы</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-line)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-line</span>
+            <span class="цв-плитка__числа">#DCE3EE · rgb(220 227 238)</span>
+            <span class="цв-плитка__роль">Границы карточек и разделители — декоративные</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-line-strong)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-line-strong</span>
+            <span class="цв-плитка__числа">#8794AB · rgb(135 148 171)</span>
+            <span class="цв-плитка__роль">Граница поля ввода: 3,06 к белому — порог для элемента управления</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-ink-soft)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-ink-soft</span>
+            <span class="цв-плитка__числа">#59667E · rgb(89 102 126)</span>
+            <span class="цв-плитка__роль">Вторичный текст, лид, подписи</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-ink)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-ink</span>
+            <span class="цв-плитка__числа">#16233A · rgb(22 35 58)</span>
+            <span class="цв-плитка__роль">Основной текст</span>
+          </div>
+        </li>
+      </ul>
+
+      <p>
+        Третьего серого в системе нет намеренно. Он существовал — <code>--fx-ink-mute</code> для
+        мелких подписей — и был убран: после приведения к AA он дал 5,05 против 5,79 у
+        <code>--fx-ink-soft</code>. Два серых, которые невозможно различить глазом, — не
+        иерархия, а шум. Разница уровней делается кеглем.
+      </p>
+
+      <h3>Служебные цвета панели</h3>
+      <p>
+        <span class="бб-метка бб-метка--решение">наше решение</span> Носителей у статусов нет
+        вовсе — они нужны интерфейсу: заказ выполнен, форма с ошибкой, наряд ждёт. Взяты не
+        бутстраповские: чистый зелёный и чистый красный рядом с navy читаются светофором.
+        Предупреждение янтарное, а не оранжевое, потому что фирменный оранжевый уже занят под
+        действие и рядом с кнопкой путался бы.
+      </p>
+      <ul class="цв-ряд">
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-success)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-success</span>
+            <span class="цв-плитка__числа">#157347 · rgb(21 115 71)</span>
+            <span class="цв-плитка__роль">Выполнено. Подложка — <code>--fx-success-wash</code> #E8F4ED</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-danger)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-danger</span>
+            <span class="цв-плитка__числа">#B3261E · rgb(179 38 30)</span>
+            <span class="цв-плитка__роль">Ошибка, отменён. Подложка — <code>--fx-danger-wash</code> #FBECEB</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-warning)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-warning</span>
+            <span class="цв-плитка__числа">#8A5A00 · rgb(138 90 0)</span>
+            <span class="цв-плитка__роль">Ждёт, требует внимания. Подложка — <code>--fx-warning-wash</code> #FDF3E0</span>
+          </div>
+        </li>
+        <li class="цв-плитка">
+          <div class="цв-плитка__краска" style="background: var(--fx-info)"></div>
+          <div class="цв-плитка__подпись">
+            <span class="цв-плитка__имя">--fx-info</span>
+            <span class="цв-плитка__числа">= --fx-navy</span>
+            <span class="цв-плитка__роль">Информация. Отдельная краска была бы пятым цветом в системе без нужды</span>
+          </div>
+        </li>
+      </ul>
+
+      <h2>Пары: что на чём пишем</h2>
+
+      <p>
+        Контраст считает <code>scripts/бренд-контрасты.py</code> по формуле WCAG прямо из
+        значений токенов и перезаписывает таблицу <code>brand/контрасты.md</code>. Правится не
+        таблица, а токен. Пороги: обычный текст — 4,5, крупный (от 24 px или от 18,7 px
+        полужирным) — 3,0, границы и смысловые иконки — 3,0.
+      </p>
+
+      <div class="бб-пары">
+        <div class="бб-пара бб-пара--можно">
+          <p class="бб-пара__шапка">Можно · 5,13</p>
+          <div class="бб-пара__сцена" style="background: var(--fx-orange)">
+            <span class="цв-пара" style="color: var(--fx-navy-deep)">Рассчитать стоимость</span>
+          </div>
+          <p class="бб-пара__текст">
+            Тёмно-синий на оранжевой кнопке. Так сделано на сайте — единственное осознанное
+            отступление от макетов заказчика, и оно про читаемость.
+          </p>
+        </div>
+        <div class="бб-пара бб-пара--нельзя">
+          <p class="бб-пара__шапка">Нельзя · 2,65</p>
+          <div class="бб-пара__сцена" style="background: var(--fx-orange)">
+            <span class="цв-пара" style="color: var(--fx-white)">Рассчитать стоимость</span>
+          </div>
+          <p class="бб-пара__текст">
+            Белым по оранжевому. Ровно это Lighthouse поймал на кнопке «Дальше» в опросе и уронил
+            доступность страницы до 96.
+          </p>
+        </div>
+        <div class="бб-пара бб-пара--можно">
+          <p class="бб-пара__шапка">Можно · 4,96</p>
+          <div class="бб-пара__сцена бб-пара__сцена--белая">
+            <span class="цв-пара" style="color: var(--fx-orange-text)">от 2 500 ₪</span>
+          </div>
+          <p class="бб-пара__текст">
+            Оранжевым пишет только <code>--fx-orange-text</code>. Второго оранжевого для текста в
+            системе нет.
+          </p>
+        </div>
+        <div class="бб-пара бб-пара--нельзя">
+          <p class="бб-пара__шапка">Нельзя · 2,65</p>
+          <div class="бб-пара__сцена бб-пара__сцена--белая">
+            <span class="цв-пара" style="color: var(--fx-orange)">от 2 500 ₪</span>
+          </div>
+          <p class="бб-пара__текст">
+            Фирменный оранжевый — цвет заливки, а не цвет букв. На белом он даёт 2,65 при пороге
+            4,5.
+          </p>
+        </div>
+      </div>
+
+      <div class="бб-прокрутка">
+        <table class="бб-таблица">
+          <thead>
+            <tr>
+              <th scope="col">Фон</th>
+              <th scope="col">Текст</th>
+              <th scope="col">Контраст</th>
+              <th scope="col">Уровень</th>
+              <th scope="col">Где применяется</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Белый</th><td>--fx-ink</td><td data-число>15,72</td><td>AAA</td><td>основной текст</td></tr>
+            <tr><th scope="row">Белый</th><td>--fx-ink-soft</td><td data-число>5,79</td><td>AA</td><td>лид, подписи</td></tr>
+            <tr><th scope="row">Белый</th><td>--fx-navy</td><td data-число>9,44</td><td>AAA</td><td>заголовки, ссылки</td></tr>
+            <tr><th scope="row">Белый</th><td>--fx-navy-deep</td><td data-число>13,61</td><td>AAA</td><td>крупные заголовки</td></tr>
+            <tr><th scope="row">Белый</th><td>--fx-orange-text</td><td data-число>4,96</td><td>AA</td><td>оранжевый текстом</td></tr>
+            <tr><th scope="row">Белый</th><td>--fx-orange</td><td data-число>2,65</td><td>нет</td><td>запрещён текстом</td></tr>
+            <tr><th scope="row">Оранжевый</th><td>--fx-navy-deep</td><td data-число>5,13</td><td>AA</td><td>текст на кнопке</td></tr>
+            <tr><th scope="row">Оранжевый</th><td>--fx-white</td><td data-число>2,65</td><td>нет</td><td>запрещено вовсе</td></tr>
+            <tr><th scope="row">Оранжевый при наведении</th><td>--fx-navy-deep</td><td data-число>5,75</td><td>AA</td><td>кнопка под курсором</td></tr>
+            <tr><th scope="row">Navy</th><td>--fx-white</td><td data-число>9,44</td><td>AAA</td><td>текст на синей плашке</td></tr>
+            <tr><th scope="row">Navy</th><td>--fx-orange</td><td data-число>3,56</td><td>AA крупный</td><td>акцент на синей плашке</td></tr>
+            <tr><th scope="row">Navy deep</th><td>--fx-white</td><td data-число>13,61</td><td>AAA</td><td>тёмная плашка</td></tr>
+            <tr><th scope="row">Navy darkest</th><td>--fx-navy-soft</td><td data-число>9,21</td><td>AAA</td><td>вторичный текст в подвале</td></tr>
+            <tr><th scope="row">Orange wash</th><td>--fx-orange-darkest</td><td data-число>7,87</td><td>AAA</td><td>текст на светло-оранжевой плашке</td></tr>
+            <tr><th scope="row">Navy wash</th><td>--fx-navy</td><td data-число>8,24</td><td>AAA</td><td>текст на светло-синей плашке</td></tr>
+            <tr><th scope="row">Mist</th><td>--fx-ink</td><td data-число>14,39</td><td>AAA</td><td>текст на подложке секции</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="бб-подпись">
+        Полная таблица из 36 пар — <code>brand/контрасты.md</code>. Появилась новая пара —
+        допишите её в список <code>ПАРЫ</code> скрипта и прогоните его: механического перебора
+        там нет намеренно, в таблицу попадает то, что действительно встречается на носителе.
+      </p>
+
+      <h2>Три запрета, у каждого есть событие</h2>
+
+      <ol>
+        <li>
+          <strong>Оранжевым не пишут.</strong> 2,65 на белом при пороге 4,5. Текстом пишет только
+          <code>--fx-orange-text</code>; на светло-оранжевой плашке —
+          <code>--fx-orange-darkest</code> (7,87).
+        </li>
+        <li>
+          <strong>Белым по оранжевому — нельзя вовсе.</strong> Те же 2,65, симметрично. На
+          оранжевом пишет <code>--fx-navy-deep</code> (5,13) или <code>--fx-ink</code> (5,93).
+        </li>
+        <li>
+          <strong>Оранжевую кнопку при наведении не затемняют, а осветляют.</strong> Правило
+          контринтуитивное, поэтому и записано: затемнение до #DD6F18 роняло пару с 5,13 до 4,12,
+          и кнопка теряла AA ровно в тот момент, когда пользователь в неё целится.
+        </li>
+      </ol>
+
+      <div class="бб-заметка">
+        <p>
+          <strong>Тёмной темы у бренда нет.</strong>
+          <span class="бб-метка бб-метка--решение">наше решение</span> Весь фирменный стиль стоит
+          на белом: белый кузов фургона, белая визитка, белые макеты найма. Тёмная тема в проекте
+          была ровно один раз — в отчёте партнёрам — и была снята 11 августа 2026 года, когда
+          отчёт открылся почти нечитаемым. Не добавляйте её «на всякий случай».
+        </p>
+      </div>
+
+      <h2>Печать</h2>
+
+      <p>
+        <span class="бб-метка бб-метка--вопрос">вопрос</span> Значений CMYK и Pantone у бренда
+        нет, и придумать их из HEX нельзя: перевод зависит от бумаги, краски и профиля печати, а
+        оранжевый — как раз тот цвет, который на офсете и на плёнке ведёт себя по-разному. Что
+        делать: отдать типографии HEX и попросить пробу, а полученные значения записать сюда —
+        это займёт один тираж и закроет вопрос навсегда.
+      </p>
+
+      <p>
+        До этого момента действует правило: <strong>эталон цвета — экранный HEX из этого
+        раздела</strong>, а любой файл, полученный трассировкой или экспортом, проверяется по нему
+        пипеткой. Так уже ломалось: перетрассированный знак принёс #F28123 / #12448D вместо
+        стандарта — глазом не видно, пипеткой видно, и полдня шапка сайта показывала одну краску,
+        а первый экран той же страницы другую.
+      </p>
+    </main>
+
+    <footer class="бб-подвал">
+      <div class="бб-подвал__полоса">
+        <p>Брендбук Fixli · версия <span data-число>2026-08-18</span></p>
+        <p>
+          Значения этого раздела живут в <code>brand/tokens.css</code>. Правьте токен, а не копию.
+        </p>
+        <p class="бб-знак-авторства">Made by Dmitry Khinkis</p>
+      </div>
+    </footer>
+  </body>
+</html>

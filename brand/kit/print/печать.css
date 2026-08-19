@@ -1,0 +1,632 @@
+/**
+ * Печать и документы Fixli — оформление листов и витрины.
+ *
+ * Ни одного фирменного значения здесь нет: цвет, кегль, вес и отступ приходят
+ * из ../../tokens.css. Понадобился литерал — значит в системе не хватает
+ * токена, и это находка, а не мелочь. Стережёт `node brand/kit/print/собрать.mjs`.
+ *
+ * ── Почему размеры здесь в миллиметрах, а не в токенах отступов ───────────
+ * Токены шкалы (--fx-space-*) заданы в пикселях: они описывают экран. Лист
+ * бумаги описывает типография, и там единственная осмысленная единица —
+ * миллиметр. Поэтому геометрия листа (формат, поля, вылет) живёт в мм прямо
+ * здесь и объявлена переменными в начале файла, а всё, что внутри листа
+ * (цвет, гарнитура, вес, кегль), берётся из системы. Смешение единиц —
+ * не неряшливость, а граница между бумагой и экраном.
+ *
+ * ── Два правила печати, из которых вырос весь этот файл ──────────────────
+ * 1. ВЫЛЕТ ЕСТЬ ТОЛЬКО У ВИЗИТКИ. Её режут в типографии, поэтому лист больше
+ *    изделия на 3 мм с каждой стороны, а фон дотягивается до края PDF.
+ * 2. У ЛИСТОВ A4 ФОНА ПОД ОБРЕЗ НЕТ ВООБЩЕ. Наряд, счёт и смету печатают в
+ *    офисе на обычном принтере, а он не печатает в край: любая плашка, дошедшая
+ *    до кромки, выйдет с белой рамкой в 4–6 мм и лист будет выглядеть браком.
+ *    Поэтому все фоновые заливки на A4 остановлены внутри поля набора.
+ *
+ * Свойства только логические (`padding-inline`, `margin-block`, `text-align:
+ * start`): половина документов набирается на иврите и идёт справа налево.
+ *
+ * Ни сборки, ни JS в самих листах: витрина открывается двойным кликом, PDF
+ * печатает `собрать.mjs`.
+ */
+
+:root {
+  /* Геометрия бумаги. Меняется вместе с ТЗ типографии, а не отдельно от него. */
+  --лист-a4-ширина: 210mm;
+  --лист-a4-высота: 297mm;
+  --лист-a4-поле: 16mm;
+  --лист-a4-поле-верх: 14mm;
+
+  --визитка-ширина: 90mm;
+  --визитка-высота: 50mm;
+  --визитка-вылет: 3mm;
+  --визитка-поле: 6mm;
+
+  /* Знак: минимальный печатный размер из брендбука, раздел 01. */
+  --знак-минимум: 16mm;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ═══ Витрина: то, что видно на экране ════════════════════════════════════ */
+
+body {
+  margin: 0;
+  padding: var(--fx-space-8) var(--fx-gutter);
+  background: var(--fx-mist);
+  color: var(--fx-ink);
+  font-family: var(--fx-font);
+  font-size: var(--fx-text-body);
+  line-height: var(--fx-text-body-lh);
+}
+
+.полоса {
+  max-width: var(--fx-wrap);
+  margin-inline: auto;
+}
+
+.шапка {
+  margin-block-end: var(--fx-space-7);
+}
+
+.шапка__крошки {
+  margin: 0 0 var(--fx-space-3);
+  color: var(--fx-ink-soft);
+  font-size: var(--fx-text-small);
+}
+
+.шапка__крошки a {
+  color: var(--fx-navy);
+}
+
+h1 {
+  margin: 0 0 var(--fx-space-4);
+  color: var(--fx-navy-deep);
+  font-size: var(--fx-text-h2);
+  line-height: var(--fx-text-h2-lh);
+  font-weight: var(--fx-weight-bold);
+}
+
+h2 {
+  margin: var(--fx-space-8) 0 var(--fx-space-4);
+  padding-block-end: var(--fx-space-2);
+  border-block-end: var(--fx-rule) solid var(--fx-line);
+  color: var(--fx-navy-deep);
+  font-size: var(--fx-text-h3);
+  line-height: var(--fx-text-h3-lh);
+  font-weight: var(--fx-weight-bold);
+}
+
+.шапка__лид {
+  margin: 0;
+  color: var(--fx-ink-soft);
+  font-size: var(--fx-text-lede);
+  line-height: var(--fx-text-lede-lh);
+}
+
+.витрина p {
+  color: var(--fx-ink);
+}
+
+.метка {
+  display: inline-block;
+  padding: 2px var(--fx-space-2);
+  border-radius: var(--fx-radius-sm);
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+  font-weight: var(--fx-weight-semibold);
+  letter-spacing: var(--fx-tracking-caps);
+  text-transform: uppercase;
+}
+
+.метка--факт {
+  background: var(--fx-navy-wash);
+  color: var(--fx-navy);
+}
+
+.метка--решение {
+  background: var(--fx-orange-wash);
+  color: var(--fx-orange-darkest);
+}
+
+.метка--вопрос {
+  background: var(--fx-warning-wash);
+  color: var(--fx-warning);
+}
+
+/* Карточка документа в витрине: подпись, метки и сам лист под ними. */
+
+.документ {
+  margin-block: var(--fx-space-7);
+}
+
+.документ__шапка {
+  margin-block-end: var(--fx-space-4);
+}
+
+.документ__имя {
+  margin: 0 0 var(--fx-space-2);
+  color: var(--fx-navy-deep);
+  font-size: var(--fx-text-h3);
+  font-weight: var(--fx-weight-bold);
+}
+
+.документ__пояснение {
+  margin: 0;
+  max-width: 78ch;
+  color: var(--fx-ink-soft);
+  font-size: var(--fx-text-small);
+  line-height: var(--fx-text-small-lh);
+}
+
+.документ__листы {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fx-space-6);
+  align-items: flex-start;
+}
+
+.обойма {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.обойма__подпись {
+  margin: var(--fx-space-2) 0 0;
+  color: var(--fx-ink-soft);
+  font-size: var(--fx-text-eyebrow);
+  line-height: var(--fx-text-eyebrow-lh);
+}
+
+/* ═══ Лист: то, что уходит в PDF ══════════════════════════════════════════ */
+
+.лист {
+  position: relative;
+  background: var(--fx-white);
+  color: var(--fx-ink);
+  font-family: var(--fx-font);
+  overflow: hidden;
+  box-shadow: var(--fx-shadow-card);
+}
+
+.лист--a4 {
+  inline-size: var(--лист-a4-ширина);
+  block-size: var(--лист-a4-высота);
+  padding: var(--лист-a4-поле-верх) var(--лист-a4-поле) var(--лист-a4-поле);
+  display: flex;
+  flex-direction: column;
+  font-size: 10.5pt;
+  line-height: 1.45;
+}
+
+.лист--визитка {
+  inline-size: calc(var(--визитка-ширина) + var(--визитка-вылет) * 2);
+  block-size: calc(var(--визитка-высота) + var(--визитка-вылет) * 2);
+  padding: calc(var(--визитка-вылет) + var(--визитка-поле));
+  font-size: 7pt;
+  line-height: 1.35;
+}
+
+/* ── Визитка ─────────────────────────────────────────────────────────────── */
+
+.визитка__знак {
+  display: block;
+  inline-size: 38mm;
+  block-size: auto;
+}
+
+.визитка__слоган {
+  margin: 3mm 0 0;
+  color: var(--fx-navy);
+  font-size: 7.5pt;
+  font-weight: var(--fx-weight-medium);
+  letter-spacing: var(--fx-tracking-slogan);
+}
+
+.визитка__триада {
+  margin: 2.4mm 0 0;
+  color: var(--fx-navy-deep);
+  font-size: 8pt;
+  font-weight: var(--fx-weight-bold);
+  letter-spacing: var(--fx-tracking-caps);
+  text-transform: uppercase;
+}
+
+.визитка__точка {
+  color: var(--fx-orange);
+}
+
+.визитка__услуги {
+  margin: 2mm 0 0;
+  color: var(--fx-ink-soft);
+  font-size: 6pt;
+  letter-spacing: var(--fx-tracking-caps);
+  text-transform: uppercase;
+}
+
+/* Круг в углу — единственный элемент визитки, уходящий под обрез.
+   Поэтому он позиционируется от кромки ЛИСТА, то есть от края вылета. */
+.визитка__круг {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  inline-size: 17mm;
+  block-size: 17mm;
+  background: var(--fx-orange);
+  border-end-start-radius: var(--fx-radius-pill);
+}
+
+.визитка__имя {
+  margin: 0;
+  color: var(--fx-navy-deep);
+  font-size: 15pt;
+  font-weight: var(--fx-weight-bold);
+  line-height: 1.1;
+}
+
+.визитка__черта {
+  inline-size: 14mm;
+  block-size: var(--fx-rule);
+  margin: 2mm 0;
+  background: var(--fx-orange);
+  border: 0;
+}
+
+.визитка__роль {
+  margin: 0;
+  color: var(--fx-ink-soft);
+  font-size: 7.5pt;
+}
+
+.визитка__связь {
+  display: flex;
+  align-items: center;
+  gap: 2mm;
+  margin: 4mm 0 0;
+  color: var(--fx-navy-deep);
+  font-size: 10pt;
+  font-weight: var(--fx-weight-semibold);
+}
+
+/*
+ * Адрес сайта на обороте визитки. Стоит под номером и мельче его: звонят и
+ * пишут по-прежнему на телефон — сайт нужен тому, кто хочет сначала посмотреть.
+ * Оранжевым, потому что тёмно-синим рядом уже набран номер, и вторая такая же
+ * строка читалась бы его продолжением.
+ */
+.визитка__сайт {
+  margin: 1.5mm 0 0;
+  /* `--fx-orange-text`, а не любой другой оранжевый: таблица контрастов
+     называет его единственным допустимым для текста на белом (4,96 AA).
+     Первая версия строки была набрана `--fx-orange-darkest` — контраст там
+     даже выше, но пары «тёмно-оранжевый на белом» в таблице нет вовсе, то
+     есть цвет был бы непроверенным. */
+  color: var(--fx-orange-text);
+  font-size: 7.5pt;
+  font-weight: var(--fx-weight-semibold);
+}
+
+.визитка__значок {
+  inline-size: 4.4mm;
+  block-size: 4.4mm;
+  flex: none;
+  fill: none;
+  stroke: var(--fx-orange);
+  stroke-width: 1.8;
+}
+
+.визитка__колонна {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: calc(var(--визитка-вылет) + 4mm);
+  block-size: 34mm;
+  inline-size: auto;
+}
+
+/* Оборот прижат к обеим кромкам поля набора, а не собран у верха: имя вверху,
+   связь и услуги внизу. Иначе нижняя треть карточки пустует — в оригинале
+   заказчика там стоит строка услуг, и она держит композицию. */
+.визитка__оборот {
+  position: relative;
+  z-index: 1;
+  inline-size: 62%;
+  block-size: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ── Общая шапка листов A4 ───────────────────────────────────────────────── */
+
+.бланк__шапка {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8mm;
+  padding-block-end: 4mm;
+  border-block-end: var(--fx-rule-strong) solid var(--fx-navy);
+}
+
+.бланк__знак {
+  display: block;
+  inline-size: 34mm;
+  block-size: auto;
+}
+
+.бланк__реквизиты {
+  text-align: end;
+  color: var(--fx-ink-soft);
+  font-size: 8pt;
+  line-height: 1.4;
+}
+
+.бланк__реквизиты p {
+  margin: 0;
+}
+
+.бланк__титул {
+  margin: 7mm 0 1mm;
+  color: var(--fx-navy-deep);
+  font-size: 16pt;
+  font-weight: var(--fx-weight-bold);
+  line-height: 1.15;
+}
+
+.бланк__подзаголовок {
+  margin: 0 0 5mm;
+  color: var(--fx-ink-soft);
+  font-size: 9pt;
+}
+
+/* Колонка: подписи прижимаются к низу листа, а не висят там, где кончился
+   текст. Лист с подписью посреди страницы читается как недописанный. */
+.бланк__тело {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.бланк__тело > .подписи {
+  margin-block-start: auto;
+}
+
+.бланк__подвал {
+  margin-block-start: 6mm;
+  padding-block-start: 3mm;
+  border-block-start: var(--fx-hairline) solid var(--fx-line);
+  display: flex;
+  justify-content: space-between;
+  gap: 6mm;
+  color: var(--fx-ink-soft);
+  font-size: 7.5pt;
+}
+
+.бланк__подпись-автора {
+  color: var(--fx-line-strong);
+  font-size: 7pt;
+}
+
+/* ── Строки «поле для заполнения» ────────────────────────────────────────── */
+
+.поля {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3mm 8mm;
+  margin-block-end: 6mm;
+}
+
+.поля--узкие {
+  inline-size: 70%;
+  margin-block-start: 14mm;
+}
+
+.поля--отступ {
+  margin-block-start: 6mm;
+}
+
+.поле {
+  display: flex;
+  align-items: baseline;
+  gap: 2mm;
+}
+
+.поле__имя {
+  color: var(--fx-ink-soft);
+  font-size: 8.5pt;
+  white-space: nowrap;
+}
+
+.поле__линия {
+  flex: 1;
+  border-block-end: var(--fx-hairline) solid var(--fx-line-strong);
+  min-block-size: 5mm;
+}
+
+/* Заглушка реквизита, которого у компании ещё нет. Видна и на экране, и на
+   бумаге: документ, ушедший клиенту с незаполненным номером, должен кричать
+   об этом, а не выглядеть законченным. */
+.заглушка {
+  padding: 0 1mm;
+  background: var(--fx-warning-wash);
+  color: var(--fx-warning);
+  font-weight: var(--fx-weight-medium);
+}
+
+/* ── Таблица позиций ─────────────────────────────────────────────────────── */
+
+.позиции {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: 9pt;
+}
+
+.позиции th {
+  padding: 2mm 2mm;
+  border-block-end: var(--fx-rule) solid var(--fx-navy);
+  color: var(--fx-navy-deep);
+  font-size: 8pt;
+  font-weight: var(--fx-weight-semibold);
+  text-align: start;
+  text-transform: uppercase;
+  letter-spacing: var(--fx-tracking-caps);
+}
+
+.позиции td {
+  padding: 2.2mm 2mm;
+  border-block-end: var(--fx-hairline) solid var(--fx-line);
+  vertical-align: top;
+}
+
+.позиции .сумма {
+  text-align: end;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.позиции tfoot td {
+  border-block-end: 0;
+  padding-block-start: 3mm;
+  font-weight: var(--fx-weight-semibold);
+}
+
+.итог {
+  color: var(--fx-navy-deep);
+  font-size: 12pt;
+  font-weight: var(--fx-weight-bold);
+}
+
+/* ── Плашка оговорки ─────────────────────────────────────────────────────── */
+
+.оговорка {
+  margin-block-start: 5mm;
+  padding: 3mm 4mm;
+  border-inline-start: var(--fx-rule-strong) solid var(--fx-orange);
+  background: var(--fx-orange-wash);
+  color: var(--fx-orange-darkest);
+  font-size: 8pt;
+  line-height: 1.5;
+}
+
+.оговорка p {
+  margin: 0 0 1.5mm;
+}
+
+.оговорка p:last-child {
+  margin-block-end: 0;
+}
+
+.оговорка--синяя {
+  border-inline-start-color: var(--fx-navy);
+  background: var(--fx-navy-wash);
+  color: var(--fx-navy-deep);
+}
+
+/* ── Наряд и лист приёмки ────────────────────────────────────────────────── */
+
+.наряд__блок {
+  margin-block-end: 5mm;
+}
+
+.наряд__ярлык {
+  margin: 0 0 1mm;
+  color: var(--fx-ink-soft);
+  font-size: 8pt;
+  letter-spacing: var(--fx-tracking-caps);
+  text-transform: uppercase;
+}
+
+.наряд__ярлык--отступ {
+  margin-block-start: 5mm;
+}
+
+.наряд__значение {
+  margin: 0;
+  font-size: 11pt;
+  font-weight: var(--fx-weight-medium);
+}
+
+/* Честное состояние из телеграмного наряда — подпись под линией, а не значение
+   вместо неё: работник должен прочитать на бумаге ровно то, что сказал бы бот. */
+.наряд__пусто {
+  margin: 1mm 0 0;
+  color: var(--fx-warning);
+  font-size: 8pt;
+}
+
+.подписи {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10mm;
+  margin-block-start: 8mm;
+}
+
+.подпись-блок__линия {
+  border-block-end: var(--fx-hairline) solid var(--fx-line-strong);
+  block-size: 12mm;
+}
+
+.подпись-блок__имя {
+  margin: 1.5mm 0 0;
+  color: var(--fx-ink-soft);
+  font-size: 8pt;
+}
+
+/* ── Обложка ─────────────────────────────────────────────────────────────── */
+
+.обложка {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 6mm;
+}
+
+.обложка__знак {
+  inline-size: 60mm;
+  block-size: auto;
+}
+
+.обложка__титул {
+  margin: 0;
+  color: var(--fx-navy-deep);
+  font-size: 26pt;
+  font-weight: var(--fx-weight-bold);
+  line-height: 1.1;
+}
+
+.обложка__строка {
+  margin: 0;
+  color: var(--fx-ink-soft);
+  font-size: 11pt;
+}
+
+.обложка__черта {
+  inline-size: 40mm;
+  block-size: var(--fx-rule-strong);
+  background: var(--fx-orange);
+  border: 0;
+}
+
+/* ═══ Печать ══════════════════════════════════════════════════════════════ */
+
+@media print {
+  body {
+    padding: 0;
+    background: var(--fx-white);
+  }
+
+  .лист {
+    box-shadow: none;
+    break-after: page;
+  }
+
+  .витрина,
+  .документ__шапка,
+  .обойма__подпись,
+  .шапка {
+    display: none;
+  }
+}
