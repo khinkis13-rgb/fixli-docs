@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fixli — что нужно от вас, чтобы поток клиентов пошёл</title>
+
+<!-- Из поиска страницу закрывают эти теги, а не robots.txt: запрет в robots.txt
+     убил бы превью ссылки в WhatsApp и Telegram, а её отправляют именно туда.
+     От посторонних глаз страницу закрывает неугадываемый сегмент в адресе —
+     тот же выбор, что у отчёта партнёрам, страницы предложения и запроса фото. -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="bingbot" content="noindex, nofollow">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fixli">
+<meta property="og:title" content="Fixli — что нужно от вас, чтобы поток клиентов пошёл">
+<meta property="og:description" content="Два дела и четыре вопроса — по одному делу на каждого. Игорю 15 минут в телефоне, Диме 5 минут за компьютером. Всё остальное сделано и ждёт только этого.">
+<meta property="og:image" content="https://docs.fixlihome.co.il/status/1df20ae18d/og-card.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Карточка Fixli: 2 дела, 15 минут Игорю, 5 минут Диме">
+<meta property="og:url" content="https://docs.fixlihome.co.il/status/1df20ae18d/">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fixli — что нужно от вас, чтобы поток клиентов пошёл">
+<meta name="twitter:description" content="Два дела и четыре вопроса — по одному делу на каждого. Игорю 15 минут в телефоне, Диме 5 минут за компьютером. Всё остальное сделано и ждёт только этого.">
+<meta name="twitter:image" content="https://docs.fixlihome.co.il/status/1df20ae18d/og-card.jpg">
+<meta name="twitter:image:alt" content="Карточка Fixli: 2 дела, 15 минут Игорю, 5 минут Диме">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f38025'/%3E%3Ctext x='16' y='24' font-family='Helvetica,Arial' font-size='21' font-weight='700' fill='%23ffffff' text-anchor='middle'%3Ef%3C/text%3E%3C/svg%3E">
+
+<style>
+:root {
+    --навигация: #12438f;
+    --навигация-тёмная: #06182f;
+    --оранжевый: #f38025;
+    --оранжевый-текст: #b5540b;
+    --текст: #1c2733;
+    --текст-мягкий: #4a5867;
+    --фон: #ffffff;
+    --туман: #f4f7fb;
+    --линия: #d9e2ee;
+    --жёлтый-фон: #fff8e6;
+    --жёлтая-линия: #e8b93a;
+  }
+
+  /* Страница светлая, и она об этом говорит вслух. Найдено 21 августа на
+     панели и на сайте: браузер красит каретку, выделение и прочую свою мелочь
+     по объявленной схеме документа, а не по нашим краскам, — и в тёмной теме
+     телефона выделение текста приветствия могло выйти неразборчивым ровно
+     там, где его копируют. Тёмной темы у бренда нет вовсе. */
+  html { color-scheme: light; }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--фон);
+    color: var(--текст);
+    font: 400 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .полоса { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  header {
+    background: var(--туман);
+    border-bottom: 1px solid var(--линия);
+    padding: 40px 0 36px;
+  }
+
+  /* Знак ставится файлом, а не набирается: буквы в нём нарисованы (вырез-рука
+     в обеих «i», «f» выше «l» на 6 %), и подстановкой шрифта их не повторить.
+     Правило брендбука, раздел 01. */
+  .знак { display: block; width: 104px; height: auto; margin: 0 0 22px; }
+
+  h1 { margin: 0 0 12px; font-size: 30px; line-height: 1.2; color: var(--навигация-тёмная); }
+  .лид { margin: 0; color: var(--текст-мягкий); font-size: 18px; }
+
+  /* Выбор окна. Он стоит первым экраном намеренно: страницу открывают двое,
+     и первое, что должен увидеть человек, — своё имя, а не общий список. */
+  .выбор { display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0 0; }
+  .выбор a {
+    flex: 1 1 200px;
+    display: block;
+    text-decoration: none;
+    background: var(--фон);
+    border: 1px solid var(--линия);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .выбор a:hover { border-color: var(--оранжевый); }
+  .выбор b { display: block; font-size: 20px; color: var(--навигация-тёмная); }
+  .выбор span { display: block; margin-top: 4px; font-size: 15px; color: var(--текст-мягкий); }
+
+  .окно { margin: 46px 0 0; border: 1px solid var(--линия); border-radius: 16px; overflow: hidden; }
+  .окно__шапка { background: var(--навигация-тёмная); color: #fff; padding: 22px 24px; }
+  .окно__шапка h2 { margin: 0; font-size: 25px; line-height: 1.2; color: #fff; }
+  .окно__шапка p { margin: 6px 0 0; color: #a9c0e4; font-size: 16px; }
+  .окно__тело { padding: 22px 24px 26px; }
+
+  h2 { margin: 0 0 6px; font-size: 23px; line-height: 1.25; color: var(--навигация-тёмная); }
+  h3 { margin: 28px 0 8px; font-size: 19px; color: var(--навигация-тёмная); }
+  h3:first-child { margin-top: 0; }
+  h4 { margin: 18px 0 6px; font-size: 16px; color: var(--навигация); }
+  p { margin: 0 0 14px; }
+  ol, ul { margin: 0 0 14px; padding-inline-start: 24px; }
+  li { margin: 0 0 6px; }
+
+  .метка {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--жёлтый-фон);
+    color: var(--оранжевый-текст);
+    border: 1px solid var(--жёлтая-линия);
+    white-space: nowrap;
+  }
+
+  .дело { border: 1px solid var(--линия); border-radius: 12px; padding: 18px 20px; margin: 0 0 16px; }
+  .дело__шапка { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: baseline; margin-bottom: 10px; }
+  .дело__имя { font-weight: 700; font-size: 18px; color: var(--навигация-тёмная); }
+  .дело p:last-child { margin-bottom: 0; }
+  .зачем { color: var(--текст-мягкий); }
+
+  .вопрос {
+    background: var(--туман);
+    border-inline-start: 4px solid var(--оранжевый);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin: 0 0 14px;
+  }
+  .вопрос__текст { font-weight: 700; color: var(--навигация-тёмная); margin: 0 0 8px; }
+  .вопрос p:last-child { margin: 0; color: var(--текст-мягкий); }
+
+  /* Текст, который человек копирует пальцем с телефона. Рамка и своя подложка
+     нужны, чтобы было видно, где он начинается и где кончается: в прошлой
+     инструкции границу отмечали линиями из дефисов, и они уезжали в буфер. */
+  .копия {
+    position: relative;
+    border: 1px solid var(--линия);
+    border-radius: 12px;
+    background: var(--туман);
+    padding: 16px 18px;
+    margin: 0 0 8px;
+  }
+  .копия pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font: 400 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-user-select: all;
+    user-select: all;
+  }
+  /* Кнопка приезжает скрытой и показывается скриптом. Без скрипта её не видно
+     вовсе — кнопки-пустышки в этом проекте запрещены прямо: элемент либо
+     работает, либо его нет. Текст при этом копируется выделением всегда. */
+  .копировать {
+    display: none;
+    appearance: none;
+    border: 0;
+    cursor: pointer;
+    font: 700 15px/1 inherit;
+    background: var(--оранжевый);
+    color: var(--навигация-тёмная);
+    padding: 11px 18px;
+    border-radius: 10px;
+  }
+  .копировать:hover { background: var(--оранжевый-текст); color: #fff; }
+  .подпись-копии { margin: 0 0 18px; font-size: 15px; color: var(--текст-мягкий); }
+
+  a { color: var(--оранжевый-текст); }
+  a:hover { color: var(--навигация); }
+
+  .кнопка {
+    display: inline-block;
+    background: var(--оранжевый);
+    color: var(--навигация-тёмная);
+    font-weight: 700;
+    text-decoration: none;
+    padding: 13px 22px;
+    border-radius: 10px;
+    margin: 4px 0 0;
+  }
+  .кнопка:hover { background: var(--оранжевый-текст); color: #fff; }
+
+  .правило {
+    border: 1px dashed var(--линия);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 18px 0 0;
+    color: var(--текст-мягкий);
+  }
+  .правило strong { color: var(--текст); }
+
+  footer {
+    margin-top: 52px;
+    border-top: 1px solid var(--линия);
+    padding: 24px 0 40px;
+    color: var(--текст-мягкий);
+    font-size: 15px;
+  }
+  .знак-автора { margin-top: 18px; font-size: 12px; color: #9aa7b4; }
+
+  @media (max-width: 520px) {
+    h1 { font-size: 25px; }
+    .окно__шапка h2 { font-size: 21px; }
+    .окно__шапка, .окно__тело { padding-inline: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="полоса">
+    <svg class="знак" role="img" aria-label="Fixli" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436 198" role="img" aria-label="fixli">
+  <title>fixli</title>
+  
+  <path
+    id="f"
+    fill="#f38025"
+    d="M 68.68 10.5 L 102.5 10.08 A 4.26 4.26 0 0 1 105.3 15.5 L 105.17 37.5 A 6.91 6.91 0 0 1 98.5 39.53 L 73.5 40.22 A 15.26 15.26 0 0 0 63.89 47.5 A 33.39 33.39 0 0 0 61.19 64.5 L 61.5 70.82 L 64.5 71.69 L 100.5 71.73 L 101.58 73.5 L 93.5 100.53 L 88.5 101.31 L 62.48 101.5 L 61.4 103.5 L 61.08 188.5 L 59.5 189.63 L 29.96 189.5 L 28.87 185.5 L 28.5 102.22 L 22.5 101.26 L 12.5 100.81 L 11.13 99.5 L 11.5 72.26 L 27.56 71.5 L 28.81 68.5 L 29.87 47.5 L 33.71 35.5 L 40.14 25.5 L 49.69 17.5 L 56.5 13.89 L 70.5 10.12 Z"
+  />
+  <path
+    id="i1-stem"
+    fill="#f38025"
+    d="M 132.14 70.5 A 13.67 13.67 0 0 1 144.73 77.5 L 156.5 93.51 L 163.88 99.5 L 173.03 104.5 L 173.5 105.69 A 18.06 18.06 0 0 1 160.5 109.93 L 153.58 110.5 L 153.1 188.5 L 152.5 189.66 L 121.78 189.5 A 8.75 8.75 0 0 1 120.8 183.5 L 120.85 83.5 L 121.98 77.5 A 12.44 12.44 0 0 1 143.93 76.5 Z"
+  />
+  <circle id="i1-dot" cx="138.95" cy="46.42" r="18.82" fill="#f38025" />
+  <path
+    id="x"
+    fill="#f38025"
+    d="M 179 71.5 L 214.5 71.56 A 8.45 8.45 0 0 1 218.5 75.74 L 240.5 103.86 L 241.55 104.5 L 266.81 72.5 L 269.5 71.48 L 304.5 71.55 L 305.41 72.5 L 300.5 80.62 L 262.86 129.5 A 7.85 7.85 0 0 0 265.88 134.5 L 300.5 178.94 L 307.44 188.5 L 307.33 189.5 L 270.5 189.91 L 262.5 180.4 L 242.5 155.11 L 241.5 154.07 L 236.03 160.5 L 213.5 189.55 L 176.5 189.74 A 1.7 1.7 0 0 1 176.5 186.38 L 219.5 131.22 L 219.35 128.5 L 178.5 75.2 L 177.5 72.19 A 7.81 7.81 0 0 1 183.5 71.3 Z"
+  />
+  <path
+    id="l"
+    fill="#12438f"
+    d="M 330.25 21.5 L 359.5 21.69 L 360.81 22.5 L 360.9 187.5 L 359.5 189.56 L 330.5 189.39 L 329 188.5 L 328.21 172.5 L 328.5 22.47 L 331.5 21.35 Z"
+  />
+  <path
+    id="i2-stem"
+    fill="#12438f"
+    d="M 408.44 71.5 A 12.39 12.39 0 0 1 423.6 76.5 A 18.17 18.17 0 0 1 425.22 87.5 L 425 188.5 L 419.5 189.6 L 393.5 189.23 L 392.12 186.5 L 391.8 110.5 L 380.5 109.8 L 373.42 106.5 L 373.01 104.5 L 385.13 97.5 A 40.56 40.56 0 0 0 394.82 86.5 L 404.5 73.71 A 12.9 12.9 0 0 1 414.5 70.78 Z"
+  />
+  <circle id="i2-dot" cx="406.28" cy="46.37" r="18.89" fill="#12438f" />
+</svg>
+    <h1>Что нужно от вас, чтобы поток клиентов пошёл</h1>
+    <p class="лид">Два дела и четыре вопроса — по одному делу на каждого. Игорю 15 минут в телефоне, Диме 5 минут за компьютером. Всё остальное сделано и ждёт только этого.</p>
+    <div class="выбор">
+      <a href="igor/">
+        <b>Игорю →</b>
+        <span>15 минут в телефоне + два вопроса</span>
+      </a>
+      <a href="dima/">
+        <b>Диме →</b>
+        <span>5 минут за компьютером + два вопроса</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="полоса">
+<div class="правило" style="margin-top:0">
+  <strong>Почему всего два дела, а не список из двадцати пунктов.</strong>
+  Всё остальное либо сделано, либо не требует вас: сайт с расчётом стоимости, страница
+  знакомства, брендбук, рекламные макеты, панель управления и боты — написаны и работают.
+  Эти два действия — единственное, что нельзя сделать за вас: одно упирается в телефон Игоря,
+  второе в аккаунт Димы на Facebook.
+</div>
+
+<p style="margin-top:22px">
+  Что уже собрано и сколько это стоило — <a href="https://docs.fixlihome.co.il/status/da5406d75f/">в отчёте о состоянии работ</a>.
+  Какие нужны фотографии и куда они встанут — <a href="https://docs.fixlihome.co.il/status/c31f7a92b4/">на отдельной странице</a>.
+</p>
+</main>
+
+<footer class="полоса">
+  <p>Страница закрыта от поиска и доступна только по этой ссылке.</p>
+  <p class="знак-автора">Made by Dmitry Khinkis</p>
+</footer>
+
+<script>
+  /* Кнопка копирования показывается только здесь — то есть только когда она
+     действительно работает. Без скрипта её не видно, а текст всё равно
+     копируется выделением: в блоке стоит `user-select: all`, одно касание
+     выделяет его целиком. */
+  document.querySelectorAll('.копировать').forEach(function (кнопка) {
+    if (!navigator.clipboard) return;
+    кнопка.style.display = 'inline-block';
+    кнопка.addEventListener('click', function () {
+      var узел = document.getElementById(кнопка.dataset['копировать']);
+      navigator.clipboard.writeText(узел.textContent).then(
+        function () {
+          кнопка.textContent = 'Скопировано';
+          setTimeout(function () { кнопка.textContent = 'Скопировать текст'; }, 2000);
+        },
+        function () {
+          /* Отказ буфера — не повод врать про успех: подсказываем выделение. */
+          кнопка.textContent = 'Не вышло — выделите текст';
+        },
+      );
+    });
+  });
+</script>
+
+</body>
+</html>
