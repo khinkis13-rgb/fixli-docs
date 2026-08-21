@@ -96,6 +96,28 @@
   .выбор b { display: block; font-size: 20px; color: var(--навигация-тёмная); }
   .выбор span { display: block; margin-top: 4px; font-size: 15px; color: var(--текст-мягкий); }
 
+  /* Опись того, что внутри окна. Точка вместо маркера списка: полноценные
+     буллиты в карточке спорят по весу с самим именем, а без маркера строки
+     сливаются в абзац. Первая строка — дело, поэтому она темнее остальных:
+     из пяти строк должно быть видно, какая из них требует действия. */
+  .выбор ul { margin: 12px 0 0; padding: 0; list-style: none; }
+  .выбор li {
+    position: relative;
+    padding-inline-start: 14px;
+    margin: 0 0 3px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--текст-мягкий);
+  }
+  .выбор li::before {
+    content: '·';
+    position: absolute;
+    inset-inline-start: 2px;
+    color: var(--оранжевый);
+    font-weight: 700;
+  }
+  .выбор li.дело-строка { color: var(--текст); font-weight: 600; }
+
   .окно { margin: 46px 0 0; border: 1px solid var(--линия); border-radius: 16px; overflow: hidden; }
   .окно__шапка { background: var(--навигация-тёмная); color: #fff; padding: 22px 24px; }
   .окно__шапка h2 { margin: 0; font-size: 25px; line-height: 1.2; color: #fff; }
