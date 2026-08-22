@@ -79,8 +79,11 @@
 
   /* ── первый экран ─────────────────────────────────────────────────────── */
 
+  /* Шапка белая, а тон отдан разделу звеньев: пока тон был у обеих, они
+     сливались в одно пятно через тонкую линию, и выделение раздела ничего не
+     выделяло. Числа первого экрана поэтому наоборот — на тоне, а не на белом. */
   header {
-    background: var(--туман);
+    background: var(--фон);
     border-bottom: 1px solid var(--линия);
     padding: 40px 0 34px;
   }
@@ -101,7 +104,7 @@
     margin: 26px 0 0;
   }
   .число {
-    background: var(--фон);
+    background: var(--туман);
     border: 1px solid var(--линия);
     border-radius: 12px;
     padding: 14px 16px;
@@ -145,6 +148,15 @@
   p { margin: 0 0 14px; }
   a { color: var(--навигация); }
 
+  /* ── раздел звеньев ───────────────────────────────────────────────────────
+     Весь раздел стоит на своей подложке, а карточки и разбор — белые на ней.
+     Причина названа на приёмке: «порой непонятно, что информация про звено
+     закончилась, и мы уже смотрим продолжение презентации внизу». Граница
+     раздела краской видна там, где линия между секциями теряется. */
+
+  .звенья { background: var(--туман); padding-bottom: 36px; }
+  .звенья + section { border-top: 0; }
+
   /* ── лента звеньев ────────────────────────────────────────────────────────
      Двенадцать карточек вбок вместо простыни вниз (просьба Дмитрия 2026-08-22).
      Свайп даёт сам браузер: `overflow-x` + `scroll-snap`, без единой строки
@@ -186,6 +198,9 @@
     padding: 2px 2px 14px;
     margin: 0 0 6px;
   }
+  /* Карточка целиком — ссылка: тап в любое место открывает разбор. Отсюда
+     `text-decoration: none` и `color: inherit` — иначе весь текст карточки
+     станет синим и подчёркнутым. */
   .карточка {
     scroll-snap-align: start;
     flex: 0 0 min(84%, 300px);
@@ -197,7 +212,13 @@
     border-left: 4px solid var(--линия);
     border-radius: 14px;
     padding: 14px 16px 12px;
+    text-decoration: none;
+    color: var(--текст);
   }
+  /* Обводкой, а не рамкой — по той же причине, что и у `:target`: `border-color`
+     перекрашивает и левую полосу, а она несёт состояние звена. */
+  .карточка:hover { outline: 2px solid var(--навигация); outline-offset: 2px; }
+  .карточка:hover .карточка__ссылка { text-decoration: underline; }
   .карточка__верх { display: flex; align-items: center; gap: 10px; }
   .карточка__имя { font-weight: 700; font-size: 17px; line-height: 1.3; color: var(--навигация-тёмная); }
   .карточка__что { flex: 1; font-size: 15px; line-height: 1.5; color: var(--текст-мягкий); }
@@ -206,10 +227,8 @@
     align-self: flex-start;
     font-weight: 700;
     font-size: 15px;
-    text-decoration: none;
     color: var(--навигация);
   }
-  .карточка__ссылка:hover { text-decoration: underline; }
   /* Обводкой, а не рамкой: `border-color` перекрашивает и левую полосу тоже, а
      она несёт состояние звена — на карточке, к которой человек только что
      перешёл по номеру, жёлтое «ждёт вас» становилось синим. */
@@ -256,34 +275,72 @@
      под самый верх окна, и «Двенадцать звеньев цепочки» обрезается пополам, а
      кнопка «Ко всем звеньям» оказывается первой строкой без всякого «где я». */
   .разбор { display: none; scroll-margin-top: 62px; }
-  .разбор:target { display: block; }
+  /* Белая карточка на подложке раздела: у разбора видно край, и понятно, где
+     кончилось звено и началось продолжение презентации. */
+  .разбор:target {
+    display: block;
+    background: var(--фон);
+    border: 1px solid var(--линия);
+    border-radius: 16px;
+    padding: 18px 18px 20px;
+  }
 
   /* Пока разбор открыт, ленты не видно: это отдельный экран, а не блок под
      каруселью. Нет `:has()` — лента остаётся сверху, и это не поломка. */
   .звенья:has(.разбор:target) .только-лента { display: none; }
 
+  /* Кнопкой, а не ссылкой: на приёмке кнопки перехода просили сделать явными —
+     по строчке-ссылке не видно, что информация про звено кончилась. */
   .назад {
     display: inline-block;
-    margin: 0 0 14px;
+    margin: 0 0 16px;
+    padding: 9px 14px;
+    border: 1px solid var(--линия);
+    border-radius: 999px;
+    background: var(--туман);
     font-weight: 700;
     font-size: 15px;
     text-decoration: none;
     color: var(--навигация);
   }
-  .назад:hover { text-decoration: underline; }
+  .назад:hover { border-color: var(--навигация); }
 
+  /* Предыдущее звено слева, следующее справа — двумя колонками, а не столбиком
+     (просьба Дмитрия 2026-08-22). Сетка, а не `space-between`: у крайних
+     разборов кнопка одна, и без второй колонки она уехала бы на чужую сторону. */
   .соседи {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin: 22px 0 4px;
-    padding-top: 16px;
+    margin: 24px 0 0;
+    padding-top: 18px;
     border-top: 1px solid var(--линия);
-    font-size: 15px;
   }
-  .соседи a { font-weight: 700; text-decoration: none; }
-  .соседи a:hover { text-decoration: underline; }
+  .сосед {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--линия);
+    border-radius: 12px;
+    background: var(--фон);
+    text-decoration: none;
+    color: var(--навигация);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+  .сосед:hover { border-color: var(--навигация); }
+  .сосед--вперёд { justify-content: flex-end; text-align: end; }
+  .сосед--пусто { border: 0; background: none; min-height: 0; padding: 0; }
+  .сосед__знак { font-size: 20px; line-height: 1; }
+  .сосед__шаг {
+    display: block;
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--текст-мягкий);
+  }
 
   .звено__номер {
     width: 30px;
@@ -516,114 +573,114 @@
     </div>
 
     <div class="лента только-лента" data-лента tabindex="0" aria-label="Звенья цепочки, листается вбок">
-        <article class="карточка карточка--ждёт" id="к-1" data-номер="1">
+        <a class="карточка карточка--ждёт" id="к-1" data-номер="1" href="#звено-1">
           <span class="карточка__верх">
             <span class="звено__номер">1</span>
             <span class="метка метка--ждёт">ждёт вас</span>
           </span>
           <span class="карточка__имя">Реклама и бренд</span>
           <span class="карточка__что">24 макета и брендбук готовы. Запуск держит документ о регистрации</span>
-          <a class="карточка__ссылка" href="#звено-1">Подробнее <span aria-hidden="true">›</span></a>
-        </article>
-        <article class="карточка карточка--работает" id="к-2" data-номер="2">
+          <span class="карточка__ссылка">Подробнее <span aria-hidden="true">›</span></span>
+        </a>
+        <a class="карточка карточка--работает" id="к-2" data-номер="2" href="#звено-2-3">
           <span class="карточка__верх">
             <span class="звено__номер">2</span>
             <span class="метка метка--работает">работает</span>
           </span>
           <span class="карточка__имя">Клиент открывает сайт</span>
           <span class="карточка__что">fixlihome.co.il на русском и иврите, с роликом на первом экране</span>
-          <a class="карточка__ссылка" href="#звено-2-3">Подробнее <span aria-hidden="true">›</span></a>
-        </article>
-        <article class="карточка карточка--работает" id="к-3" data-номер="3">
+          <span class="карточка__ссылка">Подробнее <span aria-hidden="true">›</span></span>
+        </a>
+        <a class="карточка карточка--работает" id="к-3" data-номер="3" href="#звено-2-3">
           <span class="карточка__верх">
             <span class="звено__номер">3</span>
             <span class="метка метка--работает">работает</span>
           </span>
           <span class="карточка__имя">Считает стоимость сам</span>
           <span class="карточка__что">Отмечает вещи по комнатам и видит цену — до звонка нам</span>
-          <a class="карточка__ссылка" href="#звено-2-3">Подробнее <span aria-hidden="true">›</span></a>
-        </article>
-        <article class="карточка карточка--ждёт" id="к-4" data-номер="4">
+          <span class="карточка__ссылка">Подробнее <span aria-hidden="true">›</span></span>
+        </a>
+        <a class="карточка карточка--ждёт" id="к-4" data-номер="4" href="#звено-4">
           <span class="карточка__верх">
             <span class="звено__номер">4</span>
             <span class="метка метка--ждёт">ждёт вас</span>
           </span>
           <span class="карточка__имя">Пишет нам</span>
           <span class="карточка__что">Заявка с сайта и Telegram-бот работают. Приветствие в WhatsApp — 15 минут на телефоне</span>
-          <a class="карточка__ссылка" href="#звено-4">Подробнее <span aria-hidden="true">›</span></a>
-        </article>
-        <article class="карточка карточка--работает" id="к-5" data-номер="5">
+          <span class="карточка__ссылка">Подробнее <span aria-hidden="true">›</span></span>
+        </a>
+        <a class="карточка карточка--работает" id="к-5" data-номер="5" href="#звено-5-6">
           <span class="карточка__верх">
             <span class="звено__номер">5</span>
             <span class="метка метка--работает">работает</span>
           </span>
           <span class="карточка__имя">Обращение попадает в систему</span>
           <span class="карточка__что">Слова клиента целиком и метка, откуда он пришёл</span>
-          <a class="карточка__ссылка" href="#звено-5-6">Подробнее <span aria-hidden="true">›</span></a>
-        </article>
-        <article class="карточка карточка--работает" id="к-6" data-номер="6">
+          <span class="карточка__ссылка">Подробнее <span aria-hidden="true">›</span></span>
+        </a>
+        <a class="карточка карточка--работает" id="к-6" data-номер="6" href="#звено-5-6">
           <span class="карточка__верх">
             <span class="звено__номер">6</span>
             <span class="метка метка--работает">работает</span>
           </span>
           <span class="карточка__имя">Из обращения — заказ</span>
           <span class="карточка__что">Адреса, этажи, дата, сумма. Номер заказа сквозной: 2026-0001</span>
-          <a class="карточка__ссылка" href="#звено-5-6">Подробнее <span aria-hidden="true">›</span></a>
-        </article>
-        <article class="карточка карточка--работает" id="к-7" data-номер="7">
+          <span class="карточка__ссылка">Подробнее <span aria-hidden="true">›</span></span>
+        </a>
+        <a class="карточка карточка--работает" id="к-7" data-номер="7" href="#звено-7">
           <span class="карточка__верх">
             <span class="звено__номер">7</span>
             <span class="метка метка--работает">работает</span>
           </span>
           <span class="карточка__имя">Смена и бригада</span>
           <span class="карточка__что">Кто едет, во сколько и за какие деньги. Одна кнопка объявляет смену</span>
-          <a class="карточка__ссылка" href="#звено-7">Подробнее <span aria-hidden="true">›</span></a>
-        </article>
-        <article class="карточка карточка--работает" id="к-8" data-номер="8">
+          <span class="карточка__ссылка">Подробнее <span aria-hidden="true">›</span></span>
+        </a>
+        <a class="карточка карточка--работает" id="к-8" data-номер="8" href="#звено-8">
           <span class="карточка__верх">
             <span class="звено__номер">8</span>
             <span class="метка метка--работает">работает</span>
           </span>
           <span class="карточка__имя">Работник получает смену в телефон</span>
           <span class="карточка__что">Сообщение в Telegram и приложение «Мои смены»: маршрут, чек-лист, оплата</span>
-          <a class="карточка__ссылка" href="#звено-8">Подробнее <span aria-hidden="true">›</span></a>
-        </article>
-        <article class="карточка карточка--делаем" id="к-9" data-номер="9">
+          <span class="карточка__ссылка">Подробнее <span aria-hidden="true">›</span></span>
+        </a>
+        <a class="карточка карточка--делаем" id="к-9" data-номер="9" href="#звено-9-10">
           <span class="карточка__верх">
             <span class="звено__номер">9</span>
             <span class="метка метка--делаем">в работе</span>
           </span>
           <span class="карточка__имя">Отчёт с объекта и фотографии</span>
           <span class="карточка__что">Отчёт бригадира работает. Фотографии из приложения — доделываем</span>
-          <a class="карточка__ссылка" href="#звено-9-10">Подробнее <span aria-hidden="true">›</span></a>
-        </article>
-        <article class="карточка карточка--работает" id="к-10" data-номер="10">
+          <span class="карточка__ссылка">Подробнее <span aria-hidden="true">›</span></span>
+        </a>
+        <a class="карточка карточка--работает" id="к-10" data-номер="10" href="#звено-9-10">
           <span class="карточка__верх">
             <span class="звено__номер">10</span>
             <span class="метка метка--работает">работает</span>
           </span>
           <span class="карточка__имя">Деньги и ответ «какая реклама окупилась»</span>
           <span class="карточка__что">Источник → обращений → заказов → сумма. То, ради чего всё строилось</span>
-          <a class="карточка__ссылка" href="#звено-9-10">Подробнее <span aria-hidden="true">›</span></a>
-        </article>
-        <article class="карточка карточка--отодвинуто" id="к-11" data-номер="11">
+          <span class="карточка__ссылка">Подробнее <span aria-hidden="true">›</span></span>
+        </a>
+        <a class="карточка карточка--отодвинуто" id="к-11" data-номер="11" href="#звено-11">
           <span class="карточка__верх">
             <span class="звено__номер">11</span>
             <span class="метка метка--отодвинуто">отодвинуто</span>
           </span>
           <span class="карточка__имя">Отзыв после работы</span>
           <span class="карточка__что">Отодвинуто вашим решением: отдельный агент пока не окупается</span>
-          <a class="карточка__ссылка" href="#звено-11">Подробнее <span aria-hidden="true">›</span></a>
-        </article>
-        <article class="карточка карточка--отодвинуто" id="к-12" data-номер="12">
+          <span class="карточка__ссылка">Подробнее <span aria-hidden="true">›</span></span>
+        </a>
+        <a class="карточка карточка--отодвинуто" id="к-12" data-номер="12" href="#звено-12">
           <span class="карточка__верх">
             <span class="звено__номер">12</span>
             <span class="метка метка--отодвинуто">отодвинуто</span>
           </span>
           <span class="карточка__имя">Поиск и интервью работников</span>
           <span class="карточка__что">Отодвинуто вашими словами «людей мы найдём». Схема данных готова</span>
-          <a class="карточка__ссылка" href="#звено-12">Подробнее <span aria-hidden="true">›</span></a>
-        </article>
+          <span class="карточка__ссылка">Подробнее <span aria-hidden="true">›</span></span>
+        </a>
     </div>
 
     <nav class="номера только-лента" aria-label="Все двенадцать звеньев">
@@ -671,10 +728,7 @@
         и лежит по ссылке.
       </p>
       <p class="кнопки"><a class="кнопка" href="https://docs.fixlihome.co.il/brand/">Открыть брендбук и 24 макета</a><a class="кнопка-тихая" href="https://fixlihome.co.il/ru/">Открыть сайт</a></p>
-      <nav class="соседи">
-        <span></span>
-        <a href="#звено-2-3">Звенья 2–3. Сайт и расчёт <span aria-hidden="true">›</span></a>
-      </nav>
+      <nav class="соседи" aria-label="Соседние звенья"><span class="сосед сосед--пусто" aria-hidden="true"></span><a class="сосед сосед--вперёд" href="#звено-2-3"><span class="сосед__текст"><span class="сосед__шаг">Следующее</span>Звенья 2–3. Сайт и расчёт</span><span class="сосед__знак" aria-hidden="true">›</span></a></nav>
     </div>
 
     <div class="разбор" id="звено-2-3">
@@ -730,10 +784,7 @@
         <strong>Чего здесь сознательно нет:</strong> блока «наши работы» с фотографиями объектов.
         Ролик нарисован, а настоящих кадров с наших смен у нас пока нет — это в списке ниже.
       </p>
-      <nav class="соседи">
-        <a href="#звено-1"><span aria-hidden="true">‹</span> Звено 1. Реклама и бренд</a>
-        <a href="#звено-4">Звено 4. Клиент пишет <span aria-hidden="true">›</span></a>
-      </nav>
+      <nav class="соседи" aria-label="Соседние звенья"><a class="сосед сосед--назад" href="#звено-1"><span class="сосед__знак" aria-hidden="true">‹</span><span class="сосед__текст"><span class="сосед__шаг">Предыдущее</span>Звено 1. Реклама и бренд</span></a><a class="сосед сосед--вперёд" href="#звено-4"><span class="сосед__текст"><span class="сосед__шаг">Следующее</span>Звено 4. Клиент пишет</span><span class="сосед__знак" aria-hidden="true">›</span></a></nav>
     </div>
 
     <div class="разбор" id="звено-4">
@@ -770,10 +821,7 @@
         не вошёл в систему: бот обещает ответ человека, а человек смотрит в систему. Приветствие
         в WhatsApp — 15 минут на телефоне, инструкция уже написана и открывается кнопкой ниже.
       </p>
-      <nav class="соседи">
-        <a href="#звено-2-3"><span aria-hidden="true">‹</span> Звенья 2–3. Сайт и расчёт</a>
-        <a href="#звено-5-6">Звенья 5–6. Обращение и заказ <span aria-hidden="true">›</span></a>
-      </nav>
+      <nav class="соседи" aria-label="Соседние звенья"><a class="сосед сосед--назад" href="#звено-2-3"><span class="сосед__знак" aria-hidden="true">‹</span><span class="сосед__текст"><span class="сосед__шаг">Предыдущее</span>Звенья 2–3. Сайт и расчёт</span></a><a class="сосед сосед--вперёд" href="#звено-5-6"><span class="сосед__текст"><span class="сосед__шаг">Следующее</span>Звенья 5–6. Обращение и заказ</span><span class="сосед__знак" aria-hidden="true">›</span></a></nav>
     </div>
 
     <div class="разбор" id="звено-5-6">
@@ -805,10 +853,7 @@
           <figcaption>Карточка заказа 2026-0001: два адреса, дата, оценка.</figcaption>
         </figure>
       </div>
-      <nav class="соседи">
-        <a href="#звено-4"><span aria-hidden="true">‹</span> Звено 4. Клиент пишет</a>
-        <a href="#звено-7">Звено 7. Смена и бригада <span aria-hidden="true">›</span></a>
-      </nav>
+      <nav class="соседи" aria-label="Соседние звенья"><a class="сосед сосед--назад" href="#звено-4"><span class="сосед__знак" aria-hidden="true">‹</span><span class="сосед__текст"><span class="сосед__шаг">Предыдущее</span>Звено 4. Клиент пишет</span></a><a class="сосед сосед--вперёд" href="#звено-7"><span class="сосед__текст"><span class="сосед__шаг">Следующее</span>Звено 7. Смена и бригада</span><span class="сосед__знак" aria-hidden="true">›</span></a></nav>
     </div>
 
     <div class="разбор" id="звено-7">
@@ -837,10 +882,7 @@
           <figcaption>После нажатия: смена <b>объявлена</b>. Строка «в Telegram ещё не ушла» — честное состояние: Telegram не даёт боту написать первым, пока работник сам не написал боту хоть раз. Это делается однажды, при приёме на работу.</figcaption>
         </figure>
       </div>
-      <nav class="соседи">
-        <a href="#звено-5-6"><span aria-hidden="true">‹</span> Звенья 5–6. Обращение и заказ</a>
-        <a href="#звено-8">Звено 8. Смена в телефоне <span aria-hidden="true">›</span></a>
-      </nav>
+      <nav class="соседи" aria-label="Соседние звенья"><a class="сосед сосед--назад" href="#звено-5-6"><span class="сосед__знак" aria-hidden="true">‹</span><span class="сосед__текст"><span class="сосед__шаг">Предыдущее</span>Звенья 5–6. Обращение и заказ</span></a><a class="сосед сосед--вперёд" href="#звено-8"><span class="сосед__текст"><span class="сосед__шаг">Следующее</span>Звено 8. Смена в телефоне</span><span class="сосед__знак" aria-hidden="true">›</span></a></nav>
     </div>
 
     <div class="разбор" id="звено-8">
@@ -916,10 +958,7 @@
         <em>в этой смене</em>: сегодня человек бригадир, завтра в чужой смене грузчик. Система
         считает уровень по смене, а не по человеку.
       </p>
-      <nav class="соседи">
-        <a href="#звено-7"><span aria-hidden="true">‹</span> Звено 7. Смена и бригада</a>
-        <a href="#звено-9-10">Звенья 9–10. Отчёт и деньги <span aria-hidden="true">›</span></a>
-      </nav>
+      <nav class="соседи" aria-label="Соседние звенья"><a class="сосед сосед--назад" href="#звено-7"><span class="сосед__знак" aria-hidden="true">‹</span><span class="сосед__текст"><span class="сосед__шаг">Предыдущее</span>Звено 7. Смена и бригада</span></a><a class="сосед сосед--вперёд" href="#звено-9-10"><span class="сосед__текст"><span class="сосед__шаг">Следующее</span>Звенья 9–10. Отчёт и деньги</span><span class="сосед__знак" aria-hidden="true">›</span></a></nav>
     </div>
 
     <div class="разбор" id="звено-9-10">
@@ -953,10 +992,7 @@
         присылает их в чат бота, и они попадают в отчёт. Загрузка прямо из «Моих смен» — следующая
         работа по этому звену.
       </p>
-      <nav class="соседи">
-        <a href="#звено-8"><span aria-hidden="true">‹</span> Звено 8. Смена в телефоне</a>
-        <a href="#звено-11">Звено 11. Отзыв после работы <span aria-hidden="true">›</span></a>
-      </nav>
+      <nav class="соседи" aria-label="Соседние звенья"><a class="сосед сосед--назад" href="#звено-8"><span class="сосед__знак" aria-hidden="true">‹</span><span class="сосед__текст"><span class="сосед__шаг">Предыдущее</span>Звено 8. Смена в телефоне</span></a><a class="сосед сосед--вперёд" href="#звено-11"><span class="сосед__текст"><span class="сосед__шаг">Следующее</span>Звено 11. Отзыв после работы</span><span class="сосед__знак" aria-hidden="true">›</span></a></nav>
     </div>
 
     <div class="разбор" id="звено-11">
@@ -979,10 +1015,7 @@
         60 рекомендаций и 653 комментария на странице в Facebook. Когда заказов станет больше и
         собирать их вручную станет некогда, переделывать систему не придётся.
       </p>
-      <nav class="соседи">
-        <a href="#звено-9-10"><span aria-hidden="true">‹</span> Звенья 9–10. Отчёт и деньги</a>
-        <a href="#звено-12">Звено 12. Поиск работников <span aria-hidden="true">›</span></a>
-      </nav>
+      <nav class="соседи" aria-label="Соседние звенья"><a class="сосед сосед--назад" href="#звено-9-10"><span class="сосед__знак" aria-hidden="true">‹</span><span class="сосед__текст"><span class="сосед__шаг">Предыдущее</span>Звенья 9–10. Отчёт и деньги</span></a><a class="сосед сосед--вперёд" href="#звено-12"><span class="сосед__текст"><span class="сосед__шаг">Следующее</span>Звено 12. Поиск работников</span><span class="сосед__знак" aria-hidden="true">›</span></a></nav>
     </div>
 
     <div class="разбор" id="звено-12">
@@ -1005,10 +1038,7 @@
         придётся ничего: приём работника уже сегодня идёт по этой модели — карточка человека,
         приглашение в Telegram, роль в смене.
       </p>
-      <nav class="соседи">
-        <a href="#звено-11"><span aria-hidden="true">‹</span> Звено 11. Отзыв после работы</a>
-        <span></span>
-      </nav>
+      <nav class="соседи" aria-label="Соседние звенья"><a class="сосед сосед--назад" href="#звено-11"><span class="сосед__знак" aria-hidden="true">‹</span><span class="сосед__текст"><span class="сосед__шаг">Предыдущее</span>Звено 11. Отзыв после работы</span></a><span class="сосед сосед--пусто" aria-hidden="true"></span></nav>
     </div>
   </div>
 </section>
