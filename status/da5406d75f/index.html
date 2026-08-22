@@ -435,22 +435,45 @@
 
   /* ── что нужно от вас ─────────────────────────────────────────────────── */
 
+  /* Карточка адресата — ссылка, и это должно быть видно без наведения: на
+     приёмке 2026-08-22 её приняли за обычный блок с текстом. Признаков три, и
+     ни один из них не держится на курсоре — курсора на телефоне нет: имя со
+     стрелкой, строка действия внизу и подложка, отделяющая карточку от белой
+     страницы. Тот же приём, что на карточках звеньев. */
   .выбор { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0 6px; }
   .выбор a {
     flex: 1 1 240px;
-    display: block;
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
-    background: var(--фон);
+    background: var(--туман);
     border: 1px solid var(--линия);
     border-radius: 12px;
     padding: 16px 18px;
     color: var(--текст);
   }
-  .выбор a:hover { border-color: var(--навигация); }
-  .выбор__имя { display: block; font-size: 19px; font-weight: 700; color: var(--навигация); }
+  .выбор a:hover { outline: 2px solid var(--навигация); outline-offset: 2px; }
+  .выбор a:hover .выбор__открыть { text-decoration: underline; }
+  .выбор__имя {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--навигация);
+  }
+  .выбор__имя-знак { font-size: 22px; line-height: 1; }
   .выбор__срок { display: block; margin-top: 3px; font-size: 14px; color: var(--оранжевый-текст); font-weight: 700; }
   .выбор ul { margin: 10px 0 0; padding-left: 20px; font-size: 15px; color: var(--текст-мягкий); }
   .выбор li { margin: 0 0 4px; }
+  .выбор__открыть {
+    margin-top: auto;
+    padding-top: 14px;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--навигация);
+  }
 
   .правило {
     background: var(--жёлтый-фон);
@@ -1153,7 +1176,7 @@
 
     <div class="выбор">
       <a href="https://docs.fixlihome.co.il/status/1df20ae18d/igor/">
-        <span class="выбор__имя">Игорю</span>
+        <span class="выбор__имя">Игорю <span class="выбор__имя-знак" aria-hidden="true">›</span></span>
         <span class="выбор__срок">15 минут в телефоне + два вопроса</span>
         <ul>
           <li>Включить приветствие в WhatsApp — текст готов, надо вставить</li>
@@ -1162,9 +1185,10 @@
           <li>Документ о регистрации — держит рекламу, Google и WhatsApp</li>
           <li>Десять фотографий упаковки</li>
         </ul>
+        <span class="выбор__открыть">Открыть страницу Игоря <span aria-hidden="true">›</span></span>
       </a>
       <a href="https://docs.fixlihome.co.il/status/1df20ae18d/dima/">
-        <span class="выбор__имя">Диме</span>
+        <span class="выбор__имя">Диме <span class="выбор__имя-знак" aria-hidden="true">›</span></span>
         <span class="выбор__срок">5 минут за компьютером + два вопроса</span>
         <ul>
           <li>Выдать доступ к странице Facebook</li>
@@ -1172,6 +1196,7 @@
           <li>«Склад» и «покраска» — услуги уже есть или это планы?</li>
           <li>Фотографии команды</li>
         </ul>
+        <span class="выбор__открыть">Открыть страницу Димы <span aria-hidden="true">›</span></span>
       </a></div>
 
     <div class="правило">
