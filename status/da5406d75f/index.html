@@ -2,9 +2,9 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8" />
-<title>Fixli — состояние работ, 21 августа 2026</title>
+<title>Fixli — что построено за две недели и как это работает</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Сайт живёт на fixlihome.co.il и открыт поиску, система работает на сервере. Клиенты её ещё не видели: держат шаги, которые может сделать только владелец." />
+<meta name="description" content="Цепочка от рекламы до денег: двенадцать звеньев, семь работают прямо сейчас. Экраны сайта, системы и приложения работника, порядок работы в каждом звене." />
 <!--
   Запрет адресован поисковикам поимённо, а не через общий `robots`. Общий тег
   читают все краулеры подряд, включая те, что собирают превью ссылки в
@@ -17,1760 +17,891 @@
 <meta name="yandex" content="noindex, nofollow" />
 <meta property="og:type" content="article" />
 <meta property="og:site_name" content="Fixli" />
-<meta property="og:title" content="Fixli — состояние работ, 21 августа 2026" />
-<meta property="og:description" content="Сайт живёт на fixlihome.co.il и открыт поиску, система работает на сервере. Клиенты её ещё не видели: держат шаги, которые может сделать только владелец." />
+<meta property="og:title" content="Fixli — что построено за две недели и как это работает" />
+<meta property="og:description" content="Цепочка от рекламы до денег: двенадцать звеньев, семь работают прямо сейчас. Экраны сайта, системы и приложения работника, порядок работы в каждом звене." />
 <meta property="og:image" content="https://docs.fixlihome.co.il/status/da5406d75f/og-card.jpg" />
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Карточка отчёта Fixli: 6 продуктов работают, 0 клиентов их видели, 6 решений за заказчиком" />
+<meta property="og:image:alt" content="Карточка Fixli: 7 из 12 звеньев работают, 1 542 проверки зелёные, 4 шага за заказчиками" />
 <meta property="og:url" content="https://docs.fixlihome.co.il/status/da5406d75f/" />
 <meta property="og:locale" content="ru_RU" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Fixli — состояние работ, 21 августа 2026" />
-<meta name="twitter:description" content="Сайт живёт на fixlihome.co.il и открыт поиску, система работает на сервере. Клиенты её ещё не видели: держат шаги, которые может сделать только владелец." />
+<meta name="twitter:title" content="Fixli — что построено за две недели и как это работает" />
+<meta name="twitter:description" content="Цепочка от рекламы до денег: двенадцать звеньев, семь работают прямо сейчас. Экраны сайта, системы и приложения работника, порядок работы в каждом звене." />
 <meta name="twitter:image" content="https://docs.fixlihome.co.il/status/da5406d75f/og-card.jpg" />
-<meta name="twitter:image:alt" content="Карточка отчёта Fixli: 6 продуктов работают, 0 клиентов их видели, 6 решений за заказчиком" />
+<meta name="twitter:image:alt" content="Карточка Fixli: 7 из 12 звеньев работают, 1 542 проверки зелёные, 4 шага за заказчиками" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f38025'/%3E%3Ctext x='16' y='24' font-family='Helvetica,Arial' font-size='21' font-weight='700' fill='%23ffffff' text-anchor='middle'%3Ef%3C/text%3E%3C/svg%3E" />
-
 <style>
-  /*
-    Палитра и шрифты не выбраны заново — они взяты из системы самого проекта
-    (apps/site/src/styles/tokens.css). Цвета там сняты пипеткой с логотипа:
-    оранжевый #f38025, синий #12438f. Отчёт о работе должен выглядеть частью
-    той же работы, а не отдельной презентацией.
-
-    Вебшрифтов нет по той же причине, что и на сайте: он сознательно не грузит
-    ни одного, и Lighthouse 100 на мобильном — следствие в том числе этого.
-  */
-  :root {
-    /*
-      Тёмной темы у отчёта нет намеренно, и это решение, а не упущение.
-      Она была — палитра переопределялась под `prefers-color-scheme: dark`, —
-      и у Дмитрия страница открылась почти нечитаемой: заголовок первого
-      экрана рисуется цветом `--fx-navy-deep`, а в тёмном наборе это #06182f
-      поверх фона #0d1524, то есть тёмно-синее по тёмно-синему. Документ,
-      который отправляют партнёрам, не имеет права выглядеть по-разному у
-      разных людей: он собран по первому экрану сайта, а сайт светлый и
-      тёмной темы не знает вовсе. `color-scheme: light` дописан к этому же —
-      без него браузер перекрашивает поля, полосы прокрутки и служебные
-      элементы под системную тему.
-    */
-    color-scheme: light;
-
-    --fx-orange: #f38025;
-    --fx-orange-text: #b5540b;
-    --fx-orange-wash: #fff3e8;
-    --fx-navy: #12438f;
-    --fx-navy-deep: #0b2c60;
-
-    --ink: #16233a;
-    --ink-soft: #59667e;
-    --ground: #ffffff;
-    --surface: #f2f5fa;
-    --line: #dce3ee;
-
-    /* Состояние — отдельно от акцента: «готово» не должно спорить с брендом. */
-    --ok: #1c6b45;
-    --ok-wash: #e8f4ed;
-    --wait: #8a5a06;
-    --wait-wash: #fdf3e0;
-    --stop: #9d2733;
-    --stop-wash: #fbebec;
-
-    --display: 'Helvetica Neue', Helvetica, 'Segoe UI', Roboto, Arial, sans-serif;
-    --body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+:root {
+    --навигация: #12438f;
+    --навигация-тёмная: #06182f;
+    --оранжевый: #f38025;
+    --оранжевый-текст: #b5540b;
+    --текст: #1c2733;
+    --текст-мягкий: #4a5867;
+    --фон: #ffffff;
+    --туман: #f4f7fb;
+    --линия: #d9e2ee;
+    --зелёный-фон: #eaf7ee;
+    --зелёный-линия: #2f7d43;
+    --зелёный-текст: #1c6231;
+    --жёлтый-фон: #fff8e6;
+    --жёлтая-линия: #e8b93a;
+    --жёлтый-текст: #7a5406;
+    --серый-фон: #f1f3f6;
+    --серый-текст: #55606d;
   }
 
-  * {
-    box-sizing: border-box;
-  }
+  /* Светлая схема объявляется вслух: браузер красит каретку, выделение и свою
+     мелочь по схеме документа, а не по нашим краскам. Тёмной темы у бренда нет
+     вовсе, и документ для партнёров не должен выглядеть по-разному у разных
+     людей — то же решение, что у отчёта 11 августа. */
+  html { color-scheme: light; }
+
+  * { box-sizing: border-box; }
 
   body {
     margin: 0;
-    background: var(--ground);
-    color: var(--ink);
-    font-family: var(--body);
-    font-size: 17px;
-    line-height: 1.6;
+    background: var(--фон);
+    color: var(--текст);
+    font: 400 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     -webkit-text-size-adjust: 100%;
   }
 
-  /*
-    Первый экран собран по первому экрану сайта, а не придуман заново: белый
-    фон, оранжевый круг из фирстиля за верхним углом, логотип, оранжевая
-    надстрочка, тёмно-синий заголовок. Тёмная плашка во всю ширину, которая
-    стояла здесь раньше, не встречается на сайте ни на одной странице —
-    документ о работе не должен выглядеть отдельной презентацией.
-  */
-  .head {
-    position: relative;
-    overflow: hidden;
-    background: var(--ground);
-    border-bottom: 1px solid var(--line);
-    padding: 30px 0 34px;
+  .полоса { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+  /* ── первый экран ─────────────────────────────────────────────────────── */
+
+  header {
+    background: var(--туман);
+    border-bottom: 1px solid var(--линия);
+    padding: 40px 0 34px;
   }
 
-  /*
-    Пятно уходит за угол так же, как на бортах фургонов и на визитке.
+  /* Знак ставится файлом, а не набирается: буквы в нём нарисованы (вырез-рука
+     в обеих «i», «f» выше «l» на 6 %), и подстановкой шрифта их не повторить.
+     Правило брендбука, раздел 01. */
+  .знак { display: block; width: 104px; height: auto; margin: 0 0 22px; }
 
-    Сдвиг в пикселях, а не в процентах, как на сайте: там оно лежит в невысокой
-    секции, а здесь шапка вдвое выше — от процента круг целиком уезжал за верхний
-    край и на телефоне не появлялся вовсе.
-  */
-  .disc {
-    position: absolute;
-    top: -95px;
-    right: -55px;
-    width: min(330px, 44vw);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: var(--fx-orange);
-    pointer-events: none;
-  }
+  h1 { margin: 0 0 14px; font-size: 32px; line-height: 1.18; color: var(--навигация-тёмная); }
+  .лид { margin: 0 0 6px; color: var(--текст-мягкий); font-size: 18px; }
+  .дата { margin: 0; color: var(--текст-мягкий); font-size: 15px; }
 
-  .wrap {
-    width: 100%;
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 22px;
-  }
-
-  .head .wrap {
-    position: relative;
-  }
-
-  .logo {
-    display: block;
-    height: 38px;
-    width: auto;
-    margin: 0 0 26px;
-  }
-
-  .eyebrow {
-    font-family: var(--display);
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--fx-orange-text);
-    margin: 0 0 14px;
-  }
-
-  h1 {
-    font-family: var(--display);
-    font-size: clamp(28px, 6vw, 44px);
-    line-height: 1.05;
-    font-weight: 800;
-    letter-spacing: -0.022em;
-    text-wrap: balance;
-    color: var(--fx-navy-deep);
-    margin: 0 0 16px;
-    max-width: 26em;
-  }
-
-  .lede {
-    font-size: clamp(17px, 2.4vw, 20px);
-    line-height: 1.55;
-    max-width: 34em;
-    margin: 0;
-    color: var(--ink-soft);
-  }
-
-  .head .dateline {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--ink-soft);
-    margin: 22px 0 0;
-  }
-
-  /*
-    Кнопки — те же две, что на первом экране сайта, и той же формы: главное
-    действие оранжевое, второе обведённое. Состав зависит от выхода: в вебе
-    это «открыть сайт» и «скачать PDF», в самом PDF второй кнопке взяться
-    неоткуда — её подставляет сборщик только для веба.
-  */
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin: 22px 0 0;
-  }
-
-  .actions a {
-    display: inline-flex;
-    align-items: center;
-    font-family: var(--display);
-    font-size: 15px;
-    font-weight: 700;
-    text-decoration: none;
-    border: 2px solid;
-    border-radius: 8px;
-    padding: 11px 20px;
-  }
-
-  .actions .primary {
-    background: var(--fx-orange);
-    border-color: var(--fx-orange);
-    color: var(--fx-navy-deep);
-  }
-
-  .actions .secondary {
-    background: transparent;
-    border-color: var(--fx-navy);
-    color: var(--fx-navy);
-  }
-
-  /*
-    ── Три числа: ответ на «где мы» за десять секунд ─────────────────────
-
-    Полоса тянется во всю ширину окна, а сами ячейки живут в той же сетке
-    шириной 860, что и весь текст: без этого первое число прижималось к краю
-    экрана, а заголовок «Что решить» под ним начинался с отступом в треть
-    страницы — читалось как две разные вёрстки на одном листе.
-
-    Внутренний отступ ячейки равен отступу `.wrap`, поэтому «4» стоит ровно
-    под «Ф» в «Fixli» и над «Ч» в «Что решить».
-  */
-  .counts-band {
-    background: var(--ground);
-    border-block: 1px solid var(--line);
-  }
-
-  /*
-    Серый фон — на внутренней сетке, а не на полосе: он виден только в зазорах
-    между ячейками и рисует разделители в 1 пиксель. На полосе во всю ширину
-    он превращался в серые поля по краям страницы, и это читалось как поломка.
-  */
-  .counts {
+  .числа {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1px;
-    width: 100%;
-    max-width: 860px;
-    margin-inline: auto;
-    background: var(--line);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin: 26px 0 0;
   }
-
-  .count {
-    background: var(--ground);
-    padding: 26px 22px;
+  .число {
+    background: var(--фон);
+    border: 1px solid var(--линия);
+    border-radius: 12px;
+    padding: 14px 16px;
   }
-
-  .count b {
+  .число b {
     display: block;
-    font-family: var(--display);
-    font-size: 44px;
-    line-height: 1;
+    font-size: 27px;
+    line-height: 1.1;
+    color: var(--навигация);
+  }
+  .число span { display: block; margin-top: 4px; font-size: 14px; color: var(--текст-мягкий); }
+
+  .кнопки { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 0; }
+  .кнопка,
+  .кнопка-тихая {
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 12px 18px;
     font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: -0.02em;
+    font-size: 16px;
   }
+  /* Тёмно-синий текст по оранжевому, а не белый: белое по #f38025 даёт 2,65
+     при пороге 4,5 и запрещено таблицей контрастов проекта. */
+  .кнопка { background: var(--оранжевый); color: var(--навигация-тёмная); }
+  .кнопка-тихая { background: var(--фон); color: var(--навигация); border: 1px solid var(--линия); }
 
-  .count span {
-    display: block;
-    margin-top: 10px;
-    font-size: 15px;
-    line-height: 1.4;
-    color: var(--ink-soft);
-  }
+  /* ── разделы ──────────────────────────────────────────────────────────── */
 
-  .count.is-done b {
-    color: var(--ok);
-  }
-  .count.is-zero b {
-    color: var(--stop);
-  }
-  .count.is-open b {
-    color: var(--fx-orange-text);
-  }
-
-  section {
-    padding: 46px 0 0;
-  }
+  section { padding: 40px 0 4px; }
+  section + section { border-top: 1px solid var(--линия); }
 
   h2 {
-    font-family: var(--display);
-    font-size: clamp(21px, 3.4vw, 27px);
-    line-height: 1.2;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-    color: var(--fx-navy);
-    margin: 0 0 6px;
-    text-wrap: balance;
+    margin: 0 0 8px;
+    font-size: 26px;
+    line-height: 1.22;
+    color: var(--навигация-тёмная);
   }
+  .подзаголовок { margin: 0 0 26px; color: var(--текст-мягкий); }
+  h3 { margin: 30px 0 10px; font-size: 20px; color: var(--навигация-тёмная); }
+  p { margin: 0 0 14px; }
+  a { color: var(--навигация); }
 
-  .sub {
-    color: var(--ink-soft);
-    font-size: 16px;
-    margin: 0 0 22px;
-    max-width: 40em;
-  }
+  /* ── цепочка ──────────────────────────────────────────────────────────── */
 
-  p {
-    max-width: 38em;
-  }
-
-  /* ── Решения: главный блок, поэтому стоит до доказательств ─────────── */
-  .asks {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .ask {
-    border: 1px solid var(--line);
-    border-inline-start: 4px solid var(--fx-orange);
-    border-radius: 6px;
-    background: var(--ground);
-    padding: 18px 20px;
+  .цепочка { display: grid; gap: 10px; margin: 0 0 8px; }
+  .звено {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 6px 18px;
+    grid-template-columns: 34px 1fr auto;
+    gap: 14px;
     align-items: start;
+    background: var(--фон);
+    border: 1px solid var(--линия);
+    border-left: 4px solid var(--линия);
+    border-radius: 12px;
+    padding: 13px 16px;
   }
-
-  .ask h3 {
-    font-family: var(--display);
-    font-size: 18px;
-    font-weight: 700;
-    margin: 0;
-    color: var(--ink);
-  }
-
-  .ask .price {
-    font-family: var(--mono);
-    font-size: 14px;
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-    color: var(--fx-orange-text);
-    background: var(--fx-orange-wash);
-    border-radius: 4px;
-    padding: 3px 9px;
-  }
-
-  .ask .who {
-    grid-column: 1 / -1;
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-  }
-
-  .ask .gives {
-    grid-column: 1 / -1;
-    margin: 4px 0 0;
-    font-size: 16px;
-    color: var(--ink);
-    max-width: 46em;
-  }
-
-  /* ── Экраны ────────────────────────────────────────────────────────── */
-  .shots {
+  .звено__номер {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--навигация);
+    color: #fff;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 26px;
+    place-items: center;
+    font-weight: 700;
+    font-size: 15px;
   }
+  .звено__имя { font-weight: 700; color: var(--навигация-тёмная); }
+  .звено__что { display: block; margin-top: 2px; font-size: 15px; color: var(--текст-мягкий); }
 
-  .shots-note {
-    margin: 22px 0 18px;
+  .метка {
+    align-self: center;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 5px 11px;
   }
+  .метка--работает { background: var(--зелёный-фон); color: var(--зелёный-текст); }
+  .метка--ждёт { background: var(--жёлтый-фон); color: var(--жёлтый-текст); }
+  .метка--делаем { background: #e8f0fb; color: var(--навигация); }
+  .метка--отодвинуто { background: var(--серый-фон); color: var(--серый-текст); }
 
-  figure {
-    margin: 0;
+  .звено--работает { border-left-color: var(--зелёный-линия); }
+  .звено--ждёт { border-left-color: var(--жёлтая-линия); }
+  .звено--делаем { border-left-color: var(--навигация); }
+  .звено--отодвинуто { border-left-color: #b6bec9; }
+  .звено--отодвинуто .звено__номер { background: #8b96a3; }
+
+  /* ── звено крупно: кадры и сценарий ───────────────────────────────────── */
+
+  .крупно {
+    border: 1px solid var(--линия);
+    border-radius: 16px;
+    padding: 20px 20px 6px;
+    margin: 0 0 22px;
+    background: var(--фон);
   }
+  .крупно__шапка { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; }
+  .крупно__имя { margin: 0; font-size: 21px; color: var(--навигация-тёмная); }
 
+  .сценарий { margin: 12px 0 16px; padding-left: 22px; }
+  .сценарий li { margin: 0 0 7px; }
+
+  .кадры {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px;
+    margin: 6px 0 18px;
+  }
+  figure { margin: 0; }
+  /* Кадр телефона — рамкой и без обрезки: подпись под ним говорит про то, что
+     видно, и любое кадрирование стилем сделало бы её ложью. */
   figure img {
     display: block;
     width: 100%;
     height: auto;
-    border: 1px solid var(--line);
+    border: 1px solid var(--линия);
+    border-radius: 12px;
+    background: var(--туман);
+  }
+  figcaption { margin-top: 8px; font-size: 14px; line-height: 1.5; color: var(--текст-мягкий); }
+  .кадры--широкий { grid-template-columns: 1fr; }
+
+  /* Печать сообщения — это текст из кода, а не картинка чата: так видно
+     дословно то, что придёт человеку, и это не подделка интерфейса. */
+  .печать {
+    background: var(--навигация-тёмная);
+    color: #dbe6f5;
+    border-radius: 12px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    font: 400 13.5px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    white-space: pre-wrap;
+    margin: 0 0 8px;
+  }
+  .печать b { color: #ffd7ae; font-weight: 700; }
+
+  .подпись-печати {
+    margin: 0 0 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--текст-мягкий);
+  }
+
+  .нет {
+    background: var(--туман);
     border-radius: 10px;
-    background: #ffffff;
-  }
-
-  figcaption {
-    margin-top: 10px;
-    font-size: 15px;
-    line-height: 1.45;
-    color: var(--ink-soft);
-  }
-
-  figcaption b {
-    color: var(--ink);
-    font-weight: 600;
-  }
-
-  .shot-wide {
-    grid-column: 1 / -1;
-  }
-
-  /* ── Направления работ ─────────────────────────────────────────────── */
-  .tracks {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .track {
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 16px 18px;
-    background: var(--surface);
-  }
-
-  .track-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 10px;
-    margin-bottom: 8px;
-  }
-
-  .track h3 {
-    font-family: var(--display);
-    font-size: 18px;
-    font-weight: 700;
-    margin: 0;
-  }
-
-  .pill {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    border-radius: 999px;
-    padding: 3px 10px;
-    white-space: nowrap;
-  }
-
-  .pill.ok {
-    color: var(--ok);
-    background: var(--ok-wash);
-  }
-  .pill.wait {
-    color: var(--wait);
-    background: var(--wait-wash);
-  }
-
-  .track p {
-    margin: 0;
-    font-size: 16px;
-    color: var(--ink);
-    max-width: 46em;
-  }
-
-  .track .blocked {
-    margin-top: 8px;
-    font-size: 15px;
-    color: var(--ink-soft);
-  }
-
-  .track .blocked b {
-    color: var(--stop);
-    font-weight: 600;
-  }
-
-  /*
-    ── Цепочка: клиент → заказ → грузчики → обратно клиент ───────────────
-
-    Звенья идут лентой сверху вниз, у каждого — свои строки с состоянием.
-    Состояние словом, а не значком: галочки и песочные часы читаются по-разному
-    в разных шрифтах, а в PDF ещё и рискуют превратиться в квадратик. Слово
-    «есть» не превращается ни во что.
-  */
-  .chain {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .link {
-    position: relative;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 16px 18px 14px;
-    background: var(--ground);
-  }
-
-  /* Соединитель между звеньями — короткая вертикальная черта. */
-  .link + .link {
-    margin-top: 26px;
-  }
-
-  .link + .link::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: 30px;
-    width: 2px;
-    height: 14px;
-    background: var(--fx-orange);
-  }
-
-  .link-head {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .link-num {
-    flex: none;
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 600;
-    color: #ffffff;
-    background: var(--fx-navy);
-    border-radius: 50%;
-    width: 26px;
-    height: 26px;
-    display: grid;
-    place-items: center;
-  }
-
-  .link h3 {
-    font-family: var(--display);
-    font-size: 17px;
-    font-weight: 700;
-    margin: 0;
-    color: var(--fx-navy-deep);
-  }
-
-  .link ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
-
-  .link li {
-    display: grid;
-    grid-template-columns: 74px 1fr;
-    gap: 10px;
-    align-items: baseline;
+    padding: 12px 14px;
+    margin: 0 0 16px;
     font-size: 15.5px;
-    line-height: 1.45;
+    color: var(--текст-мягкий);
   }
+  .нет strong { color: var(--навигация-тёмная); }
 
-  .state {
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    text-align: center;
-    border-radius: 4px;
-    padding: 3px 0;
-    white-space: nowrap;
-  }
+  /* ── таблица задач ────────────────────────────────────────────────────── */
 
-  .state.done {
-    color: var(--ok);
-    background: var(--ok-wash);
-  }
-  .state.waits {
-    color: var(--wait);
-    background: var(--wait-wash);
-  }
-  .state.plan {
-    color: var(--fx-navy);
-    background: var(--surface);
-    border: 1px solid var(--line);
-  }
+  .обёртка-таблицы { overflow-x: auto; margin: 0 0 18px; }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 15.5px; }
+  th, td { text-align: left; vertical-align: top; padding: 11px 12px; border-bottom: 1px solid var(--линия); }
+  th { background: var(--туман); color: var(--навигация-тёмная); font-size: 14px; }
+  td b { color: var(--навигация-тёмная); }
 
-  /* ── Цифры «зачем» ─────────────────────────────────────────────────── */
-  .why {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 18px;
-  }
+  /* ── что нужно от вас ─────────────────────────────────────────────────── */
 
-  .why div {
-    border-top: 3px solid var(--fx-orange);
-    padding-top: 12px;
-  }
-
-  .why b {
+  .выбор { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0 6px; }
+  .выбор a {
+    flex: 1 1 240px;
     display: block;
-    font-family: var(--display);
-    font-size: 30px;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    line-height: 1.05;
-    color: var(--ink);
-  }
-
-  .why span {
-    display: block;
-    margin-top: 6px;
-    font-size: 15px;
-    line-height: 1.45;
-    color: var(--ink-soft);
-  }
-
-  /* ── Порядок: единственное место, где нумерация означает порядок ───── */
-  ol.order {
-    counter-reset: step;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  ol.order li {
-    counter-increment: step;
-    display: grid;
-    grid-template-columns: 34px 1fr;
-    gap: 14px;
-    align-items: start;
-  }
-
-  ol.order li::before {
-    content: counter(step);
-    font-family: var(--mono);
-    font-size: 15px;
-    font-weight: 600;
-    color: #ffffff;
-    background: var(--fx-navy);
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: grid;
-    place-items: center;
-  }
-
-  ol.order strong {
-    font-family: var(--display);
-    font-weight: 700;
-  }
-
-  ol.order p {
-    margin: 4px 0 0;
-    font-size: 16px;
-    color: var(--ink-soft);
-  }
-
-  /*
-    ── Два пути к цене ───────────────────────────────────────────────────
-
-    Две колонки, а не таблица: сравнивается поведение, а не числа, и строки
-    у путей разной длины. Таблица заставила бы тянуть текст по клеткам, а на
-    телефоне схлопнулась бы в кашу из переносов.
-  */
-  .paths {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 14px;
-  }
-
-  .path {
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    background: var(--surface);
+    text-decoration: none;
+    background: var(--фон);
+    border: 1px solid var(--линия);
+    border-radius: 12px;
     padding: 16px 18px;
-    break-inside: avoid;
+    color: var(--текст);
   }
+  .выбор a:hover { border-color: var(--навигация); }
+  .выбор__имя { display: block; font-size: 19px; font-weight: 700; color: var(--навигация); }
+  .выбор__срок { display: block; margin-top: 3px; font-size: 14px; color: var(--оранжевый-текст); font-weight: 700; }
+  .выбор ul { margin: 10px 0 0; padding-left: 20px; font-size: 15px; color: var(--текст-мягкий); }
+  .выбор li { margin: 0 0 4px; }
 
-  .path h3 {
-    font-family: var(--display);
-    font-size: 18px;
-    font-weight: 700;
-    margin: 0 0 4px;
-  }
-
-  .path .who-for {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin: 0 0 10px;
-  }
-
-  .path ul {
-    margin: 0;
-    padding-left: 18px;
-  }
-
-  .path li {
-    margin: 0 0 6px;
-    max-width: none;
-  }
-
-  .path li:last-child {
-    margin-bottom: 0;
-  }
-
-  .note {
-    margin-top: 26px;
-    border: 1px dashed var(--line);
-    border-radius: 6px;
-    background: var(--surface);
-    padding: 16px 18px;
+  .правило {
+    background: var(--жёлтый-фон);
+    border: 1px solid var(--жёлтая-линия);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 20px 0 6px;
     font-size: 16px;
-    color: var(--ink);
-    max-width: none;
   }
 
-  .note b {
-    color: var(--fx-orange-text);
-  }
-
-  .note p {
-    margin: 0 0 12px;
-    max-width: 46em;
-  }
-
-  .note p:last-child {
-    margin-bottom: 0;
-  }
+  /* ── подвал ───────────────────────────────────────────────────────────── */
 
   footer {
-    margin-top: 56px;
-    border-top: 1px solid var(--line);
-    padding: 20px 0 30px;
+    margin-top: 40px;
+    background: var(--туман);
+    border-top: 1px solid var(--линия);
+    padding: 26px 0 30px;
+    font-size: 15px;
+    color: var(--текст-мягкий);
+  }
+  /* Знак авторства — микро-размер: проект клиентский. */
+  .автор { margin: 14px 0 0; font-size: 11px; color: #7d8794; }
+
+  @media (max-width: 520px) {
+    h1 { font-size: 27px; }
+    h2 { font-size: 22px; }
+    .звено { grid-template-columns: 30px 1fr; }
+    .метка { grid-column: 2; justify-self: start; margin-top: 6px; }
   }
 
-  .sign {
-    font-size: 11px;
-    color: var(--ink-soft);
-    opacity: 0.75;
-    margin: 0;
-  }
-
-  a {
-    color: var(--fx-navy);
-  }
-
-  @media (max-width: 560px) {
-    .ask {
-      grid-template-columns: 1fr;
-    }
-    .ask .price {
-      justify-self: start;
-    }
-  }
-
-  /*
-    Печать и PDF. Этот же файл уезжает партнёрам в WhatsApp, где страница
-    не откроется, а PDF откроется у всех и без аккаунта.
-
-    Главное здесь — запрет разрывать карточки. Решение, у которого заголовок
-    остался на одной странице, а цена уехала на следующую, читается как две
-    разные вещи, а документ существует ровно ради этого списка.
-  */
   @media print {
-    /*
-      Кегль и отступы на бумаге меньше, чем на экране, и это не экономия
-      бумаги. Раздел, который не влезает на лист целиком, выбрасывает на
-      следующий одну карточку — и лист с одной карточкой читается как ошибка
-      вёрстки. Плотнее на 5% — и разделы садятся на лист целиком.
-    */
-    body {
-      font-size: 10.5pt;
-    }
-
-    section {
-      padding-top: 20px;
-    }
-
-    .asks {
-      gap: 8px;
-    }
-
-    .ask {
-      padding: 11px 14px;
-      gap: 4px 16px;
-    }
-
-    .ask .gives {
-      margin-top: 2px;
-    }
-
-    .tracks {
-      gap: 9px;
-    }
-
-    .track {
-      padding: 12px 15px;
-    }
-
-    /*
-      Звенья на бумаге плотнее, и это меняет разбивку по делу: четыре звена
-      садятся на первый лист вместо трёх, а на втором остаются два звена плюс
-      заключительная плашка. Иначе плашка уезжала на третий лист одна и
-      занимала треть пустой страницы.
-    */
-    .link {
-      padding: 11px 14px 10px;
-    }
-
-    .link + .link {
-      margin-top: 15px;
-    }
-
-    .link-head {
-      margin-bottom: 7px;
-    }
-
-    .link ul {
-      gap: 5px;
-    }
-
-    .link li {
-      font-size: 10pt;
-      line-height: 1.4;
-    }
-
-    .link + .link::before {
-      top: -15px;
-      height: 11px;
-    }
-
-    .note {
-      margin-top: 18px;
-      padding: 13px 16px;
-    }
-
-    .head {
-      padding: 20px 0 22px;
-    }
-
-    /*
-      Круг в печати меньше и бледнее: на экране это акцент, на бумаге пятно
-      сплошной краски в четверть листа — и оно же лезет под первую строку
-      заголовка, когда лист уже колонки экрана.
-    */
-    .disc {
-      /* Высота задаётся числом: при печати `aspect-ratio` даёт круг
-         с плоским низом — обрезанным по высоте блока, а не по углу листа. */
-      width: 190px;
-      height: 190px;
-      top: -105px;
-      right: -55px;
-      opacity: 0.55;
-    }
-
-    section {
-      padding-top: 26px;
-    }
-
-    .ask,
-    .track,
-    .link,
-    figure,
-    ol.order li,
-    .note {
-      break-inside: avoid;
-    }
-
-    /*
-      Разбивка на листы. Правило простое: **каждый лист начинается с чего-то
-      целого.** До этой правки заголовок раздела оставался внизу листа, а его
-      содержимое уезжало на следующий; «3 года» висело одиноким числом сверху
-      страницы, а список «что дальше» рвался между вторым и третьим шагом —
-      документ читался как случайно нарезанный.
-
-      Крупные разделы начинают лист. Пустое место в конце предыдущего — цена,
-      и она меньше, чем цена оторванного заголовка.
-    */
-    main > section.page {
-      break-before: page;
-    }
-
-    /* Короткие разделы лист не начинают, но и не разрываются. */
-    main > section.tight {
-      break-inside: avoid;
-    }
-
-    /* Заголовок и его подводка не остаются в конце листа одни. */
-    h2,
-    .sub {
-      break-after: avoid;
-    }
-
-    /*
-      Хвост из одного блока. Раздел, который не влез на лист, выбрасывал на
-      следующий одну карточку — и целый лист под ней оставался пустым. Правило
-      «предпоследний блок не отрывается от последнего» гонит их парой: на
-      прошлом листе на одну карточку меньше, на новом — две вместо одной.
-
-      Через `nth-last-child`, а не по номеру: карточки добавляются и убираются,
-      и правило не должно знать, сколько их сейчас.
-    */
-    .ask:nth-last-child(2),
-    .track:nth-last-child(2),
-    .link:nth-last-child(2) {
-      break-after: avoid;
-    }
-
-    /*
-      Плашка после сетки чисел прижимается к ней — она короткая и влезает.
-      А вот плашку после цепочки прижимать нельзя: она в четыре абзаца, и
-      от `break-before: avoid` браузер втискивал её в остаток листа и рвал
-      посередине фразы. Пусть уезжает на следующий лист целиком.
-    */
-    .why + .note {
-      break-before: avoid;
-    }
-
-    /* Сетки чисел и нумерованный список — целиком, иначе остаются одиночки. */
-    .why,
-    ol.order {
-      break-inside: avoid;
-    }
-
-    /*
-      Два столбца, а не три. Экран телефона высокий: в три столбца на лист
-      влезает ровно один ряд, и нижняя половина страницы остаётся пустой,
-      а четвёртый экран уезжает на свой лист один. В два столбца на страницу
-      встают два крупных экрана — и пусто́ты меньше, и разглядеть можно.
-    */
-    .shots {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px 22px;
-    }
-
-    /*
-      Высота снимка ограничена так, чтобы **два ряда** телефонных экранов
-      встали на один лист. При 140mm ряд занимал лист целиком, широкий снимок
-      рабочего стола уезжал на свой лист один, и в разделе из пяти картинок
-      получалось три почти пустые страницы.
-    */
-    .shots figure img {
-      max-height: 108mm;
-      width: auto;
-      margin-inline: auto;
-    }
-
-    .shot-wide img {
-      max-height: 88mm;
-    }
-
-    figcaption {
-      margin-top: 7px;
-      font-size: 10pt;
-    }
-
-    footer {
-      margin-top: 24px;
-    }
+    header, footer { background: #fff; }
+    .кнопки, .выбор { display: none; }
+    .крупно { break-inside: avoid; }
+    figure { break-inside: avoid; }
   }
+
 </style>
-
-<div class="head">
-  <div class="disc" aria-hidden="true"></div>
-  <div class="wrap">
-    <img class="logo" src="fixli-logo.png" alt="Fixli" width="84" height="38" />
-    <p class="eyebrow">IT-продукты · отчёт о состоянии</p>
-    <h1>У всего появился свой адрес. Клиенты этого ещё не видели.</h1>
-    <p class="lede">
-      Главное с прошлого отчёта: <b>fixlihome.co.il</b> заработал, и сайт больше не спрятан
-      от поиска — вместе с ним на фирменный домен переехали пункт управления и брендбук.
-      Осталось то, чего не может сделать разработчик: включить автоответ в WhatsApp, снять
-      фотографии работ, дать документ о регистрации. Ниже — что готово, что это включает
-      и что решить. <b>Порядок изменился:</b> первым шагом теперь автоответ, а не вход
-      в панель — почему, написано в конце.
+</head>
+<body>
+<header>
+  <div class="полоса">
+    <svg class="знак" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436 198" role="img" aria-label="fixli">
+  <title>fixli</title>
+  
+  <path
+    id="f"
+    fill="#f38025"
+    d="M 68.68 10.5 L 102.5 10.08 A 4.26 4.26 0 0 1 105.3 15.5 L 105.17 37.5 A 6.91 6.91 0 0 1 98.5 39.53 L 73.5 40.22 A 15.26 15.26 0 0 0 63.89 47.5 A 33.39 33.39 0 0 0 61.19 64.5 L 61.5 70.82 L 64.5 71.69 L 100.5 71.73 L 101.58 73.5 L 93.5 100.53 L 88.5 101.31 L 62.48 101.5 L 61.4 103.5 L 61.08 188.5 L 59.5 189.63 L 29.96 189.5 L 28.87 185.5 L 28.5 102.22 L 22.5 101.26 L 12.5 100.81 L 11.13 99.5 L 11.5 72.26 L 27.56 71.5 L 28.81 68.5 L 29.87 47.5 L 33.71 35.5 L 40.14 25.5 L 49.69 17.5 L 56.5 13.89 L 70.5 10.12 Z"
+  />
+  <path
+    id="i1-stem"
+    fill="#f38025"
+    d="M 132.14 70.5 A 13.67 13.67 0 0 1 144.73 77.5 L 156.5 93.51 L 163.88 99.5 L 173.03 104.5 L 173.5 105.69 A 18.06 18.06 0 0 1 160.5 109.93 L 153.58 110.5 L 153.1 188.5 L 152.5 189.66 L 121.78 189.5 A 8.75 8.75 0 0 1 120.8 183.5 L 120.85 83.5 L 121.98 77.5 A 12.44 12.44 0 0 1 143.93 76.5 Z"
+  />
+  <circle id="i1-dot" cx="138.95" cy="46.42" r="18.82" fill="#f38025" />
+  <path
+    id="x"
+    fill="#f38025"
+    d="M 179 71.5 L 214.5 71.56 A 8.45 8.45 0 0 1 218.5 75.74 L 240.5 103.86 L 241.55 104.5 L 266.81 72.5 L 269.5 71.48 L 304.5 71.55 L 305.41 72.5 L 300.5 80.62 L 262.86 129.5 A 7.85 7.85 0 0 0 265.88 134.5 L 300.5 178.94 L 307.44 188.5 L 307.33 189.5 L 270.5 189.91 L 262.5 180.4 L 242.5 155.11 L 241.5 154.07 L 236.03 160.5 L 213.5 189.55 L 176.5 189.74 A 1.7 1.7 0 0 1 176.5 186.38 L 219.5 131.22 L 219.35 128.5 L 178.5 75.2 L 177.5 72.19 A 7.81 7.81 0 0 1 183.5 71.3 Z"
+  />
+  <path
+    id="l"
+    fill="#12438f"
+    d="M 330.25 21.5 L 359.5 21.69 L 360.81 22.5 L 360.9 187.5 L 359.5 189.56 L 330.5 189.39 L 329 188.5 L 328.21 172.5 L 328.5 22.47 L 331.5 21.35 Z"
+  />
+  <path
+    id="i2-stem"
+    fill="#12438f"
+    d="M 408.44 71.5 A 12.39 12.39 0 0 1 423.6 76.5 A 18.17 18.17 0 0 1 425.22 87.5 L 425 188.5 L 419.5 189.6 L 393.5 189.23 L 392.12 186.5 L 391.8 110.5 L 380.5 109.8 L 373.42 106.5 L 373.01 104.5 L 385.13 97.5 A 40.56 40.56 0 0 0 394.82 86.5 L 404.5 73.71 A 12.9 12.9 0 0 1 414.5 70.78 Z"
+  />
+  <circle id="i2-dot" cx="406.28" cy="46.37" r="18.89" fill="#12438f" />
+</svg>
+    <h1>Что построено за две недели и как это работает целиком</h1>
+    <p class="лид">
+      Цепочка от рекламы до денег: двенадцать звеньев, каждое — с экранами и порядком работы.
+      Семь из них работают прямо сейчас, и это можно открыть и потрогать.
     </p>
-    <p class="dateline">21 августа 2026 · Дмитрий Хинкис</p>
-    <p class="actions">
-      <a class="primary" href="https://fixlihome.co.il/ru/">Открыть сайт</a>
-      <a class="secondary" href="fixli-status-2026-08-21.pdf" download>Скачать PDF</a>
+    <p class="дата">Fixli · 22 августа 2026 · для Игоря и Димы</p>
+
+    <div class="числа">
+      <div class="число"><b>7 из 12</b><span>звеньев цепочки работают</span></div>
+      <div class="число"><b>2 недели</b><span>с 8 по 22 августа</span></div>
+      <div class="число"><b>1 542</b><span>проверки в коде, все зелёные</span></div>
+      <div class="число"><b>4 шага</b><span>остались за вами</span></div>
+    </div>
+
+    <p class="кнопки"><a class="кнопка" href="https://fixlihome.co.il/ru/">Открыть сайт</a><a class="кнопка-тихая" href="https://fixlihome.co.il/ru/calculator/">Посчитать переезд</a><a class="кнопка-тихая" href="https://fixlihome.co.il/ru/hi/">Страница знакомства</a><a class="кнопка-тихая" href="https://docs.fixlihome.co.il/brand/">Брендбук и макеты</a></p>
+  </div>
+</header>
+
+<section>
+  <div class="полоса">
+    <h2>Вся цепочка на одном экране</h2>
+    <p class="подзаголовок">
+      Слева номер шага, справа — состояние. «Ждёт вас» означает, что код написан и проверен,
+      а включить его может только владелец: телефон, аккаунт или документ.
+    </p>
+
+    <div class="цепочка">
+      <div class="звено звено--ждёт">
+        <span class="звено__номер">1</span>
+        <span>
+          <span class="звено__имя">Реклама и бренд</span>
+          <span class="звено__что">24 готовых макета, брендбук, карточка в Google. Держит документ о регистрации: Google и Meta сверяют название буква в букву</span>
+        </span>
+        <span class="метка метка--ждёт">ждёт вас</span>
+      </div>
+
+      <div class="звено звено--работает">
+        <span class="звено__номер">2</span>
+        <span>
+          <span class="звено__имя">Клиент открывает сайт</span>
+          <span class="звено__что">fixlihome.co.il на русском и иврите, с роликом о компании на первом экране</span>
+        </span>
+        <span class="метка метка--работает">работает</span>
+      </div>
+
+      <div class="звено звено--работает">
+        <span class="звено__номер">3</span>
+        <span>
+          <span class="звено__имя">Считает стоимость сам, до звонка</span>
+          <span class="звено__что">Отмечает вещи по комнатам — видит вилку с НДС, часы и размер бригады. Телефон для этого не нужен</span>
+        </span>
+        <span class="метка метка--работает">работает</span>
+      </div>
+
+      <div class="звено звено--ждёт">
+        <span class="звено__номер">4</span>
+        <span>
+          <span class="звено__имя">Пишет нам</span>
+          <span class="звено__что">Заявка с сайта и Telegram-бот работают. Приветствие в WhatsApp — 15 минут на телефоне Игоря, и оно включится</span>
+        </span>
+        <span class="метка метка--ждёт">ждёт вас</span>
+      </div>
+
+      <div class="звено звено--работает">
+        <span class="звено__номер">5</span>
+        <span>
+          <span class="звено__имя">Обращение попадает в систему — с источником</span>
+          <span class="звено__что">Слова клиента целиком и метка, откуда он пришёл. Без источника обращение не заводится вовсе</span>
+        </span>
+        <span class="метка метка--работает">работает</span>
+      </div>
+
+      <div class="звено звено--работает">
+        <span class="звено__номер">6</span>
+        <span>
+          <span class="звено__имя">Из обращения — заказ</span>
+          <span class="звено__что">Адреса, этажи, дата, сумма. Номер заказа сквозной: 2026-0001</span>
+        </span>
+        <span class="метка метка--работает">работает</span>
+      </div>
+
+      <div class="звено звено--работает">
+        <span class="звено__номер">7</span>
+        <span>
+          <span class="звено__имя">Смена и бригада</span>
+          <span class="звено__что">Кто едет, во сколько, за какие деньги. Одна кнопка объявляет смену и рассылает её людям</span>
+        </span>
+        <span class="метка метка--работает">работает</span>
+      </div>
+
+      <div class="звено звено--работает">
+        <span class="звено__номер">8</span>
+        <span>
+          <span class="звено__имя">Работник получает смену в телефон</span>
+          <span class="звено__что">Сообщение в Telegram с кнопками и приложение «Мои смены»: маршрут, чек-лист, оплата. Бригадиру — ещё и заказчик</span>
+        </span>
+        <span class="метка метка--работает">работает</span>
+      </div>
+
+      <div class="звено звено--делаем">
+        <span class="звено__номер">9</span>
+        <span>
+          <span class="звено__имя">Отчёт с объекта и фотографии</span>
+          <span class="звено__что">Отчёт бригадира с замечаниями работает. Фотографии сейчас приходят в чат бота; из приложения — доделываем</span>
+        </span>
+        <span class="метка метка--делаем">в работе</span>
+      </div>
+
+      <div class="звено звено--работает">
+        <span class="звено__номер">10</span>
+        <span>
+          <span class="звено__имя">Деньги и ответ «какая реклама окупилась»</span>
+          <span class="звено__что">Таблица за месяц: источник → обращений → заказов → сумма. То, ради чего вся система и строилась</span>
+        </span>
+        <span class="метка метка--работает">работает</span>
+      </div>
+
+      <div class="звено звено--отодвинуто">
+        <span class="звено__номер">11</span>
+        <span>
+          <span class="звено__имя">Отзыв после работы</span>
+          <span class="звено__что">Отодвинуто по вашему решению: при 20 заказах в месяц отдельный агент не окупается</span>
+        </span>
+        <span class="метка метка--отодвинуто">отодвинуто</span>
+      </div>
+
+      <div class="звено звено--отодвинуто">
+        <span class="звено__номер">12</span>
+        <span>
+          <span class="звено__имя">Поиск и интервью работников</span>
+          <span class="звено__что">Отодвинуто вашими словами «людей мы найдём». Схема данных под это уже готова — переписывать не придётся</span>
+        </span>
+        <span class="метка метка--отодвинуто">отодвинуто</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="полоса">
+    <h2>Звенья по одному: экраны и порядок работы</h2>
+    <p class="подзаголовок">
+      Экраны настоящие. Кадры сайта сняты с боевого адреса, кадры системы — на отдельной
+      учебной базе: показательный заказ в рабочей базе испортил бы ровно тот отчёт по
+      источникам, ради которого всё это делается.
+    </p>
+
+    <div class="крупно">
+      <div class="крупно__шапка">
+        <h3 class="крупно__имя">Звенья 2–3. Сайт и расчёт до звонка</h3>
+        <span class="метка метка--работает">работает</span>
+      </div>
+      <p>
+        Первое, что видит человек, — ролик о компании: 45 секунд, запускается сам, без звука
+        до нажатия. Дальше он может посчитать переезд сам, не оставляя телефон.
+      </p>
+      <ol class="сценарий">
+        <li>Открывает <b>fixlihome.co.il</b> — страница на его языке, русском или иврите.</li>
+        <li>Нажимает «Рассчитать стоимость» и отмечает крупные вещи по комнатам — знаками, не списком.</li>
+        <li>Отмеченное <b>сразу грузится в машину</b> на картинке, а сводка называет заказ одной строкой.</li>
+        <li>Видит вилку с НДС, из чего она складывается, сколько часов и сколько человек приедет.</li>
+        <li>Хочет — оставляет заявку, и она приходит в систему с пометкой «заявка с сайта».</li>
+      </ol>
+      <div class="кадры">
+        <figure>
+          <img src="кадры/s01-главная.png" alt="Главная страница Fixli на телефоне: логотип, переключатель языков, заголовок «Переезд под ключ — одной командой» и кадр ролика о компании на первом экране" loading="lazy" width="780" height="1688" />
+          <figcaption>Главная на телефоне: ролик о компании на первом экране, без него страница не начинается.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/s02-состав.png" alt="Калькулятор: сетка знаков мебели, у дивана, стеллажа, книжного шкафа и стола отмечено по одной штуке, ниже фургон с этими знаками и подписью «Ваш переезд — 4 крупные вещи, 18 коробок»" loading="lazy" width="780" height="1688" />
+          <figcaption>Отметил четыре вещи и 18 коробок — они появились в кузове, каждая со своим числом.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/s03-цена.png" alt="Калькулятор, блок цены: стоимость с НДС 3 400 – 4 400 шекелей, 3 000 – 3 800 если клиент разбирает мебель сам, 21,5 человеко-часа, бригада 2–4 человека, время на объекте 5,5–11 часов" loading="lazy" width="780" height="1688" />
+          <figcaption>Цена вилкой, с НДС, и вторая цена — если клиент разбирает мебель сам.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/s04-опрос.png" alt="Первый шаг заявки-опроса: один вопрос «что нужно сделать» и четыре ответа кнопками" loading="lazy" width="780" height="1688" />
+          <figcaption>Опрос начинается с одного вопроса, а телефон спрашивает последним — и только если человек согласен с ценой.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/s06-иврит.png" alt="Ивритская главная страница справа налево с заголовком «הובלה מלאה — עם צוות אחד» и кадром ролика без надписей" loading="lazy" width="780" height="1688" />
+          <figcaption>Ивритская версия справа налево: тот же ролик, только без надписей — иврит без вычитки носителем мы не публикуем.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/s05-знакомство.png" alt="Страница знакомства для WhatsApp: заголовок «Fixli — переезды, грузчики, сборка мебели и хендимен», и три доказательства — 60 рекомендаций, 100 % положительных, 653 комментария под постом" loading="lazy" width="780" height="1688" />
+          <figcaption>Страница знакомства для WhatsApp: 60 рекомендаций и 653 комментария — доказательства, а не обещания.</figcaption>
+        </figure>
+      </div>
+      <div class="кадры кадры--широкий">
+        <figure>
+          <img src="кадры/s07-стол.png" alt="Главная страница на большом экране: текст и кнопки слева, кадр ролика справа" loading="lazy" width="1280" height="900" />
+          <figcaption>Тот же первый экран на компьютере: текст слева, ролик справа.</figcaption>
+        </figure>
+      </div>
+      <p class="нет">
+        <strong>Чего здесь сознательно нет:</strong> блока «наши работы» с фотографиями объектов.
+        Ролик нарисован, а настоящих кадров с наших смен у нас пока нет — это в списке ниже.
+      </p>
+    </div>
+
+    <div class="крупно">
+      <div class="крупно__шапка">
+        <h3 class="крупно__имя">Звено 4. Клиент пишет — и получает ответ сразу</h3>
+        <span class="метка метка--ждёт">ждёт вас</span>
+      </div>
+      <p>
+        Телеграм-бот проводит человека по тем же вопросам, что и сайт, и называет <b>ту же
+        цену</b> — цифры считает один и тот же код, разойтись они физически не могут. Ниже —
+        дословно то, что видит клиент.
+      </p>
+      <div class="печать">Ориентир: 3 600 – 4 600 ₪
+
+• Выезд, машина, упаковка — 990 ₪
+• Крупные вещи × 11 — 1 516 ₪
+• Разборка и сборка мебели — 535 ₪
+• Коробки × 30 — 810 ₪
+• Если коробок вдвое больше — 1 620 ₪
+• Этажи руками × 4 — 216 ₪
+
+Работа на объекте: 5,5 – 11,5 ч
+Если разберёте и соберёте мебель сами — 3 100 – 3 900 ₪
+
+Пересчитываем только то, что не назвали заранее. Внутри: машина, топливо, одеяла и стрейч, погрузка и разгрузка, обычная разборка и сборка мебели, расстановка на новом месте.
+
+Как вам?
+[ Подходит ]
+[ Дорого ] [ Хочу уточнить ]</div>
+      <p class="подпись-печати">Экран цены в Telegram-боте — дословно, как его видит клиент. Те же числа, что на сайте: считает один и тот же код.</p>
+      <p class="нет">
+        <strong>Что здесь ждёт вас.</strong> Ссылку на бота нельзя давать клиентам, пока Игорь
+        не вошёл в систему: бот обещает ответ человека, а человек смотрит в систему. Приветствие
+        в WhatsApp — 15 минут на телефоне, инструкция уже написана и открывается кнопкой ниже.
+      </p>
+    </div>
+
+    <div class="крупно">
+      <div class="крупно__шапка">
+        <h3 class="крупно__имя">Звенья 5–6. Обращение и заказ</h3>
+        <span class="метка метка--работает">работает</span>
+      </div>
+      <ol class="сценарий">
+        <li>Система открывается экраном <b>«Сегодня»</b> — не меню, а тем, что горит: кому не ответили.</li>
+        <li>Видно <b>слова клиента целиком</b> и откуда он пришёл — по метке объявления, а не «кажется, с Фейсбука».</li>
+        <li>Одна кнопка — и обращение становится заказом: адреса, этажи, дата, сумма.</li>
+      </ol>
+      <div class="кадры">
+        <figure>
+          <img src="кадры/01-сегодня.png" alt="Экран «Сегодня» в системе: раздел «Что горит в компании», карточка обращения от Дана про сборку шкафа с кнопками «Позвонить» и «Оформить заказ», строка «ещё 1 обращение ждёт ответа», внизу четыре раздела — Сегодня, Обращения, Работа, Я" loading="lazy" width="780" height="1688" />
+          <figcaption>«Сегодня»: одно обращение горит вторые сутки, второе ждёт. Внизу четыре раздела — всё, что нужно на телефоне.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/02-обращения.png" alt="Список обращений: два обращения с первой фразой клиента, источником и временем ожидания" loading="lazy" width="780" height="1688" />
+          <figcaption>Список обращений: первая фраза человека и источник у каждого.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/03-оформление.png" alt="Оформление заказа из обращения: над формой стоят слова клиента целиком — состав вещей, этажи, желаемый день" loading="lazy" width="780" height="1688" />
+          <figcaption>Оформление заказа: над формой стоит то, что клиент написал, — состав, этажи, желаемый день.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/04-заказ.png" alt="Карточка заказа 2026-0001: клиент Наталья, дата, два адреса — погрузка в Нетании, выгрузка в Герцлии, — и сумма оценки" loading="lazy" width="780" height="1688" />
+          <figcaption>Карточка заказа 2026-0001: два адреса, дата, оценка.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="крупно">
+      <div class="крупно__шапка">
+        <h3 class="крупно__имя">Звено 7. Смена, бригада и одна кнопка</h3>
+        <span class="метка метка--работает">работает</span>
+      </div>
+      <ol class="сценарий">
+        <li>В разделе «Работа» — заказы и смены рядом, вкладками, плюс месяц с точками по дням.</li>
+        <li>Диспетчер собирает смену: кто едет, кем в бригаде и за какие деньги.</li>
+        <li>Пока смена черновик, работники о ней <b>не знают</b> — и это специально: собранная наполовину смена не должна выглядеть готовой.</li>
+        <li>Кнопка <b>«Объявить и отправить»</b> — и смена уходит людям в Telegram.</li>
+      </ol>
+      <div class="кадры">
+        <figure>
+          <img src="кадры/05-работа-смены.png" alt="Раздел «Работа», вкладка «Смены»: календарь месяца с точками на днях, где есть работа, и список смен недели" loading="lazy" width="780" height="1688" />
+          <figcaption>Раздел «Работа»: календарь месяца с точкой на дне, где есть работа, и смены выбранной недели. Смена на завтра — пока черновик.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/06-смена-черновик.png" alt="Карточка смены в состоянии черновика: бригада из двух человек с суммами и кнопка «Объявить и отправить»" loading="lazy" width="780" height="1688" />
+          <figcaption>Смена-черновик: бригада собрана, но людям ещё ничего не ушло — об этом говорит сама карточка.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/07-смена-объявлена.png" alt="Та же карточка после нажатия: смена объявлена, сообщения работникам встали в очередь на отправку" loading="lazy" width="780" height="1688" />
+          <figcaption>После нажатия: смена <b>объявлена</b>. Строка «в Telegram ещё не ушла» — честное состояние: Telegram не даёт боту написать первым, пока работник сам не написал боту хоть раз. Это делается однажды, при приёме на работу.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="крупно">
+      <div class="крупно__шапка">
+        <h3 class="крупно__имя">Звено 8. Смена в телефоне работника</h3>
+        <span class="метка метка--работает">работает</span>
+      </div>
+      <p>
+        Это то, что 21 августа приняли на живой смене. Работнику приходит сообщение в Telegram —
+        дословно такое:
+      </p>
+      <div class="печать">Смена по заказу 2026-0001
+Когда: воскресенье, 23 августа, 08:00–13:00
+
+Откуда: Нетания, Герцль 42, кв. 7
+Куда: Герцлия, Соколов 15, кв. 1
+
+Что делаем: Переезд Нетания → Герцлия
+Шкаф-купе разбираем. Лифта нет с обеих сторон, второй этаж.
+
+Твоя роль: бригадир
+Оплата: 500 ₪
+
+Ответь кнопкой ниже. Фото с объекта присылай сюда же — они лягут в отчёт.
+Что сказать словами — пиши подписью под фото: сообщения без фото не сохраняются.
+
+[кнопки под сообщением: «Принял» · «Не смогу» · «Работа сделана» · «Открыть смену (если воркеру задан адрес панели)»]
+Смена по заказу 2026-0001
+Когда: воскресенье, 23 августа, 08:00–13:00
+
+Откуда: Нетания, Герцль 42, кв. 7
+Куда: Герцлия, Соколов 15, кв. 1
+
+Что делаем: Переезд Нетания → Герцлия
+Шкаф-купе разбираем. Лифта нет с обеих сторон, второй этаж.
+
+Твоя роль: грузчик
+Оплата: 400 ₪
+
+Ответь кнопкой ниже. Фото с объекта присылай сюда же — они лягут в отчёт.
+Что сказать словами — пиши подписью под фото: сообщения без фото не сохраняются.
+
+[кнопки под сообщением: «Принял» · «Не смогу» · «Работа сделана» · «Открыть смену (если воркеру задан адрес панели)»]</div>
+      <p class="подпись-печати">Сообщение работнику — дословно. Четвёртая кнопка появляется, когда воркеру известен адрес системы; на боевой он задан.</p>
+      <ol class="сценарий">
+        <li>Он отвечает <b>кнопкой</b> — «Принял» или «Не смогу». Ни кода, ни пароля, ни приложения из магазина.</li>
+        <li>Кнопка «Открыть смену» открывает приложение внутри Telegram: <b>когда → маршрут → работа</b>.</li>
+        <li>Адрес — капсула: нажатие ведёт в Waze, Google или Apple Maps, либо копирует адрес.</li>
+        <li>Чек-лист лежит <b>внутри адресов</b>: пункты по погрузке под погрузкой, по выгрузке — под выгрузкой.</li>
+        <li>Отметка ставится даже без сети: висит подписью «не отправлено» и доезжает, когда сеть вернулась.</li>
+      </ol>
+      <div class="кадры">
+        <figure>
+          <img src="кадры/08-бригадир-смена.png" alt="Приложение «Мои смены» у бригадира: календарь августа с точкой на 23-м, смена на воскресенье 08:00–13:00, статус «Объявлен», маршрут капсулами — погрузка в Нетании, этаж 2, лифта нет" loading="lazy" width="780" height="1688" />
+          <figcaption>«Мои смены» у бригадира: месяц с точкой на дне работы, время, статус и маршрут капсулами.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/09-бригадир-заказчик.png" alt="Экран смены у бригадира, блок заказчика: имя Наталья и её телефон ссылкой для звонка" loading="lazy" width="780" height="1688" />
+          <figcaption>Бригадиру видно заказчика и его телефон — он на объекте главный и звонит сам.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/10-чек-лист.png" alt="Чек-лист смены у бригадира: отмечено 2 из 4 пунктов, у погрузки и выгрузки стоят галочки «Адрес пройден», ниже роль «Бригадир» и оплата 500 шекелей" loading="lazy" width="780" height="1688" />
+          <figcaption>Отмечено 2 из 4: адреса пройдены. Офис видит эти же отметки с именем и временем.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/11-грузчик-смена.png" alt="Та же смена у грузчика: календарь, время, статус и маршрут с адресами — без телефона заказчика и без чек-листа" loading="lazy" width="780" height="1688" />
+          <figcaption>Та же смена у грузчика: время, адреса, работа — и <b>ни телефона заказчика, ни чек-листа</b>. Это не вёрстка, а права: у него этих данных нет и в ответе системы.</figcaption>
+        </figure>
+      </div>
+      <p class="нет">
+        <strong>Почему это важнее, чем выглядит.</strong> Грузчик и бригадир — не должности, а роли
+        <em>в этой смене</em>: сегодня человек бригадир, завтра в чужой смене грузчик. Система
+        считает уровень по смене, а не по человеку.
+      </p>
+    </div>
+
+    <div class="крупно">
+      <div class="крупно__шапка">
+        <h3 class="крупно__имя">Звенья 9–10. Отчёт с объекта и деньги</h3>
+        <span class="метка метка--работает">работает</span>
+      </div>
+      <ol class="сценарий">
+        <li>Бригадир закрывает смену отчётом: что сделано и что пошло не так.</li>
+        <li>Замечание про повреждение <b>остаётся в системе</b> — на случай спора с клиентом через месяц.</li>
+        <li>Заказ закрывается по факту: сумма может отличаться от оценки, и видно, на сколько.</li>
+        <li>Раз в месяц один экран отвечает на вопрос «какая реклама окупилась».</li>
+      </ol>
+      <div class="кадры">
+        <figure>
+          <img src="кадры/12-смена-с-отчётом.png" alt="Карточка смены с отчётом бригады: «всё выгрузили, шкаф собрали на месте» и замечание про царапину на дверце, которая была до погрузки" loading="lazy" width="780" height="1688" />
+          <figcaption>Отчёт бригады на карточке смены: царапина на дверце была до погрузки — записано и снято на фото.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/13-клиент.png" alt="Карточка клиента Натальи: её обращения и заказы в одном месте" loading="lazy" width="780" height="1688" />
+          <figcaption>Карточка клиента: вся история этого человека с нами в одном месте.</figcaption>
+        </figure>
+        <figure>
+          <img src="кадры/14-отчёт-по-источникам.png" alt="Отчёт «Откуда приходят заказы» за август: объявление fb_august_move дало 1 обращение, 1 заказ и 3 100 шекелей; рекомендация — 1 обращение и 0 заказов; сверху зелёная строка «источник известен у всех обращений»" loading="lazy" width="780" height="1688" />
+          <figcaption>Ответ на главный вопрос: объявление fb_august_move дало 1 обращение, 1 заказ и 3 100 ₪. Строка «источник известен у всех обращений» означает, что таблице можно верить целиком.</figcaption>
+        </figure>
+      </div>
+      <p class="нет">
+        <strong>Чего здесь сознательно нет:</strong> фотографий из приложения. Сейчас бригада
+        присылает их в чат бота, и они попадают в отчёт. Загрузка прямо из «Моих смен» — следующая
+        работа по этому звену.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="полоса">
+    <h2>Что появилось за эти две недели</h2>
+    <p class="подзаголовок">Пять вещей, которых 8 августа не существовало ни в каком виде.</p>
+
+    <h3>Ролик о компании — 45 секунд, семь сцен</h3>
+    <p>
+      Клиент тонет в коробках → приезжает бригада → стол в стрейче, сборка шкафа, телевизор →
+      рукопожатие, чей крест превращается в букву <b>x</b> и разворачивается в наш знак. Стоит
+      первым экраном главной, запускается сам. Музыка — по нажатию, потому что со звуком браузеры
+      автозапуск запрещают.
+    </p>
+
+    <h3>Расчёт по предметам, а не по комнатам</h3>
+    <p>
+      Слова Игоря 13 августа: «по комнатам я никогда не считал», «диван, картина — это 10 минут,
+      а шкаф-купе — полтора часа». Прежняя формула считала их одинаково. Теперь в каталоге
+      30 позиций по шести комнатам, у холодильника, телевизора, стола и шкафа — виды, и
+      шкаф-купе с разборкой стоит 709 ₪ там, где телевизор 69 ₪. Формула откалибрована на
+      44 разобранных заказах и 466 позициях из чата Игоря — не на догадках.
+    </p>
+
+    <h3>Смена в телефоне работника</h3>
+    <p>
+      Приложение внутри Telegram: два раздела у работника, четыре у офиса. Два уровня доступа
+      по роли в смене, чек-лист из адресов заказа, отметки работают без сети. Принято на живой
+      смене 21 августа.
+    </p>
+
+    <h3>Бренд, собранный целиком</h3>
+    <p>
+      Брендбук из 11 разделов и кит из четырёх направлений: 24 рекламных макета, чертежи оклейки
+      машин и ТЗ швейнику, 16 листов печати (визитка, смета, счёт, лист приёмки), 75 знаков
+      интерфейса. Открывается по ссылке — и подрядчику, и типографии.
+    </p>
+
+    <h3>Своё имя в интернете</h3>
+    <p>
+      Домен <b>fixlihome.co.il</b> зарегистрирован и работает: сайт открыт поиску, система живёт
+      на <b>panel.fixlihome.co.il</b>, документы — на <b>docs.fixlihome.co.il</b>. Сервер в Израиле,
+      копии базы каждую ночь с недельной проверкой восстановлением, обновление выкатывается само.
     </p>
   </div>
-</div>
+</section>
 
-<div class="counts-band">
-<div class="counts">
-  <div class="count is-done">
-    <b>6</b>
-    <span>
-      продуктов собраны и работают: сайт с калькулятором, страница знакомства, ролик о компании,
-      пункт управления, бот первичного опроса, фирменный стиль
-    </span>
+<section>
+  <div class="полоса">
+    <h2>Шесть задач из постановки — и что с ними стало</h2>
+    <p class="подзаголовок">
+      Порядок работ поменяли вы 9 августа: «я бы начал с сайта и рекламы, людей мы найдём».
+      Ниже — где сейчас каждая задача.
+    </p>
+
+    <div class="обёртка-таблицы">
+      <table>
+        <thead>
+          <tr><th>Задача</th><th>Что сделано</th><th>Состояние</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>1. Сайт с калькулятором</b></td>
+            <td>Две локали, ролик, расчёт по предметам, опрос-заявка, страница знакомства для WhatsApp</td>
+            <td><span class="метка метка--работает">работает</span></td>
+          </tr>
+          <tr>
+            <td><b>2. Пункт управления бизнесом</b></td>
+            <td>Обращения, заказы, смены, бригады, чек-листы, клиенты, отчёт по источникам — на сервере, вход через Telegram</td>
+            <td><span class="метка метка--работает">работает</span></td>
+          </tr>
+          <tr>
+            <td><b>3. HR-агенты</b></td>
+            <td>Объявления по четырём ролям и сценарий интервью написаны, схема данных готова. Кода нет — по вашему решению</td>
+            <td><span class="метка метка--отодвинуто">отодвинуто</span></td>
+          </tr>
+          <tr>
+            <td><b>4. Агент первичного разговора</b></td>
+            <td>Telegram-бот доводит клиента до цены и передаёт человеку. Приветствие WhatsApp написано и ждёт 15 минут на телефоне</td>
+            <td><span class="метка метка--ждёт">ждёт вас</span></td>
+          </tr>
+          <tr>
+            <td><b>5. Агент после продажи</b></td>
+            <td>Не делали: при 20 заказах в месяц не окупается. Место в системе под отзывы есть</td>
+            <td><span class="метка метка--отодвинуто">отодвинуто</span></td>
+          </tr>
+          <tr>
+            <td><b>6. Обучение генерации видео</b></td>
+            <td>Ролик сделан целиком, все приёмы и провалы записаны. Само обучение сотрудницы не начиналось</td>
+            <td><span class="метка метка--делаем">половина</span></td>
+          </tr>
+          <tr>
+            <td><b>Реклама и бренд</b><br /><span style="font-size:14px;color:#4a5867">этого в постановке не было</span></td>
+            <td>Брендбук, 24 макета, чертежи машин, печать, карточка Google. Запуск держит документ о регистрации</td>
+            <td><span class="метка метка--ждёт">ждёт вас</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><a class="кнопка" href="https://docs.fixlihome.co.il/brand/">Открыть брендбук и 24 макета</a><a class="кнопка-тихая" href="https://fixlihome.co.il/ru/">Открыть сайт</a></p>
   </div>
-  <div class="count is-zero">
-    <b>0</b>
-    <span>
-      клиентов через них прошло: реклама не запущена, автоответ не включён,
-      ссылку на бота мы не даём никому
-    </span>
+</section>
+
+<section>
+  <div class="полоса">
+    <h2>Что нужно от вас</h2>
+    <p class="подзаголовок">
+      Каждый шаг — то, что нельзя сделать за вас: ваш телефон, ваш аккаунт, ваш документ.
+      Нажмите своё имя — внутри только ваше.
+    </p>
+
+    <div class="выбор">
+      <a href="https://docs.fixlihome.co.il/status/1df20ae18d/igor/">
+        <span class="выбор__имя">Игорю</span>
+        <span class="выбор__срок">15 минут в телефоне + два вопроса</span>
+        <ul>
+          <li>Включить приветствие в WhatsApp — текст готов, надо вставить</li>
+          <li>Рабочие часы: работаете в шабат и в пятницу после обеда?</li>
+          <li>Грузовое такси за 400 ₪/час — услуга или разовая уступка?</li>
+          <li>Документ о регистрации — держит рекламу, Google и WhatsApp</li>
+          <li>Десять фотографий упаковки</li>
+        </ul>
+      </a>
+      <a href="https://docs.fixlihome.co.il/status/1df20ae18d/dima/">
+        <span class="выбор__имя">Диме</span>
+        <span class="выбор__срок">5 минут за компьютером + два вопроса</span>
+        <ul>
+          <li>Выдать доступ к странице Facebook</li>
+          <li>Реклама пойдёт с твоего аккаунта или с чьего-то ещё?</li>
+          <li>«Склад» и «покраска» — услуги уже есть или это планы?</li>
+          <li>Фотографии команды</li>
+        </ul>
+      </a></div>
+
+    <div class="правило">
+      <strong>Почему список такой короткий.</strong> Всё остальное либо сделано, либо нас не касается.
+      Узкое место сейчас не код: построено почти всё, включено почти ничего — и включается оно
+      четырьмя действиями выше.
+    </div>
   </div>
-  <div class="count is-open">
-    <b>6</b>
-    <span>решений за вами. Денег требует одно — сервер, и там надо выбрать размер</span>
+</section>
+
+<footer>
+  <div class="полоса">
+    <p>
+      Собрано 22 августа 2026. Экраны сайта сняты с боевого адреса в этот же день, экраны
+      системы — на учебной базе. Ссылка не индексируется поиском: она только для вас.
+    </p>
+    <p class="автор">Made by Dmitry Khinkis</p>
   </div>
-</div>
-</div>
-
-<main class="wrap">
-  <section class="page">
-    <h2>Что решить</h2>
-    <p class="sub">
-      По порядку — от того, что включает больше всего, к тому, что можно отложить.
-    </p>
-
-    <div class="asks">
-      <div class="ask">
-        <h3>Включить автоответ в WhatsApp</h3>
-        <p class="price">0 ₪, сегодня</p>
-        <p class="who">Игорь · 20 минут · документы не нужны</p>
-        <p class="gives">
-          Бесплатное приложение WhatsApp Business ставится на рабочий номер и не требует ни
-          юрлица, ни регистрации: внутри включаются приветствие, ответ вне рабочих часов
-          и быстрые ответы на частые вопросы. Тексты написаны и лежат готовыми. Это самая
-          дешёвая из всех строк списка и она закрывает главную дырку — сейчас медиана первого
-          ответа клиенту 76 дней.
-          <br /><br />
-          <b>Теперь она включает ещё и страницу знакомства.</b> В приветствие встаёт ссылка,
-          которую Игорь просил 15 августа: человек написал — и первым сообщением получает
-          адрес, где за две минуты видит двенадцать настоящих рекомендаций, ролик и ответ
-          про упаковку, а обратно возвращается кнопкой в тот же чат. До 19 августа ссылку
-          было некуда ставить: адрес был служебным. Теперь он фирменный, и <b>это
-          единственный шаг, который отделяет страницу от первого клиента.</b>
-        </p>
-      </div>
-
-      <div class="ask">
-        <h3>Реальные фотографии работ</h3>
-        <p class="price">0 ₪</p>
-        <p class="who">снимает кто угодно · с телефона</p>
-        <p class="gives">
-          Погрузка, фургон, бригада в работе, «до и после» — лучше снятые аккуратно и при
-          свете, а не на бегу. Это <b>самая дорогая из открытых строк</b>: без фотографий
-          не рендерится блок «Наши работы» на сайте, пустует половина страницы знакомства,
-          а рекламные макеты идут с рисованными заглушками. Клиент в этой нише выбирает
-          по фотографиям настоящих работ — их нельзя заменить текстом.
-          <br /><br />
-          <b>Что нужно поимённо:</b> десять снимков упаковки от Игоря (стол в стрейче,
-          квартира до выноса, та же квартира в машине — сюжеты он назвал сам), три снимка
-          команды от Димы. И <b>единая форма бригады</b>: своей же архив Игорь забраковал
-          словами «кто-то в синей футболке, кто-то в зелёной» — значит два кадра из
-          съёмочного листа без формы дадут ровно то, что забраковано. Цвет, вид и срок
-          формы — решение за вами; макет футболки нарисован и лежит в брендбуке.
-        </p>
-      </div>
-
-      <div class="ask">
-        <h3>Документ о регистрации</h3>
-        <p class="price">0 ₪, нужен документ</p>
-        <p class="who">Игорь · один раз</p>
-        <p class="gives">
-          Название у вас есть — Fixli. Не хватает документа о регистрации: полное юрлицо
-          не обязательно, достаточно «осек». Важно, <b>как название записано в документе</b>:
-          Google и Meta сверяют буква в букву, а осек часто оформлен на человека. Документ
-          открывает три вещи: <b>1)</b> политику конфиденциальности на сайте — по закону там
-          указано, кто собирает данные заявок; <b>2)</b> карточку в Google Maps — бесплатный
-          поток из поиска и карт; <b>3)</b> WhatsApp внутри пункта управления — не приложение
-          из строки выше, а канал, где опрос идёт сам и заявка сразу попадает в базу.
-          <b>Плюс отдельная SIM-карта:</b> номер, подключённый к API, перестаёт работать
-          в обычном WhatsApp — личный отдавать туда нельзя. Наряды и рабочий чат этого
-          не ждут: они в Telegram и документов не требуют.
-        </p>
-      </div>
-
-      <div class="ask">
-        <h3>Носитель иврита на вычитку</h3>
-        <p class="price">2–3 часа работы</p>
-        <p class="who">знакомый или фрилансер</p>
-        <p class="gives">
-          Ивритскую половину сайта написал разработчик. В нише, где чужие люди приходят
-          в квартиру, кривой иврит убивает доверие быстрее всего остального.
-        </p>
-      </div>
-
-      <div class="ask">
-        <h3>Сервер: кто платит и какого размера</h3>
-        <p class="price">$39 или $62 / мес</p>
-        <p class="who">решение до 13 сентября</p>
-        <p class="gives">
-          Машина взята и работает с 14 августа — панель открывается с телефона, захват чата
-          и расшифровка голосовых идут на ней, ночные копии делаются сами. Первый месяц
-          закрыт промо-кодом, и он кончается около 13 сентября.
-          <br /><br />
-          <b>Размер можно уменьшить вдвое.</b> Машину брали с запасом под расшифровку
-          голосовых «на глаз»; 18 августа я померил её под настоящей нагрузкой — пик
-          занятой памяти 2,2 из восьми гигабайт, и самое тяжёлое место это не работа
-          панели, а расшифровка, которой нужно меньше десяти минут в сутки. Значит
-          вдвое меньшая машина работу выдерживает: <b>$39 вместо $62</b>, около $276
-          в год. Уменьшение занимает пятнадцать минут и одну перезагрузку.
-          <br /><br />
-          Открытых вопроса два: оставляем запас или уменьшаем, и кто за это платит —
-          вторая половина разговора о формате работы.
-        </p>
-      </div>
-
-      <div class="ask">
-        <h3>Формат работы и оплата</h3>
-        <p class="price">осталось три пункта</p>
-        <p class="who">все трое</p>
-        <p class="gives">
-          Главное согласовано: фикс 10 000 ₪ в месяц, три контрольные точки по выручке
-          и партнёрство равными долями — формулировки ваши, и я их принимаю.
-          Не закрыты три вещи, и лучше закрыть их сейчас, а не в январе:
-          <b>1)</b> размер премии за контрольную точку — 14 августа он был назван, в письме
-          о чекпоинтах его нет; <b>2)</b> с какого дня считается первый месяц;
-          <b>3)</b> как платим — перевод, бит или наличные.
-          <br /><br />
-          Ещё один вопрос из того же письма — про поддержку после стройки — вы там
-          ответили сами: оклад сохраняется при «интеллектуальном подключении». Так и
-          фиксирую. От этой же строки зависит, кто платит за сервер и за AI, когда он
-          понадобится.
-        </p>
-      </div>
-    </div>
-
-    <div class="note">
-      <p><b>Что закрылось с прошлого отчёта — четыре строки, и ни одна не потребовала денег.</b></p>
-      <p>
-        <b>Адрес заработал.</b> Регистратор внёс <code>fixlihome.co.il</code> в реестр
-        18 августа, привязка сделана 19-го. Сайт открывается по фирменному адресу в обеих
-        локалях, запрет показываться в поиске снялся, страница зарегистрирована в Google
-        Search Console, карта сайта отправлена. Адрес без <code>www</code> — единственный:
-        вторая копия сайта не заводится.
-      </p>
-      <p>
-        <b>Пункт управления тоже переехал на свой домен</b> — <code>panel.fixlihome.co.il</code>,
-        и вход в него стал одним нажатием: код уходит боту сам, без копирования из буфера.
-        Наружу при этом не открыт ни один порт машины.
-      </p>
-      <p>
-        <b>Брендбук и все документы для партнёров — на фирменном домене:</b>
-        <code>docs.fixlihome.co.il</code>. Эта страница тоже.
-      </p>
-      <p>
-        <b>Обращение, которое не станет заказом, теперь закрывается</b> — шесть причин
-        человеческим языком, и причина остаётся в истории клиента. До этого у обращения был
-        ровно один выход, стать заказом, и первый экран считал отвалившегося клиента живым
-        навсегда.
-      </p>
-      <p>
-        <b>И один вопрос вы закрыли сами.</b> В письме о контрольных точках доля фонда оплаты
-        труда в 50 % названа нормой отрасли. Значит поднимать цены под неё не нужно — цифры
-        в калькуляторе остаются теми, что клиент видит сегодня.
-      </p>
-    </div>
-  </section>
-
-  <section class="page">
-    <h2>Что уже можно потрогать</h2>
-    <p class="sub">
-      Сайт живёт на <b>fixlihome.co.il</b> и обновляется сам при каждой правке. Можно зайти
-      с телефона, посмотреть ролик о компании, посчитать свой переезд по списку вещей
-      и пройти заявку до конца. Этот адрес уже можно печатать на визитках и ставить
-      в объявления — чего нельзя было делать неделю назад.
-    </p>
-
-    <p class="actions"><a class="primary" href="https://fixlihome.co.il/ru/">Открыть сайт и посчитать переезд</a></p>
-
-    <p class="sub shots-note">
-      Ниже — те же экраны снимками, на телефоне 390 точек шириной: так сайт увидят почти
-      все, кто придёт.
-    </p>
-
-    <div class="shots">
-      <figure>
-        <img src="shots/ru-home.png" alt="Главная страница сайта Fixli на телефоне: логотип, переключатель языков, заголовок «Переезд под ключ — одной командой», кадр ролика о компании и три кнопки" loading="lazy" width="780" height="1688" />
-        <figcaption>
-          <b>Главная начинается с ролика.</b> Сорок пять секунд о том, что делает компания:
-          клиент тонет в коробках, приезжает бригада, вещи уезжают, рукопожатие превращается
-          в наш знак. Ролик запускается сам и без звука — звук включается нажатием.
-        </figcaption>
-      </figure>
-
-      <figure>
-        <img src="shots/ru-calc-price.png" alt="Калькулятор переезда: стоимость с НДС 3 400 – 4 400 шекелей, 3 000 – 3 800 если клиент разбирает мебель сам, 21,5 человеко-часа, бригада 2–4 человека, время на объекте 5,5–11 часов" loading="lazy" width="780" height="1688" />
-        <figcaption>
-          <b>Калькулятор считает по вещам, а не по комнатам.</b> Тридцать позиций в шести
-          комнатах: шкаф-купе с разборкой стоит семьсот шекелей, телевизор — семьдесят.
-          Клиент видит вилку, человеко-часы и размер бригады до единого контакта с нами.
-        </figcaption>
-      </figure>
-
-      <figure>
-        <img src="shots/ru-quote-price.png" alt="Заявка-опрос: выбор задачи — переехать целиком, хендимен и ремонт, другое" loading="lazy" width="780" height="1688" />
-        <figcaption>
-          <b>Заявка — это опрос, и это главный вход.</b> Начинается с одного вопроса
-          «что нужно», а телефон спрашивает последним, когда клиент уже увидел цену.
-        </figcaption>
-      </figure>
-
-      <figure>
-        <img src="shots/he-home.png" alt="Ивритская главная страница справа налево с заголовком «הובלה מלאה — עם צוות אחד» и кадром ролика без надписей" loading="lazy" width="780" height="1688" />
-        <figcaption>
-          <b>Ивритская половина.</b> Отдельные адреса, справа налево, свои тексты, тот же
-          ролик — но без надписей: ивритские титры мы не публикуем, пока их не прочитает
-          носитель языка. Это и есть та просьба из списка выше.
-        </figcaption>
-      </figure>
-
-      <figure class="shot-wide">
-        <img src="shots/desk-home.png" alt="Главная страница сайта на большом экране: текст слева, ролик справа" loading="lazy" width="1280" height="900" />
-        <figcaption>
-          <b>Тот же сайт на большом экране.</b> Тридцать четыре страницы, по семнадцать
-          на язык. Скорость и доступность проверены инструментом Google: 99–100 из 100
-          по всем четырём параметрам на мобильном — включая «видимость в поиске», которая
-          до переезда на свой адрес показывала 69 из-за нашего же запрета индексации.
-        </figcaption>
-      </figure>
-    </div>
-
-    <div class="note">
-      <p><b>Рядом с сайтом появились ещё две вещи, которые тоже можно открыть.</b></p>
-      <p>
-        <b>Страница знакомства.</b> Отдельный короткий путь для того, кто написал в WhatsApp:
-        первым сообщением ему приходит ссылка, и за две минуты он видит доказательства —
-        двенадцать настоящих рекомендаций из Facebook, ролик, ответ про бережную упаковку —
-        и возвращается в тот же чат кнопкой. Задачу ставил Игорь голосовыми 15 августа;
-        страница работает по фирменному адресу и <b>ждёт ровно двух вещей</b>: двадцати
-        минут на телефоне, чтобы ссылка встала в приветствие, и фотографий упаковки —
-        без них главный её блок держится на одних словах.
-      </p>
-      <p>
-        <b>Брендбук с фирменным стилем.</b> Открывается по ссылке и отправляется подрядчику
-        как есть: правила знака, цвета, шрифт, готовые макеты для оклейки фургона, футболок,
-        визиток и документов, двадцать четыре рекламных макета. Из него же взято всё,
-        что вы видите в этом отчёте.
-      </p>
-    </div>
-
-    <p class="actions">
-      <a class="secondary" href="https://fixlihome.co.il/ru/hi/">Открыть страницу знакомства</a>
-      <a class="secondary" href="https://docs.fixlihome.co.il/brand/">Открыть брендбук</a>
-    </p>
-  </section>
-
-  <section>
-    <h2>Два пути к цене — и одна цена</h2>
-    <p class="sub">
-      Клиент может спросить нас, а может посчитать сам. Обе дороги на сайте открыты,
-      и обе заканчиваются одним числом.
-    </p>
-
-    <div class="paths">
-      <div class="path">
-        <h3>Опрос — главный вход</h3>
-        <p class="who-for">в меню «Рассчитать стоимость»</p>
-        <ul>
-          <li>
-            Семь вопросов до цифры, и это потолок: что нужно, города, размер квартиры,
-            вещи по списку, коробки, подъезды, кто разбирает мебель.
-          </li>
-          <li>Цена появляется <b>до того</b>, как мы спросим телефон, — уйти с ней можно молча.</li>
-          <li>Дальше сам собой становится заявкой: дата календарём, контакты, расчёт уезжает
-            менеджеру вместе с ответами.</li>
-          <li>Считает не только переезд: одна-две вещи, хендимен и «другое» тоже ведут к ответу,
-            хотя там честно говорим, что сумму назовёт человек.</li>
-        </ul>
-      </div>
-
-      <div class="path">
-        <h3>Калькулятор — отдельная страница</h3>
-        <p class="who-for">для тех, кто хочет покрутить цифры сам</p>
-        <ul>
-          <li>Ни одного вопроса о человеке: размер квартиры, вещи, коробки, этажи, разборка.</li>
-          <li>Сумма меняется на глазах, пока двигаешь числа, — видно, из чего она сложилась:
-            человеко-часы, размер бригады, время на объекте.</li>
-          <li>Только переезд. Заявку не просит: расчёт можно унести в опрос или в WhatsApp.</li>
-          <li>В меню его нет намеренно — два входа в одно место сбивают. Приходят по ссылкам
-            с главной и из самого опроса.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="note">
-      <p>
-        <b>Обе считают одной формулой, и это проверено машиной, а не на глаз.</b>
-        Сверка проходит опрос и калькулятор на всех пяти размерах квартиры и сравнивает
-        то, что видит клиент: суммы совпадают до шекеля. Она прогоняется перед каждым
-        выходом сайта в интернет — разойдутся однажды, и такая правка просто не выкатится.
-        С 17 августа тем же кодом считает и Telegram-бот, поэтому три поверхности
-        физически не могут назвать за одну квартиру три цены.
-      </p>
-    </div>
-  </section>
-
-  <section class="page">
-    <h2>Как это устроено внутри</h2>
-    <p class="sub">
-      Шесть направлений. Все собраны; пять ждут шага с вашей стороны, одно — моего.
-    </p>
-
-    <div class="tracks">
-      <div class="track">
-        <div class="track-head">
-          <h3>Сайт с калькулятором</h3>
-          <span class="pill ok">работает</span>
-        </div>
-        <p>
-          Девять услуг, две локали, отзывы настоящих клиентов, ролик о компании на первом
-          экране. Цену клиент узнаёт одним путём: «Рассчитать стоимость» в меню → опрос →
-          сумма; калькулятор остался отдельной страницей для тех, кто хочет покрутить
-          цифры сам. С 17 августа он считает <b>по вещам, а не по комнатам</b> — так, как
-          считает Игорь: диван и картина это десять минут, шкаф-купе — полтора часа, и
-          в прежней формуле они стоили одинаково.
-        </p>
-        <p class="blocked">
-          <b>Ждёт:</b> фотографий — вместо рисованных заглушек. Адрес получил 19 августа
-          и из поиска больше не спрятан.
-        </p>
-      </div>
-
-      <div class="track">
-        <div class="track-head">
-          <h3>Пункт управления</h3>
-          <span class="pill wait">работает · дорабатываю под телефон</span>
-        </div>
-        <p>
-          Четырнадцать экранов: звонок → обращение с обязательной пометкой «откуда узнали»
-          и кодом объявления → заказ → наряд грузчику в Telegram → его отчёт с фотографиями →
-          таблица «источник → обращений → заказов → сумма». Живёт по своему адресу
-          <code>panel.fixlihome.co.il</code>, вход — нажатием в Telegram, без паролей.
-          Первый экран показывает не меню разделов, а то, что горит сегодня. Обращение,
-          которое не станет заказом, теперь закрывается с причиной.
-        </p>
-        <p class="blocked">
-          <b>Ждёт: меня, а не вас.</b> Панель открывается прямо в Telegram, кнопкой рядом
-          с полем ввода, — и в таком виде я её отдавать не хочу: на телефоне шаги пока
-          разведены неудачно, и первое же знакомство получится «много всего и непонятно,
-          что нажимать». Довожу до вида, в котором ей можно пользоваться одной рукой между
-          заказами, и после этого отдаю вместе с инструкцией. Сроку это не мешает:
-          автоответ и реклама панель не ждут.
-        </p>
-      </div>
-
-      <div class="track">
-        <div class="track-head">
-          <h3>Захват рабочего чата в Telegram</h3>
-          <span class="pill ok">работает</span>
-        </div>
-        <p>
-          Бот сохраняет сообщения рабочего чата, а голосовые превращает в текст на своей
-          машине, без отправки куда-либо наружу. Работает круглосуточно на сервере с
-          14 августа. Согласие спрашивали у всех четверых участников.
-        </p>
-        <p class="blocked">
-          <b>Ждёт:</b> повторного согласия участников — текст объявления с тех пор менялся,
-          и спросить об этом должен человек, а не бот.
-        </p>
-      </div>
-
-      <div class="track">
-        <div class="track-head">
-          <h3>Первичный ответ клиенту</h3>
-          <span class="pill ok">бот доводит до цены</span>
-        </div>
-        <p>
-          Тексты автоответа WhatsApp написаны: приветствие, ответ вне часов, пять быстрых
-          ответов и список того, чего обещать нельзя. А в Telegram уже работает бот, который
-          сам проводит клиента по опросу кнопками, показывает <b>ту же вилку, что сайт</b>
-          (цифра физически не может разойтись — считает один и тот же код), принимает
-          фотографии и передаёт всё менеджеру.
-        </p>
-        <p class="blocked">
-          <b>Ждёт:</b> двадцати минут на телефоне для автоответа. Ссылку на бота мы пока
-          не даём никому по двум причинам: последний участок опроса — цена, дата, телефон —
-          ни разу не проходил живой человек, и бот обещает ответ менеджера, а панель
-          в работу ещё не отдана. Первое я проверю сам на этой неделе.
-        </p>
-      </div>
-
-      <div class="track">
-        <div class="track-head">
-          <h3>Реклама</h3>
-          <span class="pill ok">тексты написаны</span>
-        </div>
-        <p>
-          Тринадцать готовых объявлений на русском и иврите плюс девять брифов под съёмку:
-          переезд, хендимен, сборка мебели, грузовое такси. Двадцать четыре макета в фирменном
-          стиле собраны. Каждое утверждение сверено с тем, что вы говорили: чего не
-          подтверждали — того в объявлении нет.
-        </p>
-        <p class="blocked">
-          <b>Ждёт:</b> фотографии, вычитку иврита и права администратора на странице Facebook.
-          Пошаговая инструкция, как их выдать, написана и уйдёт отдельным сообщением.
-          Адрес сайта в объявления теперь ставится — до 19 августа его там не было
-          вовсе, потому что печатать служебную ссылку нельзя.
-        </p>
-      </div>
-
-      <div class="track">
-        <div class="track-head">
-          <h3>Фирменный стиль</h3>
-          <span class="pill ok">выложен ссылкой</span>
-        </div>
-        <p>
-          Бренд у компании был, а правил не было: знак, фургон и визитка сделаны разными
-          людьми в разное время. Теперь есть брендбук — цвета, шрифт, правила знака,
-          съёмочный лист — и готовые макеты: оклейка фургона в долях от высоты борта
-          (марки машин нам не называли, подрядчик мерит рулеткой), футболки, визитки,
-          восемь документов на двух языках. Плюс ролик о компании на сорок пять секунд.
-        </p>
-        <p class="blocked">
-          <b>Ждёт:</b> вашего «да» на форму бригады и решения, печатаем ли визитки. Перед
-          самой печатью я ставлю новый адрес сайта на все носители — на макетах его нет,
-          они рисовались, когда домена ещё не было.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="page">
-    <h2>Как замыкается цепочка</h2>
-    <p class="sub">
-      Шесть звеньев: от «клиент нас нашёл» до «его цена вернулась обратно в калькулятор».
-      Слева у каждой строки стоит состояние — <b>есть</b> значит работает сейчас,
-      <b>ждёт</b> значит написано и упирается в один шаг, <b>план</b> значит решено делать,
-      но кода ещё нет. Ни одного «скоро».
-    </p>
-
-    <div class="chain">
-      <div class="link">
-        <div class="link-head">
-          <span class="link-num">1</span>
-          <h3>Клиент нас находит</h3>
-        </div>
-        <ul>
-          <li><span class="state done">есть</span> <span>Сайт: девять услуг, две локали, тридцать четыре страницы, отзывы настоящих клиентов, ролик о компании — на своём адресе <code>fixlihome.co.il</code> и открыт поиску</span></li>
-          <li><span class="state done">есть</span> <span>Расчёт цены — один вход, а не два: в меню «Рассчитать стоимость», дальше опрос, и цена появляется до того, как мы спросим телефон</span></li>
-          <li><span class="state done">есть</span> <span>Калькулятор считает по вещам: тридцать позиций в шести комнатах, у холодильника, телевизора и стола — свои виды</span></li>
-          <li><span class="state done">есть</span> <span>Страница знакомства: короткий путь из WhatsApp, двенадцать рекомендаций доказательствами и кнопка обратно в тот же чат</span></li>
-          <li><span class="state waits">ждёт</span> <span>Реклама: тринадцать объявлений написаны — нужны фотографии, вычитка иврита и права на странице Facebook</span></li>
-          <li><span class="state waits">ждёт</span> <span>Карточка в Google Maps: бесплатный поток из поиска и карт, нужен документ о регистрации</span></li>
-        </ul>
-      </div>
-
-      <div class="link">
-        <div class="link-head">
-          <span class="link-num">2</span>
-          <h3>Клиент написал — и его услышали в первую минуту</h3>
-        </div>
-        <ul>
-          <li><span class="state done">есть</span> <span>Тексты автоответа: приветствие, ответ вне часов, пять быстрых ответов, список запрещённых обещаний</span></li>
-          <li><span class="state waits">ждёт</span> <span>Установки приложения WhatsApp Business: 20 минут на телефоне, документы не нужны</span></li>
-          <li><span class="state done">есть</span> <span>Telegram-бот с тем же опросом: ведёт кнопками, показывает ту же цену, что сайт, принимает фотографии и передаёт менеджеру</span></li>
-          <li><span class="state waits">ждёт</span> <span>WhatsApp внутри панели: документ и отдельная SIM-карта под рабочий номер</span></li>
-        </ul>
-      </div>
-
-      <div class="link">
-        <div class="link-head">
-          <span class="link-num">3</span>
-          <h3>Обращение попадает в базу — и всегда с источником</h3>
-        </div>
-        <ul>
-          <li><span class="state done">есть</span> <span>Приём обращения за двадцать секунд с телефона; «откуда узнали» — поле, которое нельзя пропустить</span></li>
-          <li><span class="state done">есть</span> <span>Сказанное в рабочем чате превращается в обращение одним нажатием</span></li>
-          <li><span class="state done">есть</span> <span>Захват чата: сообщения сохраняются, голосовые превращаются в текст на своей машине</span></li>
-          <li><span class="state done">есть</span> <span>Заявка с сайта попадает прямо в базу вместе с источником; сообщение в рабочий чат осталось запасным путём</span></li>
-          <li><span class="state done">есть</span> <span>Код объявления заносится руками при звонке — иначе весь поток из WhatsApp выглядит как «Facebook» и не говорит, какое размещение окупилось</span></li>
-        </ul>
-      </div>
-
-      <div class="link">
-        <div class="link-head">
-          <span class="link-num">4</span>
-          <h3>Обращение становится заказом</h3>
-        </div>
-        <ul>
-          <li><span class="state done">есть</span> <span>Заказ создаётся из обращения одним действием — второго входа «просто заказ» нет намеренно</span></li>
-          <li><span class="state done">есть</span> <span>В карточке заказа видно, из какого обращения он вырос и с какой рекламной меткой</span></li>
-          <li><span class="state done">есть</span> <span>Карточка клиента: его заказы, обращения и отзывы одним списком по времени</span></li>
-          <li><span class="state done">есть</span> <span>Если заказа не будет — обращение закрывается с причиной, и причина остаётся в истории клиента, а не пропадает</span></li>
-        </ul>
-      </div>
-
-      <div class="link">
-        <div class="link-head">
-          <span class="link-num">5</span>
-          <h3>Заказ доходит до грузчиков</h3>
-        </div>
-        <ul>
-          <li><span class="state done">есть</span> <span>Доска недели, наряд, назначение работника</span></li>
-          <li><span class="state done">есть</span> <span>Наряд приходит грузчику в Telegram, и оттуда же он отчитывается фотографиями</span></li>
-          <li><span class="state done">есть</span> <span>Панель открывается прямо в Telegram, кнопкой рядом с полем ввода — без адреса, пароля и кода. На этом же фундаменте вырастет задачник грузчика</span></li>
-          <li><span class="state plan">план</span> <span>Задачник в мини-аппе: смена списком, отметки по ходу работы, фотографии в конце. Ни пароля, ни справочников — вход тем же Telegram</span></li>
-        </ul>
-      </div>
-
-      <div class="link">
-        <div class="link-head">
-          <span class="link-num">6</span>
-          <h3>Круг замыкается: обратно к клиенту и в систему</h3>
-        </div>
-        <ul>
-          <li><span class="state done">есть</span> <span>Отчёт «источник → обращений → заказов → сумма», а над строками — подытог по каждому объявлению: сколько принесло именно оно</span></li>
-          <li><span class="state waits">ждёт</span> <span>Запись отзыва: место в базе есть, экрана нет намеренно — отзывы должен собирать агент постпродажи, и он идёт следующим после рекламы</span></li>
-          <li><span class="state plan">план</span> <span>Фактическая сумма закрытого заказа возвращается в калькулятор и уточняет формулу — то самое доучивание на живых сделках</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="note">
-      <p>
-        <b>Что даёт замкнутый круг, когда он замкнётся целиком.</b> Каждое звено по отдельности —
-        удобство. Вместе они дают три вещи, которых сейчас нет ни у вас, ни у конкурентов
-        в центре Израиля.
-      </p>
-      <p>
-        <b>Видно, какой рекламный шекель вернулся.</b> Источник, поставленный при обращении,
-        доезжает до суммы заказа — и в конце месяца видно не «реклама работает», а сколько
-        принёс каждый канал.
-      </p>
-      <p>
-        <b>Цена перестаёт зависеть от того, кто считал.</b> Сейчас каждый заказ считается на
-        глаз, и два похожих переезда могут разойтись в полтора раза. Круг «расчёт → факт →
-        поправка в формуле» превращает опыт в число, которое клиент видит на сайте сам.
-      </p>
-      <p>
-        <b>Обращения перестают теряться.</b> Не потому, что кто-то стал внимательнее, а потому
-        что обращение фиксируется там же, где живёт разговор: в чате, в WhatsApp, на сайте.
-      </p>
-    </div>
-  </section>
-
-  <section class="tight">
-    <h2>Какими каналами это работает</h2>
-    <p class="sub">
-      Два мессенджера с разными ролями — не потому, что так вышло, а потому что у них разные
-      сильные стороны.
-    </p>
-
-    <div class="tracks">
-      <div class="track">
-        <div class="track-head">
-          <h3>Внутри компании — Telegram</h3>
-          <span class="pill ok">работает</span>
-        </div>
-        <p>
-          Рабочий чат уже там, и бот в нём с 9 августа: сохраняет сообщения, голосовые
-          превращает в текст, круглосуточно и на сервере. Наряды грузчикам и отчёты
-          с фотографиями написаны и включатся, как только работники нажмут «Начать» —
-          каждый делает это сам, Telegram не даёт боту написать первым. Здесь Telegram
-          сильнее: боты, личные чаты, мини-приложения и отметки о выполнении делаются
-          как надо и без чужих разрешений. Ни документов, ни отдельного номера
-          не требует вообще.
-        </p>
-      </div>
-
-      <div class="track">
-        <div class="track-head">
-          <h3>С клиентами — WhatsApp</h3>
-          <span class="pill wait">тексты готовы</span>
-        </div>
-        <p>
-          В Израиле пишут в WhatsApp почти все, и спорить с этим бессмысленно: главный канал
-          обращений — он. Автоответ включается сегодня и бесплатно. Полноценный опрос внутри
-          WhatsApp — уже через Meta: там нужны документ и отдельная SIM-карта, потому что номер,
-          подключённый к их API, перестаёт работать в обычном приложении.
-        </p>
-      </div>
-
-      <div class="track">
-        <div class="track-head">
-          <h3>Второй вход для клиента — тоже Telegram</h3>
-          <span class="pill ok">бот работает</span>
-        </div>
-        <p>
-          Тот же опрос, что на сайте, живёт в боте: клиент отвечает кнопками, обращение
-          заводится с первого его сообщения, а источник точный — в ссылке стоит код
-          объявления, и он доезжает до отчёта. Бот показывает ту же вилку, что сайт,
-          принимает фотографии и передаёт всё менеджеру. Ни документов, ни SIM,
-          ни одобрения Meta это не требует. Ссылку дадим, когда Игорь войдёт в панель:
-          бот обещает ответ человека, и обещание должно быть правдой с первого клиента.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="tight">
-    <h2>Что стоит за этими экранами</h2>
-    <p class="sub">
-      Объём, который снаружи не виден: перед экранами была спроектирована база и разобраны
-      ваши же данные.
-    </p>
-
-    <div class="why">
-      <div>
-        <b>49 таблиц</b>
-        <span>в базе: клиенты, обращения, заказы, наряды, отзывы, рекламные метки, аудит</span>
-      </div>
-      <div>
-        <b>14 экранов</b>
-        <span>в пункте управления — от приёма звонка до отчёта по источникам</span>
-      </div>
-      <div>
-        <b>34 страницы</b>
-        <span>сайта в двух локалях, 99–100 из 100 по скорости и доступности на мобильном</span>
-      </div>
-      <div>
-        <b>653 отзыва</b>
-        <span>ваших клиентов из Facebook разобрано вручную: язык, вопросы, возражения</span>
-      </div>
-      <div>
-        <b>44 заказа</b>
-        <span>ваших разобраны по вещам — 466 предметов поимённо, отсюда веса в калькуляторе</span>
-      </div>
-      <div>
-        <b>13 объявлений</b>
-        <span>и 24 макета в фирменном стиле, каждое утверждение сверено с вашими словами</span>
-      </div>
-    </div>
-
-    <div class="note">
-      <p>
-        Плюс двадцать девять технических планов, в которых каждое решение записано вместе с причиной —
-        чтобы через полгода не пришлось вспоминать, почему сделано именно так, и чтобы работу
-        мог продолжить не только я.
-      </p>
-    </div>
-  </section>
-
-  <section class="page">
-    <h2>Зачем это всё</h2>
-    <p class="sub">Четыре числа из ваших же данных — их я не придумывал, а посчитал.</p>
-
-    <div class="why">
-      <div>
-        <b>41 из 68</b>
-        <span>вопросов клиентов под вашими объявлениями остались без ответа</span>
-      </div>
-      <div>
-        <b>76 дней</b>
-        <span>медиана первого ответа на вопрос клиента</span>
-      </div>
-      <div>
-        <b>−75%</b>
-        <span>падение объёма заказов, о котором вы сами говорили</span>
-      </div>
-      <div>
-        <b>3 года</b>
-        <span>единственный рекламный пост не менялся</span>
-      </div>
-    </div>
-
-    <div class="note">
-      <p><b>Честно про калькулятор: он считает пока не всё, и вот где граница.</b></p>
-      <p>
-        <b>Дороже 2 500 ₪ — считает и попадает.</b> Формула откалибрована на 40 ваших
-        расчётах: медиана ошибки по деньгам 9,1 %. Именно это клиент и видит: вилку с НДС,
-        человеко-часы, размер бригады.
-      </p>
-      <p>
-        <b>С 17 августа он считает по вещам, и это правка с вашей же встречи.</b> Игорь
-        сказал прямо: «по комнатам я никогда не считал», «диван, картина — это десять минут,
-        а шкаф-купе тоже крупный предмет, и это полтора часа». Прежняя формула брала
-        за любой предмет одинаково; теперь шкаф-купе с разборкой стоит семьсот шекелей,
-        телевизор — семьдесят, разброс десятикратный. Веса не выдуманы: те же сорок ваших
-        расчётов разобраны по составу — 466 предметов поимённо. По часам новая модель
-        точнее старой вчетверо, и это важнее денег: по часам работает наряд бригаде.
-      </p>
-      <p>
-        <b>Дешевле 2 500 ₪ — расчёта нет, и это не недоделка.</b> На пятнадцати ваших мелких
-        расчётах модель промахивается в среднем на 51,6 %, попадает 1 раз из 15. Причина
-        видна в самих данных: там цена бралась круглым числом «на глаз», и связи между
-        составом заказа и суммой в них просто нет — чем больше вещей и этажей, тем дешевле
-        выходит по формуле. Считать по такой связи хуже, чем не считать: «сказали 1 200,
-        заплатил 2 000» бьёт по доверию сильнее, чем отсутствие цены. Поэтому в этом
-        диапазоне сайт говорит «от такой-то суммы» и передаёт заявку человеку. Больно то,
-        что сюда попадает ваш средний чек.
-      </p>
-      <p>
-        <b>Как он будет доучиваться.</b> Каждый расчёт с сайта сохраняется в базу вместе
-        с ответами клиента. Когда заказ закрыт, в панели ставится фактическая сумма — и
-        появляется пара «что просили → сколько правда заплатили». На этих парах формула
-        пересчитывается: это и есть замкнутый круг, из-за которого пункт управления и
-        калькулятор — одна работа, а не две.
-      </p>
-      <p>
-        <b>Когда он начнёт считать и мелкие заказы.</b> Считает не время, а количество
-        закрытых заказов с фактической ценой: чтобы диапазон ниже 2 500 ₪ вышел на ту же
-        точность, нужно 30–50 таких пар. При нынешнем потоке это 2–4 месяца работы
-        с рекламой — и чем больше обращений, тем быстрее. Сам по себе он не доучится:
-        пары появляются только вместе с заказами.
-      </p>
-    </div>
-  </section>
-
-  <section class="page">
-    <h2>Что дальше, по порядку</h2>
-    <p class="sub">Каждый шаг включает конкретную вещь. Порядок — по тому, что даёт больше.</p>
-
-    <ol class="order">
-      <li>
-        <div>
-          <strong>Автоответ в WhatsApp — и вместе с ним страница знакомства</strong>
-          <p>
-            Двадцать минут на телефоне, ноль документов, ноль денег. Клиент перестаёт ждать
-            ответа сутками, а первым сообщением получает ссылку на страницу с
-            доказательствами — ровно то, что Игорь просил 15 августа. Делается прямо сегодня
-            и ни от чего не зависит: <b>панель для этого шага не нужна.</b> Раньше в этом
-            списке первым стоял её вход — я поменял порядок сознательно, чтобы включение
-            не ждало моей доработки.
-          </p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Фотографии и права на странице Facebook</strong>
-          <p>
-            Запускается реклама — то, с чего вы сами предложили начать. Объявления, макеты
-            и адрес сайта уже готовы, им не хватает настоящих кадров.
-          </p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Я довожу панель под телефон и отдаю её в работу</strong>
-          <p>
-            Она уже открывается из Telegram нажатием, но шаги на маленьком экране разведены
-            неудачно — отдавать в таком виде значит потратить единственное первое знакомство.
-            После доводки уйдёт инструкция на один вход, и вместе с ней включатся уведомления
-            о новых клиентах: сейчас они копятся, потому что Telegram не даёт боту написать
-            первым тому, кто ему ни разу не писал.
-          </p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Решение по серверу до 13 сентября</strong>
-          <p>
-            Оставляем как есть за $62 в месяц или уменьшаем вдвое за $39 — замер показал,
-            что работа влезает. И кто за это платит.
-          </p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Документ о регистрации</strong>
-          <p>
-            Появляется карточка в Google Maps, политика конфиденциальности на сайте
-            и ответы клиенту прямо из пункта управления.
-          </p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <strong>Три пункта по деньгам — размер премии, первый месяц, способ оплаты</strong>
-          <p>
-            Всё остальное в договорённости уже сошлось; эти три лучше закрыть до того, как
-            наступит первая контрольная точка, а не в момент выплаты.
-          </p>
-        </div>
-      </li>
-    </ol>
-  </section>
-
-  <footer>
-    <p class="sign">Made by Dmitry Khinkis</p>
-  </footer>
-</main>
+</footer>
 
 </body>
 </html>
