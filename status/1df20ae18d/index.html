@@ -16,19 +16,19 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Fixli">
 <meta property="og:title" content="Fixli — что нужно от вас, чтобы поток клиентов пошёл">
-<meta property="og:description" content="Четыре дела и пять вопросов. Игорю три дела, 20 минут в телефоне, Диме одно на 5 минут за компьютером. Всё остальное сделано и ждёт только этого.">
+<meta property="og:description" content="Четыре дела, шесть вопросов и шесть правок в рекламном кабинете. Игорю три дела, 20 минут в телефоне; Диме три вопроса на одну строку каждый.">
 <meta property="og:image" content="https://docs.fixlihome.co.il/status/1df20ae18d/og-card.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Карточка Fixli: 4 дела, 20 минут Игорю, 5 минут Диме">
+<meta property="og:image:alt" content="Карточка Fixli: 4 дела, 20 минут Игорю, 6 правок в рекламе">
 <meta property="og:url" content="https://docs.fixlihome.co.il/status/1df20ae18d/">
 <meta property="og:locale" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Fixli — что нужно от вас, чтобы поток клиентов пошёл">
-<meta name="twitter:description" content="Четыре дела и пять вопросов. Игорю три дела, 20 минут в телефоне, Диме одно на 5 минут за компьютером. Всё остальное сделано и ждёт только этого.">
+<meta name="twitter:description" content="Четыре дела, шесть вопросов и шесть правок в рекламном кабинете. Игорю три дела, 20 минут в телефоне; Диме три вопроса на одну строку каждый.">
 <meta name="twitter:image" content="https://docs.fixlihome.co.il/status/1df20ae18d/og-card.jpg">
-<meta name="twitter:image:alt" content="Карточка Fixli: 4 дела, 20 минут Игорю, 5 минут Диме">
+<meta name="twitter:image:alt" content="Карточка Fixli: 4 дела, 20 минут Игорю, 6 правок в рекламе">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f38025'/%3E%3Ctext x='16' y='24' font-family='Helvetica,Arial' font-size='21' font-weight='700' fill='%23ffffff' text-anchor='middle'%3Ef%3C/text%3E%3C/svg%3E">
 
 <style>
@@ -192,7 +192,11 @@
     font: 700 15px/1 inherit;
     background: var(--оранжевый);
     color: var(--навигация-тёмная);
-    padding: 11px 18px;
+    /* Высота задана целью нажатия, а не отступами: при padding 11px кнопка
+       выходила 37 px — меньше нормы 44, и это на единственном действии
+       страницы. Замер 2026-08-24. */
+    min-height: 44px;
+    padding: 0 18px;
     border-radius: 10px;
   }
   .копировать:hover { background: var(--оранжевый-текст); color: #fff; }
@@ -274,7 +278,7 @@
   <circle id="i2-dot" cx="406.28" cy="46.37" r="18.89" fill="#12438f" />
 </svg>
     <h1>Что нужно от вас, чтобы поток клиентов пошёл</h1>
-    <p class="лид">Четыре дела и пять вопросов. Игорю три дела, 20 минут в телефоне, Диме одно на 5 минут за компьютером. Всё остальное сделано и ждёт только этого.</p>
+    <p class="лид">Четыре дела, шесть вопросов и шесть правок в рекламном кабинете. Игорю три дела, 20 минут в телефоне; Диме три вопроса на одну строку каждый. Всё остальное сделано и ждёт только этого.</p>
     <div class="выбор">
       <a href="igor/">
         <b>Игорю →</b>
@@ -291,12 +295,22 @@
       </a>
       <a href="dima/">
         <b>Диме →</b>
-        <span>Дело на 5 минут за компьютером</span>
+        <span>Три вопроса, ответ одной строкой</span>
         <ul>
-          <li class="дело-строка">Доступ к странице Facebook — 8 шагов</li>
-          <li>Вопрос: с чьего аккаунта идёт реклама</li>
-          <li>Вопрос: «склад» и «покраска» — есть?</li>
+          <li>Что в аккаунте не про перевозки</li>
+          <li>«Склад» и «покраска» — есть?</li>
+          <li>В каком виде база старых клиентов</li>
           <li>3 фотографии команды</li>
+        </ul>
+      </a>
+      <a href="ads/">
+        <b>Реклама →</b>
+        <span>6 правок в кабинете, с числами</span>
+        <ul>
+          <li class="дело-строка">Посчитать по кассе: заказов из переписок</li>
+          <li>Оптимизация на переписки, не на клики</li>
+          <li>Заменить объявление с частотой 7,93</li>
+          <li>Кампания с бюджетом, которая не тратит</li>
         </ul>
       </a>
     </div>
@@ -305,11 +319,11 @@
 
 <main class="полоса">
 <div class="правило" style="margin-top:0">
-  <strong>Почему всего два дела, а не список из двадцати пунктов.</strong>
+  <strong>Почему такой короткий список, а не двадцать пунктов.</strong>
   Всё остальное либо сделано, либо не требует вас: сайт с расчётом стоимости, страница
   знакомства, брендбук, рекламные макеты, панель управления и боты — написаны и работают.
-  Эти два действия — единственное, что нельзя сделать за вас: одно упирается в телефон Игоря,
-  второе в аккаунт Димы на Facebook.
+  Здесь только то, что нельзя сделать за вас: три дела упираются в телефон Игоря, счёт
+  по кассе — в вашу выручку, а правки в кабинете нажимает тот, кто ведёт кампании.
 </div>
 
 <p style="margin-top:22px">
