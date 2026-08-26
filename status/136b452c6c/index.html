@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Fixli — три рекламных кабинета: что будет с деньгами</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Предложение про три отдельных рекламных кабинета, разобранное по цифрам нашего кабинета: спрос не растёт, бюджет делится, тест не назовёт победителя. И что предлагаю вместо." />
+<meta name="googlebot" content="noindex, nofollow, noarchive" />
+<meta name="bingbot" content="noindex, nofollow, noarchive" />
+<meta name="yandex" content="noindex, nofollow" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Три рекламных кабинета: что будет с деньгами" />
+<meta property="og:description" content="Разобрал по цифрам своего кабинета: спрос не растёт, бюджет делится на три, победителя тест не назовёт. Внутри — что предлагаю вместо." />
+<meta property="og:url" content="https://docs.fixlihome.co.il/status/136b452c6c/" />
+<meta property="og:image" content="https://docs.fixlihome.co.il/status/136b452c6c/og-card.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f38025'/%3E%3Ctext x='16' y='24' font-family='Helvetica,Arial' font-size='21' font-weight='700' fill='%23ffffff' text-anchor='middle'%3Ef%3C/text%3E%3C/svg%3E" />
+<style>
+  :root {
+    --навигация: #12438f;
+    --навигация-тёмная: #06182f;
+    --оранжевый: #f38025;
+    --оранжевый-текст: #b5540b;
+    --текст: #1c2733;
+    --текст-мягкий: #4a5867;
+    --фон: #ffffff;
+    --туман: #f4f7fb;
+    --линия: #d9e2ee;
+    --зелёный-фон: #eaf7ee;
+    --зелёный-текст: #1c6231;
+    --жёлтый-фон: #fff8e6;
+    --жёлтый-текст: #7a5406;
+    --серый-текст: #55606d;
+  }
+  html { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--фон); color: var(--текст);
+    font: 400 17px/1.62 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  .полоса { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+  header { border-bottom: 1px solid var(--линия); padding: 38px 0 28px; }
+  .знак { display: block; width: 104px; height: auto; margin: 0 0 22px; }
+  h1 { margin: 0 0 10px; font-size: 33px; line-height: 1.18; color: var(--навигация-тёмная); }
+  .лид { margin: 0; max-width: 660px; color: var(--текст-мягкий); font-size: 18px; }
+  .дата { margin: 14px 0 0; font-size: 14px; color: var(--серый-текст); }
+
+  section { padding: 32px 0 8px; }
+  section + section { border-top: 1px solid var(--линия); }
+  h2 { margin: 0 0 6px; font-size: 23px; line-height: 1.25; color: var(--навигация-тёмная); }
+  .подпись { margin: 0 0 16px; color: var(--текст-мягкий); }
+  p { margin: 0 0 14px; }
+  b { color: var(--навигация-тёмная); }
+  .сноска { font-size: 14px; color: var(--серый-текст); }
+
+  /* табло крупных чисел */
+  .табло { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 22px 0 6px; }
+  @media (max-width: 780px) { .табло { grid-template-columns: repeat(2, 1fr); } }
+  .плитка { background: var(--туман); border: 1px solid var(--линия);
+    border-radius: 14px; padding: 15px 16px; }
+  .плитка-число { margin: 0 0 2px; font-size: 30px; line-height: 1.1; font-weight: 800;
+    color: var(--навигация-тёмная); font-variant-numeric: tabular-nums; }
+  .плитка-имя { margin: 0 0 4px; font-weight: 700; font-size: 15px; color: var(--навигация); }
+  .плитка-пояснение { margin: 0; font-size: 13.5px; color: var(--серый-текст); line-height: 1.42; }
+  .плитка--акцент { background: #fff6ee; border-color: #f5cfa8; }
+  .плитка--акцент .плитка-число { color: var(--оранжевый-текст); }
+
+  /* два кадра рядом */
+  .пара { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 20px 0 6px; }
+  @media (max-width: 700px) { .пара { grid-template-columns: 1fr; } }
+  .кадр { margin: 0; border: 1px solid var(--линия); border-radius: 16px;
+    padding: 14px 16px 4px; background: var(--фон); }
+  .кадр svg { display: block; width: 100%; height: auto; }
+  .кадр-имя { font-weight: 700; font-size: 14px; letter-spacing: .02em;
+    text-transform: uppercase; margin: 0 0 6px; }
+  .кадр-имя--нет { color: var(--серый-текст); }
+  .кадр-имя--да { color: var(--оранжевый-текст); }
+  .кадр-текст { margin: 6px 0 12px; font-size: 15px; color: var(--текст-мягкий); line-height: 1.5; }
+  /* колонки против порога обучения */
+  .стройка { margin: 22px 0 10px; }
+  .порог-имя { margin: 0 0 8px; font-size: 14px; font-weight: 700;
+    color: var(--оранжевый-текст); line-height: 1.4; }
+  .поле { position: relative; display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; height: calc(var(--поле) + var(--число));
+    border-bottom: 2px solid var(--линия); }
+  .порог { position: absolute; inset-inline: 0; top: var(--число);
+    border-top: 2px dashed var(--оранжевый-текст); }
+  .стб { position: relative; height: 100%; }
+  .стб b { position: absolute; inset-inline: 0; bottom: calc(var(--в) + 5px);
+    text-align: center; font-size: 22px; line-height: 1.2; font-weight: 800;
+    color: var(--навигация-тёмная); font-variant-numeric: tabular-nums; }
+  .стб-полоса { position: absolute; inset-inline: 0; bottom: 0; height: var(--в);
+    border-radius: 8px 8px 0 0; }
+  .стб-полоса--нав { background: var(--навигация); }
+  .стб-полоса--оранж { background: var(--оранжевый); }
+  .стб-полоса--штрих { border: 2px solid #a9c0e4; border-bottom: 0; background:
+    repeating-linear-gradient(45deg, #f4f7fb 0 6px, #dce7f5 6px 12px); }
+  .имена { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 8px 0 0; }
+  .стб-имя { margin: 0; text-align: center; font-size: 14.5px; font-weight: 700;
+    line-height: 1.3; color: var(--навигация-тёмная); }
+  .стб-имя span { display: block; font-weight: 400; font-size: 13px; color: var(--серый-текст);
+    margin-top: 2px; }
+
+  /* разброс: усы погрешности и общая зона */
+  .разброс { margin: 22px 0 10px; }
+  .ряд-ус { margin: 0 0 16px; }
+  .ус-имя { margin: 0 0 7px; font-size: 15.5px; font-weight: 400;
+    color: var(--текст-мягкий); }
+  .ус-имя b { font-variant-numeric: tabular-nums; font-size: 17px; }
+  .трек { position: relative; height: 26px; background: var(--туман);
+    border-radius: 6px; overflow: hidden; }
+  .зона-уч { position: absolute; top: 0; bottom: 0; background: #fdf0cf;
+    border-inline: 1px dashed #cf9f45; }
+  .диап { position: absolute; top: 6px; height: 14px; border-radius: 7px; opacity: .45; }
+  .точка { position: absolute; top: 6px; width: 14px; height: 14px; margin-inline-start: -7px;
+    border-radius: 50%; }
+  .диап--нав, .точка--нав { background: var(--навигация); }
+  .диап--оранж, .точка--оранж { background: var(--оранжевый); }
+  .точка { opacity: 1; }
+
+  /* подписи внутри svg */
+  .в-подпись { font: 700 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    fill: #06182f; }
+  .в-число { font: 800 21px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    fill: #06182f; }
+  .в-мелко { font: 800 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    fill: #ffffff; }
+  .в-мелко-с { font: 400 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    fill: #55606d; }
+  .в-ставка { font: 700 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    fill: #12438f; }
+  .в-порог { font: 700 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    fill: #b5540b; }
+  .в-зона { font: 700 13.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    fill: #7a5406; }
+
+  /* варианты решения */
+  .вариант { border: 1px solid var(--линия); border-radius: 16px; padding: 16px 18px 6px;
+    margin: 0 0 12px; background: var(--фон); }
+  .вариант--да { border-color: #bfe3cb; background: var(--зелёный-фон); }
+  .вариант-как { margin: 0 0 10px; font-size: 18px; font-weight: 700;
+    color: var(--навигация-тёмная); }
+  .пометка { display: inline-block; margin-inline-start: 8px; padding: 2px 9px;
+    border-radius: 999px; font-size: 12.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .03em; background: var(--туман); color: var(--серый-текст);
+    vertical-align: 2px; }
+  .вариант--да .пометка { background: #cdeed8; color: var(--зелёный-текст); }
+  .вариант-пара { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 700px) { .вариант-пара { grid-template-columns: 1fr; gap: 4px; } }
+  .вариант-даёт, .вариант-цена { margin: 0 0 12px; font-size: 15px; line-height: 1.5;
+    color: var(--текст-мягкий); }
+  .вариант-даёт span, .вариант-цена span { display: block; font-weight: 700; font-size: 13px;
+    text-transform: uppercase; letter-spacing: .03em; margin-bottom: 3px; }
+  .вариант-даёт span { color: var(--зелёный-текст); }
+  .вариант-цена span { color: var(--оранжевый-текст); }
+
+  ol.правила { margin: 16px 0 10px; padding-inline-start: 22px; }
+  ol.правила li { margin: 0 0 12px; line-height: 1.55; }
+
+  .врез { background: var(--жёлтый-фон); border: 1px solid #e8c98a; border-radius: 16px;
+    padding: 16px 18px 6px; margin: 18px 0 8px; }
+  .врез h2 { font-size: 19px; margin-bottom: 8px; }
+
+  footer { margin-top: 30px; border-top: 1px solid var(--линия); padding: 22px 0 34px;
+    color: var(--серый-текст); font-size: 14px; }
+  .автор { margin: 10px 0 0; color: #8a949f; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="полоса">
+    <svg class="знак" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436 198" role="img" aria-label="fixli">
+  <title>fixli</title>
+  
+  <path
+    id="f"
+    fill="#f38025"
+    d="M 68.68 10.5 L 102.5 10.08 A 4.26 4.26 0 0 1 105.3 15.5 L 105.17 37.5 A 6.91 6.91 0 0 1 98.5 39.53 L 73.5 40.22 A 15.26 15.26 0 0 0 63.89 47.5 A 33.39 33.39 0 0 0 61.19 64.5 L 61.5 70.82 L 64.5 71.69 L 100.5 71.73 L 101.58 73.5 L 93.5 100.53 L 88.5 101.31 L 62.48 101.5 L 61.4 103.5 L 61.08 188.5 L 59.5 189.63 L 29.96 189.5 L 28.87 185.5 L 28.5 102.22 L 22.5 101.26 L 12.5 100.81 L 11.13 99.5 L 11.5 72.26 L 27.56 71.5 L 28.81 68.5 L 29.87 47.5 L 33.71 35.5 L 40.14 25.5 L 49.69 17.5 L 56.5 13.89 L 70.5 10.12 Z"
+  />
+  <path
+    id="i1-stem"
+    fill="#f38025"
+    d="M 132.14 70.5 A 13.67 13.67 0 0 1 144.73 77.5 L 156.5 93.51 L 163.88 99.5 L 173.03 104.5 L 173.5 105.69 A 18.06 18.06 0 0 1 160.5 109.93 L 153.58 110.5 L 153.1 188.5 L 152.5 189.66 L 121.78 189.5 A 8.75 8.75 0 0 1 120.8 183.5 L 120.85 83.5 L 121.98 77.5 A 12.44 12.44 0 0 1 143.93 76.5 Z"
+  />
+  <circle id="i1-dot" cx="138.95" cy="46.42" r="18.82" fill="#f38025" />
+  <path
+    id="x"
+    fill="#f38025"
+    d="M 179 71.5 L 214.5 71.56 A 8.45 8.45 0 0 1 218.5 75.74 L 240.5 103.86 L 241.55 104.5 L 266.81 72.5 L 269.5 71.48 L 304.5 71.55 L 305.41 72.5 L 300.5 80.62 L 262.86 129.5 A 7.85 7.85 0 0 0 265.88 134.5 L 300.5 178.94 L 307.44 188.5 L 307.33 189.5 L 270.5 189.91 L 262.5 180.4 L 242.5 155.11 L 241.5 154.07 L 236.03 160.5 L 213.5 189.55 L 176.5 189.74 A 1.7 1.7 0 0 1 176.5 186.38 L 219.5 131.22 L 219.35 128.5 L 178.5 75.2 L 177.5 72.19 A 7.81 7.81 0 0 1 183.5 71.3 Z"
+  />
+  <path
+    id="l"
+    fill="#12438f"
+    d="M 330.25 21.5 L 359.5 21.69 L 360.81 22.5 L 360.9 187.5 L 359.5 189.56 L 330.5 189.39 L 329 188.5 L 328.21 172.5 L 328.5 22.47 L 331.5 21.35 Z"
+  />
+  <path
+    id="i2-stem"
+    fill="#12438f"
+    d="M 408.44 71.5 A 12.39 12.39 0 0 1 423.6 76.5 A 18.17 18.17 0 0 1 425.22 87.5 L 425 188.5 L 419.5 189.6 L 393.5 189.23 L 392.12 186.5 L 391.8 110.5 L 380.5 109.8 L 373.42 106.5 L 373.01 104.5 L 385.13 97.5 A 40.56 40.56 0 0 0 394.82 86.5 L 404.5 73.71 A 12.9 12.9 0 0 1 414.5 70.78 Z"
+  />
+  <circle id="i2-dot" cx="406.28" cy="46.37" r="18.89" fill="#12438f" />
+</svg>
+    <h1>Три рекламных кабинета: что будет с деньгами</h1>
+    <p class="лид">Разобрал предложение по цифрам нашего же кабинета. Коротко: обращений
+    от этого не станет больше, а сравнить подрядчиков всё равно не выйдет — бюджета
+    не хватает на три честных теста. Ниже три картинки и то, что предлагаю вместо.</p>
+    <p class="дата">27 августа 2026 · страница открывается только по этой ссылке</p>
+  </div>
+</header>
+
+<section>
+  <div class="полоса">
+    <div class="табло">
+      <div class="плитка">
+        <p class="плитка-число">22</p>
+        <p class="плитка-имя">обращения в неделю</p>
+        <p class="плитка-пояснение">столько приносит весь бюджет сегодня — 158 ₪ в день</p>
+      </div>
+      <div class="плитка плитка--акцент">
+        <p class="плитка-число">7</p>
+        <p class="плитка-имя">останется каждому</p>
+        <p class="плитка-пояснение">если тот же бюджет поделить на три кабинета</p>
+      </div>
+      <div class="плитка">
+        <p class="плитка-число">50</p>
+        <p class="плитка-имя">просит Meta</p>
+        <p class="плитка-пояснение">событий в неделю на группу объявлений, чтобы алгоритм
+        перестал угадывать</p>
+      </div>
+      <div class="плитка">
+        <p class="плитка-число">3</p>
+        <p class="плитка-имя">ставки в одном аукционе</p>
+        <p class="плитка-пояснение">за одних и тех же людей, в одном городе, в один месяц</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="полоса">
+    <h2>Спрос не умножается на три — он делится между тремя</h2>
+    <p class="подпись">Три кабинета не создают людей, которым нужен переезд.</p>
+    
+<div class="пара">
+  <figure class="кадр">
+    <figcaption class="кадр-имя кадр-имя--нет">Как это звучит</figcaption>
+    <svg viewBox="0 0 344 166" role="img" aria-label="Три отдельных круга: как будто спроса стало втрое больше">
+      <g><circle cx="72" cy="74" r="45" fill="#f38025" opacity="0.9"/><text x="72" y="150" class="в-подпись" text-anchor="middle">кабинет 1</text></g><g><circle cx="172" cy="74" r="45" fill="#f38025" opacity="0.9"/><text x="172" y="150" class="в-подпись" text-anchor="middle">кабинет 2</text></g><g><circle cx="272" cy="74" r="45" fill="#f38025" opacity="0.9"/><text x="272" y="150" class="в-подпись" text-anchor="middle">кабинет 3</text></g>
+    </svg>
+    <p class="кадр-текст">Три кабинета — как будто втрое больше рекламы.</p>
+  </figure>
+  <figure class="кадр">
+    <figcaption class="кадр-имя кадр-имя--да">Как это работает</figcaption>
+    <svg viewBox="0 0 344 232" role="img" aria-label="Один круг спроса, поделённый на три, и три ставки в одном аукционе">
+      <defs>
+        <marker id="острие" viewBox="0 0 10 10" refX="8" refY="5"
+                markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#12438f"/>
+        </marker>
+      </defs>
+      <path d="M160.0,132.0 L160.0,40.0 A92,92 0 0 1 239.7,178.0 Z" fill="#f38025" stroke="#ffffff" stroke-width="3"/><path d="M160.0,132.0 L239.7,178.0 A92,92 0 0 1 80.3,178.0 Z" fill="#f7a55f" stroke="#ffffff" stroke-width="3"/><path d="M160.0,132.0 L80.3,178.0 A92,92 0 0 1 160.0,40.0 Z" fill="#fbc99b" stroke="#ffffff" stroke-width="3"/><text x="207.8" y="111.4" class="в-мелко" text-anchor="middle">7</text><text x="160.0" y="194.2" class="в-мелко" text-anchor="middle">7</text><text x="112.2" y="111.4" class="в-мелко" text-anchor="middle">7</text><g><line x1="160" y1="30" x2="160" y2="40" stroke="#12438f" stroke-width="2.5" marker-end="url(#острие)"/><text x="160" y="20" class="в-ставка" text-anchor="middle">ставка</text></g><g><line x1="287" y1="205" x2="250" y2="178" stroke="#12438f" stroke-width="2.5" marker-end="url(#острие)"/><text x="300" y="216" class="в-ставка" text-anchor="end">ставка</text></g><g><line x1="33" y1="205" x2="70" y2="178" stroke="#12438f" stroke-width="2.5" marker-end="url(#острие)"/><text x="20" y="216" class="в-ставка" text-anchor="start">ставка</text></g>
+    </svg>
+    <p class="кадр-текст">Тот же спрос, поделённый на три, и три наши ставки
+    в одном аукционе. По <b>7
+    обращений</b> в неделю каждому.</p>
+  </figure>
+</div>
+    <p>Это те же люди, тот же город, тот же месяц. Главная кампания уже показывается
+    каждому охваченному человеку <b>3 раза</b> — это верхняя граница нормы;
+    больше показов на ту же аудиторию делают рекламу дороже, а не заметнее.</p>
+    <p>И второе, менее очевидное. Внутри одного кабинета Meta не даёт нашим объявлениям
+    соревноваться между собой. <b>Между разными кабинетами такой защиты нет</b> — для
+    аукциона это три разных рекламодателя, которые торгуются друг с другом нашими же
+    деньгами.</p>
+    <p class="сноска">Проверить это можно одним числом. Цена тысячи показов у нас три
+    года стоит на месте: 2024 — 26,70 ₪ · 2025 — 26,59 ₪ · 2026 — 25,67 ₪. Если после запуска трёх кабинетов она пойдёт вверх,
+    значит мы платим сами себе — и это будет видно сразу, а не через квартал.</p>
+  </div>
+</section>
+
+<section>
+  <div class="полоса">
+    <h2>Бюджет делится, а обучение — нет</h2>
+    <p class="подпись">158 ₪ в день дают 93 обращения в месяц. Это
+    22 в неделю на весь кабинет.</p>
+    
+<div class="стройка">
+  <p class="порог-имя">Порог Meta — 50 событий в неделю.
+  Ниже него алгоритм подбирает людей наугад.</p>
+  <div class="поле" style="--поле:226px;--число:34px">
+    <div class="порог"></div>
+    <div class="стб" style="--в:98px"><b>22</b><i class="стб-полоса стб-полоса--нав"></i></div><div class="стб" style="--в:33px"><b>7</b><i class="стб-полоса стб-полоса--оранж"></i></div><div class="стб" style="--в:226px"><b>50</b><i class="стб-полоса стб-полоса--штрих"></i></div>
+  </div>
+  <div class="имена"><p class="стб-имя">весь бюджет<span>один кабинет</span></p><p class="стб-имя">кабинет из трёх<span>тот же бюджет на три</span></p><p class="стб-имя">нужно каждому<span>это бюджет ×7</span></p></div>
+</div>
+    <p>Разделим на три — по <b>7 обращений в неделю</b>. Алгоритму, чтобы
+    перестать перебирать наугад и начать подбирать людей, нужно около 50 событий
+    в неделю на группу объявлений. Ни один из трёх кабинетов к этому не подойдёт близко:
+    все три будут работать в самом дорогом режиме, и это не мастерство подрядчика,
+    а арифметика.</p>
+    <p>Чтобы каждый из трёх вышел из обучения, бюджет надо поднимать примерно
+    <b>в 7 раз</b>. Такого решения на столе нет — значит и обсуждать
+    надо не его.</p>
+  </div>
+</section>
+
+<section>
+  <div class="полоса">
+    <h2>Победителя этот тест не назовёт</h2>
+    <p class="подпись">За три недели у каждого кабинета накопится 22 обращения —
+    столько весь бюджет приносит за одну неделю.</p>
+    
+<div class="разброс">
+  
+    <div class="ряд-ус">
+      <p class="ус-имя">Кабинет А — <b>45 ₪</b> за обращение</p>
+      <div class="трек">
+        <span class="зона-уч" style="left:52.4%;width:8.4%"></span>
+        <span class="диап диап--нав" style="left:39.3%;width:21.5%"></span>
+        <i class="точка диап--нав" style="left:50.0%"></i>
+      </div>
+    </div>
+    <div class="ряд-ус">
+      <p class="ус-имя">Кабинет Б — <b>60 ₪</b> за обращение</p>
+      <div class="трек">
+        <span class="зона-уч" style="left:52.4%;width:8.4%"></span>
+        <span class="диап диап--оранж" style="left:52.4%;width:28.6%"></span>
+        <i class="точка диап--оранж" style="left:66.7%"></i>
+      </div>
+    </div>
+</div>
+<p class="сноска">Числа — пример, а длина полосы — нет: на 22
+обращениях погрешность цены
+±21 %, и полоса это она. <b>Жёлтым — участок, общий
+для обоих:</b> настоящая цена каждого кабинета может лежать в нём, то есть
+разрыв 45 против 60 ₪ ничего не доказывает.</p>
+    <p>Погрешность цены обращения на таком объёме — <b>±21 %</b>. Значит
+    различима только разница <b>больше чем в полтора раза</b>. Всё, что тоньше, —
+    случайность, а не работа.</p>
+    <p>Победитель у теста всё равно объявится: одно из трёх чисел окажется меньше
+    остальных. Дальше за этим числом пойдёт бюджет следующих месяцев — и это самый
+    дорогой способ ошибиться, потому что ошибка будет выглядеть как решение
+    по данным.</p>
+  </div>
+</section>
+
+<section>
+  <div class="полоса">
+    <h2>И чего этот тест не увидит вовсе — заказов</h2>
+    <p>Все три кабинета ведут в один WhatsApp и одни входящие Страницы. Кабинет умеет
+    считать начатые переписки. Сколько из них стали заказами, не знает ни кабинет,
+    ни система: за месяц <b>107 контактов → сколько заказов, не скажет никто</b>.
+    А это и есть вопрос, ради которого всё затевается.</p>
+    <p>Обращение по 40 ₪, из которого не выходит заказ, дороже обращения по 60 ₪, из
+    которого заказ выходит. То есть выиграть такой тест можно, приведя дешёвых
+    и бесполезных — и никто этого не заметит.</p>
+    <p>Лечится это не количеством кабинетов, а меткой в названии кампании — см. правило
+    ниже.</p>
+  </div>
+</section>
+
+<section>
+  <div class="полоса">
+    <h2>Что предлагаю</h2>
+    <p class="подпись">Один кабинет компании, подрядчики по очереди, метка в названии
+    кампании. Идея «дать каждому поработать и посмотреть» остаётся целиком — меняется
+    упаковка, и она перестаёт стоить денег. Единственное, что три кабинета правда дают, —
+    подрядчики не видят работу друг друга; но если они работают по очереди, смотреть
+    друг у друга и так нечего.</p>
+    
+    <div class="вариант вариант--да">
+      <p class="вариант-как">Один кабинет компании, подрядчики по очереди<span class="пометка">предлагаю</span></p>
+      <div class="вариант-пара">
+        <p class="вариант-даёт"><span>Что даёт</span>У каждого полный бюджет и сравнимые числа. История и обучение остаются у компании, расход виден в одном месте</p>
+        <p class="вариант-цена"><span>Чем платим</span>6–9 недель вместо трёх, и у участников разный сезон</p>
+      </div>
+    </div>
+    <div class="вариант">
+      <p class="вариант-как">Три кабинета одновременно<span class="пометка">как предложено</span></p>
+      <div class="вариант-пара">
+        <p class="вариант-даёт"><span>Что даёт</span>Подрядчики не видят работу друг друга</p>
+        <p class="вариант-цена"><span>Чем платим</span>Всё, что выше на трёх картинках: бюджет на три, никто не выходит из обучения, наши же ставки торгуются друг с другом</p>
+      </div>
+    </div>
+    <div class="вариант">
+      <p class="вариант-как">Один кабинет, три кампании сразу</p>
+      <div class="вариант-пара">
+        <p class="вариант-даёт"><span>Что даёт</span>Быстро, и в аукционе Meta сама разводит свои же группы объявлений</p>
+        <p class="вариант-цена"><span>Чем платим</span>Подрядчики видят работу друг друга, а бюджет всё равно делится на три</p>
+      </div>
+    </div>
+    <h2 style="margin-top:26px">Три правила — в любом из вариантов</h2>
+    <ol class="правила"><li><b>Код в названии кампании.</b> Чтобы было видно, кто привёл человека. Формат даю я; объявление без кода не запускается — иначе через три недели сравнивать будет нечего.</li><li><b>Первое сообщение человеку — наше.</b> Сейчас в объявлениях стоит заготовка Meta: «Здравствуйте! Чем мы можем вам помочь?». Это первое, что компания говорит человеку, за которого уже заплачено.</li><li><b>Обещания — по списку.</b> «Страховка», «24/7», «любые работы», «по всему Израилю», «№1», «самая низкая цена» — нельзя. За обещание отвечает компания, а не тот, кто его написал.</li></ol>
+  </div>
+</section>
+
+<section>
+  <div class="полоса">
+    <div class="врез">
+      <h2>Одно, что стоит назвать вслух — про владение</h2>
+      <p>Кабинет, созданный в личном профиле человека, уходит вместе с ним: история,
+      накопленное обучение, настройки. У нас так и сейчас — рабочий кабинет личный.
+      Это не срочно и решать вам. Но если кабинеты всё-таки заводить, дешевле сразу
+      внутри бизнес-портфолио компании, а подрядчику давать доступ в него: тогда, кто
+      бы ни ушёл, данные остаются у компании.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="полоса">
+    <h2>И главное про деньги на этой неделе</h2>
+    <p>Реклама уже приводит <b>93 человека в месяц по 51 ₪</b>.
+    Автоответ в Messenger включён 25 августа, а <b>приветствие в WhatsApp всё ещё
+    ждёт двадцати минут на телефоне</b> — и это тот канал, куда реклама ведёт основной
+    поток. Первое, что даёт деньги сейчас, — не новый кабинет, а ответ этим
+    93. Кабинеты никуда не убегут, их можно решить спокойно.</p>
+    <p class="сноска">Все числа посчитаны из выгрузок Ads Manager за 24 июля — 22 августа
+    2026 и за всю историю аккаунта (58 672 ₪ и 1 818 обращений
+    за три года). Порог в 50 событий — требование Meta к группе объявлений,
+    не наше правило. Своя здесь только арифметика деления на три, и она на картинках.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="полоса">
+    <p>Разбор предложения про три рекламных кабинета · Fixli · 27 августа 2026 ·
+    страница не индексируется поисковиками и открывается только по этой ссылке.</p>
+    <p class="автор">Made by Dmitry Khinkis</p>
+  </div>
+</footer>
+
+</body>
+</html>
