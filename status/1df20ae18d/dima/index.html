@@ -21,14 +21,14 @@
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Карточка Fixli: 4 дела, 20 минут Игорю, 6 правок в рекламе">
+<meta property="og:image:alt" content="Карточка Fixli: 14 работ от вас, 20 минут Игорю, 6 правок в кабинете">
 <meta property="og:url" content="https://docs.fixlihome.co.il/status/1df20ae18d/dima/">
 <meta property="og:locale" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Fixli — Диме: пять вопросов и что дал доступ к рекламе">
 <meta name="twitter:description" content="Что показал разбор рекламы за три года и пять вопросов на одну строку: что в аккаунте не про перевозки, «склад» и «покраска», база старых клиентов, девять граф кассы и взнос учредителя.">
 <meta name="twitter:image" content="https://docs.fixlihome.co.il/status/1df20ae18d/og-card.jpg">
-<meta name="twitter:image:alt" content="Карточка Fixli: 4 дела, 20 минут Игорю, 6 правок в рекламе">
+<meta name="twitter:image:alt" content="Карточка Fixli: 14 работ от вас, 20 минут Игорю, 6 правок в кабинете">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f38025'/%3E%3Ctext x='16' y='24' font-family='Helvetica,Arial' font-size='21' font-weight='700' fill='%23ffffff' text-anchor='middle'%3Ef%3C/text%3E%3C/svg%3E">
 
 <style>
@@ -216,6 +216,74 @@
     margin: 4px 0 0;
   }
   .кнопка:hover { background: var(--оранжевый-текст); color: #fff; }
+
+  /* Табличка работ. Строками, а не таблицей: на 390 px таблица в четыре
+     колонки обрезает последний столбец — тот самый «зачем», ради которого
+     строку и читают. Та же грабля стоила правки кассе и разбору рекламы. */
+  .где-мы { margin: 26px 0 0; padding: 0; list-style: none; }
+  .где-мы li {
+    position: relative;
+    padding: 0 0 0 22px;
+    margin: 0 0 8px;
+    color: var(--текст-мягкий);
+  }
+  .где-мы li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 11px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--оранжевый);
+  }
+  .где-мы b { color: var(--текст); }
+
+  /* Чипы вместо карточек: список работ стоит ниже таблицей, и три карточки
+     во весь экран отодвигали первый же тезис на второй экран телефона. */
+  .выбор--чипы a { flex: 0 1 auto; padding: 11px 16px; }
+  .выбор--чипы b { font-size: 17px; }
+
+  .работы { margin: 14px 0 0; }
+  .работа {
+    border: 1px solid var(--линия);
+    border-left: 4px solid var(--линия);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 0 0 10px;
+  }
+  .работа--сегодня { border-left-color: var(--оранжевый); }
+  .работа--вопрос { border-left-color: var(--навигация); }
+  .работа__верх {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: baseline;
+  }
+  /* Заголовок занимает строку целиком, чипы всегда идут под ним: пока они
+     стояли в одном потоке, часть строк уносила «Игорь» на вторую строку,
+     а часть нет — четырнадцать работ читались вразнобой (найдено глазами). */
+  .работа__что { flex: 1 0 100%; font-weight: 700; color: var(--навигация-тёмная); }
+  .чип {
+    display: inline-block;
+    border: 1px solid var(--линия);
+    border-radius: 999px;
+    padding: 1px 9px;
+    font-size: 13px;
+    color: var(--текст-мягкий);
+    background: var(--туман);
+    white-space: nowrap;
+  }
+  .чип--кто { border-color: #b8c8de; color: var(--навигация); background: #eef4fc; }
+  .работа__зачем { margin: 8px 0 0; color: var(--текст-мягкий); font-size: 16px; }
+  .работа__куда {
+    display: inline-block;
+    margin: 8px 0 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  h3.группа { margin: 26px 0 0; font-size: 19px; }
+  h3.группа + p.группа-подпись { margin: 4px 0 0; color: var(--текст-мягкий); font-size: 15px; }
 
   .правило {
     border: 1px dashed var(--линия);
