@@ -15,6 +15,16 @@
 <meta property="og:image" content="https://docs.fixlihome.co.il/status/cddf45e1af/og-card.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Fixli" />
+<!-- Telegram читает и Open Graph, и Twitter Cards, и без карточки «large» рисует
+     ссылку мелкой миниатюрой справа: 30 августа Дмитрий получил в чате именно её,
+     при верных og-тегах и живой картинке 1200 × 630. Поэтому тип карточки объявлен
+     явно. Теги дублируют og намеренно — их читают разные парсеры, и одного набора
+     мало ровно в том клиенте, куда эту ссылку и отправляют. -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Fixli — презентация компании" />
+<meta name="twitter:description" content="Переезды, сервис и решения для дома в центре Израиля. Что уже работает, бренд, цифровая платформа и план роста." />
+<meta name="twitter:image" content="https://docs.fixlihome.co.il/status/cddf45e1af/og-card.jpg" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f38025'/%3E%3Ctext x='16' y='24' font-family='Helvetica,Arial' font-size='21' font-weight='700' fill='%23062044' text-anchor='middle'%3Ef%3C/text%3E%3C/svg%3E" />
 <style>
   @font-face {
