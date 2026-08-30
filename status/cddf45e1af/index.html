@@ -194,15 +194,24 @@
   figure { margin: 0; }
 
   .галерея-обёртка { position: relative; margin: 16px 0 0; }
+  /* Лента одной высоты: форматы у макетов разные (4:5, 1:1, 9:16), и карточки
+     фиксированной ширины давали рваный ряд разновысоких картинок. Высоту держит
+     картинка, ширина карточки идёт за её пропорцией, макет виден целиком. */
   .галерея {
-    display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
+    display: flex; align-items: stretch; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
     padding: 4px 4px 14px; -webkit-overflow-scrolling: touch;
   }
   .галерея figure {
-    flex: 0 0 250px; scroll-snap-align: start; border: 1px solid var(--линия);
-    border-radius: 14px; overflow: hidden; background: #fff;
+    flex: none; display: flex; flex-direction: column; scroll-snap-align: start;
+    border: 1px solid var(--линия); border-radius: 14px; overflow: hidden; background: #fff;
   }
-  .галерея figcaption { padding: 9px 12px; font-size: 13px; color: var(--текст-мягкий); }
+  .галерея img { height: 330px; width: auto; display: block; }
+  .галерея figcaption {
+    padding: 9px 12px; font-size: 13px; color: var(--текст-мягкий);
+    border-top: 1px solid var(--линия); margin-top: auto;
+    width: 0; min-width: 100%; /* подпись не расширяет карточку шире картинки */
+  }
+  @media (max-width: 480px) { .галерея img { height: 300px; } }
   .стрелки { position: absolute; top: -54px; right: 0; display: none; gap: 8px; }
   .стрелки button {
     appearance: none; border: 1px solid var(--линия); background: #fff; border-radius: 10px;
@@ -215,15 +224,37 @@
   .экран { border: 1px solid var(--линия); border-radius: 20px; overflow: hidden; background: #fff; }
   .экран-холст {
     position: relative; aspect-ratio: 390 / 844; background: var(--туман); overflow: hidden;
+    container-type: inline-size;
   }
+  /* Рамка калькулятора открывается сразу конфигуратором: шапку сайта отрезает сдвиг
+     рамки вверх. Якорь в адресе этого не даёт: прокрутку рамки к якорю браузер
+     подавляет, если человек в этот момент листает родителя (замерено 2026-08-30 —
+     сработало в 1 сценарии из 3). Высота шапки зависит от ширины холста (заголовок
+     переносится), пороги замерены на живой странице: ≥348 → 441, 344 → 484,
+     ≤340 → 511, ≤300 → 538. На границах берётся меньший сдвиг: хвост шапки видеть
+     можно, срезать конфигуратор — нет. Сайт перепишет шапку — живая проба упадёт. */
+  /* двойной класс — специфичность выше общего правила inset:0 у .экран-холст > iframe */
+  .экран-холст.экран--сдвиг > iframe { --сдвиг: 441px; top: calc(-1 * var(--сдвиг)); height: calc(100% + var(--сдвиг)); }
+  @container (max-width: 347px) { .экран-холст.экран--сдвиг > iframe { --сдвиг: 484px; } }
+  @container (max-width: 340px) { .экран-холст.экран--сдвиг > iframe { --сдвиг: 511px; } }
+  @container (max-width: 300px) { .экран-холст.экран--сдвиг > iframe { --сдвиг: 538px; } }
+  .калькулятор-блок .экран { max-width: 390px; }
   .экран-холст > img, .экран-холст > iframe {
     position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block;
+  }
+  /* Ролик играет прямо в снимке главной: рамка кадра на снимке замерена по пикселям
+     (тёмная полоса 42…738 × 880…1268 из 780 × 1688), проценты выживают любой масштаб. */
+  .скрин-ролик {
+    position: absolute; left: 5.38%; top: 52.13%; width: 89.23%; height: 22.99%;
+    object-fit: cover; border-radius: 8px; background: #06182f; z-index: 1;
   }
   .экран-щит {
     position: absolute; inset: 0; z-index: 2; appearance: none; border: 0; font: inherit; cursor: pointer;
     display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 10px;
     padding: 18px; text-align: center; color: #fff;
-    background: linear-gradient(180deg, rgba(6,24,47,0) 45%, rgba(6,24,47,.78) 100%);
+    /* затемнение начинается ниже кадра ролика (его низ на 75 % холста) —
+       иначе щит притемнял бы ровно то, что должно играть */
+    background: linear-gradient(180deg, rgba(6,24,47,0) 76%, rgba(6,24,47,.8) 100%);
   }
   .экран-щит .значок {
     width: 52px; height: 52px; border-radius: 50%; background: var(--оранжевый); color: var(--синий-тёмный);
@@ -725,9 +756,13 @@
       <figure class="экран" data-экран data-адрес="https://fixlihome.co.il/ru/" data-имя="Главная страница сайта Fixli">
         <div class="экран-холст">
           <img src="кадры/s01-главная.png" alt="Главная страница сайта на телефоне: переезд под ключ одной командой" loading="lazy" width="780" height="1688" />
+          <video class="скрин-ролик" data-ролик muted loop playsinline preload="none"
+                 poster="https://fixlihome.co.il/video/fixli-movie-ru.webp"
+                 src="https://fixlihome.co.il/video/fixli-movie-ru.mp4"
+                 aria-label="Фирменный ролик Fixli — играет на первом экране сайта"></video>
           <button type="button" class="экран-щит" aria-label="Открыть живую главную страницу сайта">
             <span class="значок" aria-hidden="true">▶</span>
-            <span class="подсказка">Нажмите — откроется живой сайт<br />с фирменным роликом</span>
+            <span class="подсказка">Нажмите — откроется живой сайт</span>
           </button>
           <button type="button" class="экран-угол" data-полный aria-label="Развернуть на весь экран">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" /></svg>
@@ -772,7 +807,7 @@
     часы работы и состав бригады.</p>
     <div class="калькулятор-блок явь">
       <figure class="экран живой" data-экран data-сразу data-адрес="https://fixlihome.co.il/ru/calculator/">
-        <div class="экран-холст">
+        <div class="экран-холст экран--сдвиг">
           <iframe src="https://fixlihome.co.il/ru/calculator/" title="Живой калькулятор стоимости переезда Fixli"
                   loading="lazy" allow="autoplay; fullscreen"></iframe>
           <button type="button" class="экран-щит" aria-label="Начать считать в калькуляторе">
@@ -783,8 +818,7 @@
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" /></svg>
           </button>
         </div>
-        <figcaption>Живой калькулятор с боевого сайта ·
-        <a href="https://fixlihome.co.il/ru/calculator/" target="_blank" rel="noopener">в новой вкладке</a></figcaption>
+        <figcaption>Живой калькулятор — считает настоящими ценами компании</figcaption>
       </figure>
       <div class="калькулятор-текст">
         <ul class="выводы">
@@ -1243,6 +1277,8 @@
           рамка.setAttribute("allow", "autoplay; fullscreen");
           var снимок = холст.querySelector("img");
           if (снимок) снимок.remove();
+          var ролик = холст.querySelector("video");
+          if (ролик) { ролик.pause(); ролик.remove(); }
           холст.insertBefore(рамка, холст.firstChild);
         }
         щит.remove();
@@ -1258,6 +1294,20 @@
       });
     }
   });
+
+  /* ролик внутри снимка главной: играет, пока карточка на экране, и не качается,
+     пока к ней не доехали; при выключенном в системе движении не стартует вовсе */
+  var роликВСкрине = document.querySelector("[data-ролик]");
+  if (роликВСкрине && !тихо && "IntersectionObserver" in window) {
+    var стражРолика = new IntersectionObserver(function (записи) {
+      записи.forEach(function (з) {
+        if (!роликВСкрине.isConnected) { стражРолика.disconnect(); return; }
+        if (з.isIntersecting) роликВСкрине.play().catch(function () {});
+        else роликВСкрине.pause();
+      });
+    }, { threshold: 0.25 });
+    стражРолика.observe(роликВСкрине);
+  }
 })();
 </script>
 </body>
