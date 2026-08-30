@@ -215,8 +215,12 @@
   /* Что ленту можно листать, было видно только владельцу мыши: стрелки живут под
      hover, а на телефоне не подсказывало ничто. Теперь говорит подпись, а край
      ленты гасится градиентом — он гаснет сам, когда доехали до конца. */
+  /* Подсказка и стрелки — одна строка, а не абсолют поверх: стрелки стояли
+     `position: absolute` над лентой и накрывались подсказкой на узком окне
+     компьютера (нашли глаза 30 августа; на телефоне их не видно вовсе). */
+  .лента-шапка { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 2px; }
   .лента-подсказка {
-    display: inline-flex; align-items: center; gap: 6px; margin: 0 0 2px;
+    display: inline-flex; align-items: center; gap: 6px; margin: 0;
     font-size: 14px; color: var(--оранжевый-текст); font-weight: 600;
   }
   .лента-подсказка svg { width: 18px; height: 12px; }
@@ -226,7 +230,7 @@
     background: linear-gradient(90deg, rgba(244,247,251,0), var(--туман) 78%);
   }
   .галерея-обёртка.докрутили::after { opacity: 0; }
-  .стрелки { position: absolute; top: -54px; right: 0; display: none; gap: 8px; }
+  .стрелки { flex: none; display: none; gap: 8px; }
   .стрелки button {
     appearance: none; border: 1px solid var(--линия); background: #fff; border-radius: 10px;
     width: 44px; height: 44px; font-size: 18px; color: var(--синий); cursor: pointer;
@@ -791,15 +795,17 @@
       </figure>
     </div>
     <h3 class="явь">Реклама в фирменном стиле — готовый кит из 30 макетов</h3>
-    <p class="лента-подсказка явь">
-      <svg viewBox="0 0 24 12" fill="none" aria-hidden="true"><path d="M1 6h20m-5-4.5L21.5 6 16 10.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
-      Листайте вбок — здесь пять макетов из тридцати
-    </p>
-    <div class="галерея-обёртка явь">
+    <div class="лента-шапка явь">
+      <p class="лента-подсказка">
+        <svg viewBox="0 0 24 12" fill="none" aria-hidden="true"><path d="M1 6h20m-5-4.5L21.5 6 16 10.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        Листайте вбок — здесь пять макетов из тридцати
+      </p>
       <div class="стрелки">
         <button type="button" data-листать="-1" aria-label="Прокрутить галерею назад">←</button>
         <button type="button" data-листать="1" aria-label="Прокрутить галерею вперёд">→</button>
       </div>
+    </div>
+    <div class="галерея-обёртка явь">
       <div class="галерея" tabindex="0" aria-label="Примеры рекламных креативов">
         <figure><img src="бренд/крео-упаковка.jpg" alt="Креатив с фотографией упакованной мебели: защиту даёт одеяло, плёнка поверх" loading="lazy" width="800" height="1000" /><figcaption>Упаковка — настоящее фото с объекта</figcaption></figure>
         <figure><img src="бренд/крео-телевизор.jpg" alt="Креатив с фотографией повешенного телевизора: со стены старой квартиры — на стену новой" loading="lazy" width="800" height="800" /><figcaption>Хендимен — работа из реального заказа</figcaption></figure>
