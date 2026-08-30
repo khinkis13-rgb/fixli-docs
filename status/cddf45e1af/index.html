@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Fixli — презентация компании</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Действующий бизнес переездов и сервиса в центре Израиля: показатели, бренд, цифровая платформа и план роста." />
+<meta name="googlebot" content="noindex, nofollow, noarchive" />
+<meta name="bingbot" content="noindex, nofollow, noarchive" />
+<meta name="yandex" content="noindex, nofollow" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Fixli — презентация компании" />
+<meta property="og:description" content="Переезды, сервис и решения для дома в центре Израиля. Что уже работает, бренд, цифровая платформа и план роста." />
+<meta property="og:url" content="https://docs.fixlihome.co.il/status/cddf45e1af/" />
+<meta property="og:image" content="https://docs.fixlihome.co.il/status/cddf45e1af/og-card.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f38025'/%3E%3Ctext x='16' y='24' font-family='Helvetica,Arial' font-size='21' font-weight='700' fill='%23062044' text-anchor='middle'%3Ef%3C/text%3E%3C/svg%3E" />
+<style>
+  @font-face {
+    font-family: "Rubik";
+    src: url("/brand/fonts/rubik-cyrillic-wght-normal.woff2") format("woff2");
+    font-weight: 300 900;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  }
+  @font-face {
+    font-family: "Rubik";
+    src: url("/brand/fonts/rubik-latin-wght-normal.woff2") format("woff2");
+    font-weight: 300 900;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AA, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+  }
+
+  :root {
+    --оранжевый: #f38025;
+    --оранжевый-текст: #b5540b;
+    --оранжевый-светлый: #fdeedd;
+    --синий: #12438f;
+    --синий-тёмный: #06182f;
+    --синий-ночь: #071f3f;
+    --синий-средний: #3a66ad;
+    --синий-светлый: #6f93cd;
+    --синий-бледный: #a9c0e4;
+    --текст: #1c2733;
+    --текст-мягкий: #4a5867;
+    --фон: #ffffff;
+    --туман: #f4f7fb;
+    --линия: #d9e2ee;
+    --зелёный-текст: #1c6231;
+    --зелёный-фон: #eaf7ee;
+  }
+  html { color-scheme: light; scroll-behavior: smooth; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--фон); color: var(--текст);
+    font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 17px; line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+    font-feature-settings: "tnum";
+  }
+  .полоса { max-width: 1060px; margin: 0 auto; padding: 0 20px; }
+  .узкая { max-width: 780px; }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--синий); }
+  p { margin: 0 0 14px; }
+  b, strong { color: var(--синий-тёмный); }
+
+  /* ── появление при прокрутке ─────────────────────────── */
+  .явь { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .явь.виден { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .явь { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ── хиро ────────────────────────────────────────────── */
+  .хиро {
+    background: radial-gradient(1200px 600px at 85% -10%, #14458f 0%, var(--синий-ночь) 55%, var(--синий-тёмный) 100%);
+    color: #e8eef8;
+    padding: 56px 0 46px;
+    position: relative;
+    overflow: hidden;
+  }
+  .хиро::after {
+    content: ""; position: absolute; right: -140px; bottom: -180px;
+    width: 380px; height: 380px; border-radius: 50%;
+    background: var(--оранжевый); opacity: .16; pointer-events: none;
+  }
+  .хиро .знак-верх { width: 132px; height: auto; margin-bottom: 26px; }
+  .надзаголовок {
+    font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+    color: #f7a55e; margin: 0 0 14px;
+  }
+  .хиро h1 { margin: 0 0 14px; font-size: 44px; line-height: 1.12; font-weight: 700; color: #ffffff; max-width: 720px; }
+  .хиро .лид { font-size: 19px; color: var(--синий-бледный); max-width: 640px; margin: 0 0 30px; }
+  .цифры-хиро {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    margin: 0 0 30px; padding: 0; list-style: none;
+  }
+  .цифры-хиро li {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(169,192,228,.25);
+    border-radius: 16px; padding: 16px 18px; min-width: 0;
+  }
+  .цифры-хиро .число { display: block; font-size: 30px; font-weight: 700; color: #ffb26b; line-height: 1.15; white-space: nowrap; }
+  .цифры-хиро .что { display: block; font-size: 14px; color: var(--синий-бледный); margin-top: 4px; line-height: 1.35; }
+  .кнопки-хиро { display: flex; flex-wrap: wrap; gap: 12px; }
+  .кнопка {
+    display: inline-block; background: var(--оранжевый); color: var(--синий-тёмный);
+    font-weight: 600; text-decoration: none; border-radius: 12px; padding: 13px 22px;
+    border: 2px solid var(--оранжевый);
+  }
+  .кнопка-тихая {
+    display: inline-block; background: transparent; color: #ffffff;
+    font-weight: 600; text-decoration: none; border-radius: 12px; padding: 13px 22px;
+    border: 2px solid rgba(169,192,228,.5);
+  }
+  .оглавление { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .оглавление a {
+    font-size: 14px; color: var(--синий-бледный); text-decoration: none;
+    border: 1px solid rgba(169,192,228,.35); border-radius: 999px; padding: 6px 14px;
+  }
+  .оглавление a:hover { color: #ffffff; border-color: #ffffff; }
+
+  /* ── секции ──────────────────────────────────────────── */
+  section { padding: 56px 0 30px; }
+  section + section { border-top: 1px solid var(--линия); }
+  .секция-серое { background: var(--туман); border-top: none !important; }
+  .метка-секции {
+    font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--оранжевый-текст); margin: 0 0 8px;
+  }
+  h2 { margin: 0 0 10px; font-size: 32px; line-height: 1.2; color: var(--синий-тёмный); }
+  h3 { margin: 26px 0 10px; font-size: 20px; color: var(--синий-тёмный); }
+  .подпись { margin: 0 0 26px; color: var(--текст-мягкий); max-width: 660px; font-size: 18px; }
+
+  /* ── факты и активы ──────────────────────────────────── */
+  .факты { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 0 0 8px; }
+  .факт { background: var(--туман); border-radius: 16px; padding: 20px 22px; }
+  .факт .заглавие { font-weight: 600; color: var(--синий-тёмный); margin: 0 0 6px; font-size: 17px; }
+  .факт p { margin: 0; color: var(--текст-мягкий); font-size: 15px; line-height: 1.5; }
+  .активы { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 18px 0 0; padding: 0; list-style: none; }
+  .актив {
+    border: 1px solid var(--линия); border-radius: 14px; padding: 14px 16px; background: #fff;
+  }
+  .актив .число { display: block; font-size: 21px; font-weight: 700; color: var(--оранжевый-текст); white-space: nowrap; }
+  .актив .что { display: block; font-size: 13.5px; color: var(--текст-мягкий); margin-top: 3px; line-height: 1.35; }
+  .сноска { font-size: 13.5px; color: var(--текст-мягкий); margin-top: 14px; }
+
+  /* ── экономика с переключателем ──────────────────────── */
+  .сезоны { display: inline-flex; background: #e6ecf5; border-radius: 999px; padding: 4px; margin: 0 0 22px; }
+  .сезоны button {
+    appearance: none; border: 0; background: transparent; border-radius: 999px;
+    font: inherit; font-weight: 600; color: var(--текст-мягкий); padding: 9px 20px; cursor: pointer;
+    min-height: 44px;
+  }
+  .сезоны button[aria-pressed="true"] { background: var(--синий); color: #ffffff; }
+  .эко-сетка { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .эко {
+    border: 1px solid var(--линия); border-radius: 16px; padding: 18px 20px; background: #fff;
+  }
+  .эко .число { display: block; font-size: 30px; font-weight: 700; color: var(--синий-тёмный); white-space: nowrap; line-height: 1.2; }
+  .эко .что { display: block; font-size: 14px; color: var(--текст-мягкий); margin-top: 4px; line-height: 1.4; }
+  .эко .шкала { display: block; margin-top: 12px; height: 8px; border-radius: 99px; background: #e6ecf5; overflow: hidden; }
+  .эко .шкала i { display: block; height: 100%; border-radius: 99px; background: var(--оранжевый); transition: width .6s ease; }
+
+  .доверие { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 26px; }
+  .довод { background: var(--зелёный-фон); border-radius: 16px; padding: 18px 20px; }
+  .довод .число { display: block; font-size: 26px; font-weight: 700; color: var(--зелёный-текст); }
+  .довод .что { display: block; font-size: 14px; color: var(--текст-мягкий); margin-top: 4px; line-height: 1.4; }
+
+  /* ── бренд ───────────────────────────────────────────── */
+  .бренд-знак {
+    display: grid; grid-template-columns: 300px 1fr; gap: 30px; align-items: center;
+    background: var(--туман); border-radius: 20px; padding: 30px; margin: 0 0 16px;
+  }
+  .бренд-знак svg { width: 100%; height: auto; }
+  .бренд-знак p { margin: 0 0 10px; color: var(--текст-мягкий); }
+  .бренд-пара { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; margin: 16px 0; }
+  .карточка-кадр { border: 1px solid var(--линия); border-radius: 16px; overflow: hidden; background: #fff; }
+  .карточка-кадр img { width: 100%; }
+  .карточка-кадр figcaption { padding: 12px 16px; font-size: 14px; color: var(--текст-мягкий); border-top: 1px solid var(--линия); }
+  figure { margin: 0; }
+
+  .галерея-обёртка { position: relative; margin: 16px 0 0; }
+  .галерея {
+    display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 4px 4px 14px; -webkit-overflow-scrolling: touch;
+  }
+  .галерея figure {
+    flex: 0 0 250px; scroll-snap-align: start; border: 1px solid var(--линия);
+    border-radius: 14px; overflow: hidden; background: #fff;
+  }
+  .галерея figcaption { padding: 9px 12px; font-size: 13px; color: var(--текст-мягкий); }
+  .стрелки { position: absolute; top: -54px; right: 0; display: none; gap: 8px; }
+  .стрелки button {
+    appearance: none; border: 1px solid var(--линия); background: #fff; border-radius: 10px;
+    width: 44px; height: 44px; font-size: 18px; color: var(--синий); cursor: pointer;
+  }
+  .стрелки button:hover { border-color: var(--синий); }
+
+  /* ── платформа ───────────────────────────────────────── */
+  .телефоны { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+  .телефон { border: 1px solid var(--линия); border-radius: 20px; overflow: hidden; background: #fff; }
+  .телефон img { width: 100%; }
+  .телефон figcaption { padding: 11px 14px; font-size: 13.5px; color: var(--текст-мягкий); border-top: 1px solid var(--линия); }
+  .буллеты { margin: 0 0 10px; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; }
+  .буллеты li { padding-left: 24px; position: relative; font-size: 15.5px; color: var(--текст-мягкий); }
+  .буллеты li::before { content: "✓"; position: absolute; left: 0; color: var(--зелёный-текст); font-weight: 700; }
+
+  .калькулятор-блок { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; margin-top: 16px; }
+  .живой {
+    border: 1px solid var(--линия); border-radius: 20px; background: var(--туман);
+    min-height: 520px; display: flex; align-items: center; justify-content: center; overflow: hidden;
+    position: relative;
+  }
+  .живой iframe { width: 100%; height: 640px; border: 0; background: #fff; }
+  .живой .запуск { text-align: center; padding: 30px; }
+  .живой .запуск p { color: var(--текст-мягкий); font-size: 15px; max-width: 320px; margin: 0 auto 16px; }
+  .кнопка-синяя {
+    display: inline-block; appearance: none; border: 0; background: var(--синий); color: #fff;
+    font: inherit; font-weight: 600; border-radius: 12px; padding: 13px 22px; cursor: pointer;
+    text-decoration: none;
+  }
+
+  .видео-рамка { border-radius: 20px; overflow: hidden; background: var(--синий-тёмный); margin: 16px 0 8px; }
+  .видео-рамка video { display: block; width: 100%; height: auto; }
+
+  /* ── CRM-цепочка ─────────────────────────────────────── */
+  .цепочка { display: grid; grid-template-columns: 1fr 390px; gap: 26px; align-items: start; margin-top: 18px; }
+  .шаги { display: grid; gap: 10px; }
+  .шаг {
+    appearance: none; text-align: left; font: inherit; cursor: pointer;
+    border: 1px solid var(--линия); background: #fff; border-radius: 14px; padding: 14px 16px 14px 52px;
+    position: relative; transition: border-color .2s ease, background .2s ease;
+    min-height: 44px;
+  }
+  .шаг .номер {
+    position: absolute; left: 14px; top: 14px; width: 26px; height: 26px; border-radius: 50%;
+    background: #e6ecf5; color: var(--синий); font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .шаг .заглавие { display: block; font-weight: 600; color: var(--синий-тёмный); font-size: 16px; }
+  .шаг .пояснение { display: block; font-size: 13.5px; color: var(--текст-мягкий); margin-top: 2px; line-height: 1.4; }
+  .шаг[aria-pressed="true"] { border-color: var(--оранжевый); background: var(--оранжевый-светлый); }
+  .шаг[aria-pressed="true"] .номер { background: var(--оранжевый); color: var(--синий-тёмный); }
+  .цепочка-кадр { border: 1px solid var(--линия); border-radius: 22px; overflow: hidden; background: #fff; }
+  .цепочка-кадр img { width: 100%; display: none; }
+  .цепочка-кадр img.виден-кадр { display: block; }
+
+  .мини-карточки { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
+  .мини {
+    border: 1px solid var(--линия); border-radius: 14px; padding: 14px 16px; background: #fff;
+  }
+  .мини .заглавие { font-weight: 600; color: var(--синий-тёмный); font-size: 15px; margin: 0 0 4px; }
+  .мини p { margin: 0; font-size: 13.5px; color: var(--текст-мягкий); line-height: 1.45; }
+
+  /* ── резюме ──────────────────────────────────────────── */
+  .резюме { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .резюме .довод-большой {
+    background: #fff; border-radius: 18px; padding: 22px;
+    border-top: 4px solid var(--оранжевый);
+    box-shadow: 0 1px 3px rgba(6,24,47,.07);
+  }
+  .резюме .заглавие { font-weight: 700; color: var(--синий-тёмный); font-size: 18px; margin: 0 0 8px; }
+  .резюме p { margin: 0; color: var(--текст-мягкий); font-size: 15px; }
+
+  /* ── финансирование ──────────────────────────────────── */
+  .финшапка { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 4px 0 26px; }
+  .финшапка .ячейка {
+    background: var(--синий-ночь); color: #fff; border-radius: 16px; padding: 18px 20px;
+  }
+  .финшапка .число { display: block; font-size: 28px; font-weight: 700; color: #ffb26b; white-space: nowrap; }
+  .финшапка .что { display: block; font-size: 14px; color: var(--синий-бледный); margin-top: 4px; }
+
+  .структура { margin: 0 0 30px; }
+  .структура-полоса { display: flex; height: 46px; border-radius: 12px; overflow: hidden; margin: 10px 0 8px; }
+  .структура-полоса .кредит { background: var(--синий); flex: 77; display: flex; align-items: center; padding: 0 16px; color: #fff; font-weight: 600; font-size: 14px; white-space: nowrap; }
+  .структура-полоса .своё { background: var(--оранжевый); flex: 23; display: flex; align-items: center; padding: 0 12px; color: var(--синий-тёмный); font-weight: 600; font-size: 14px; white-space: nowrap; overflow: hidden; }
+  .структура-легенда { display: none; margin: 4px 0 0; font-size: 14px; color: var(--текст-мягкий); }
+  .структура-легенда i { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin: 0 6px 0 14px; vertical-align: -1px; font-style: normal; }
+  .структура-легенда i:first-child { margin-left: 0; }
+  @media (max-width: 700px) {
+    .структура-полоса .кредит, .структура-полоса .своё { font-size: 0; }
+    .структура-легенда { display: block; }
+  }
+
+  .бюджет { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: start; }
+  .бюджет-полоса { display: flex; height: 58px; border-radius: 14px; overflow: hidden; margin: 12px 0 18px; }
+  .бюджет-полоса span { display: block; height: 100%; cursor: pointer; transition: opacity .2s ease, transform .2s ease; }
+  .бюджет-полоса.выбрано span { opacity: .3; }
+  .бюджет-полоса.выбрано span.горит { opacity: 1; }
+  .статьи { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .статья {
+    display: flex; align-items: baseline; gap: 12px; border: 1px solid var(--линия);
+    border-radius: 12px; padding: 11px 14px; cursor: pointer; transition: border-color .2s ease, background .2s ease;
+  }
+  .статья .цветик { width: 14px; height: 14px; border-radius: 4px; flex: none; align-self: center; }
+  .статья .имя { flex: 1; font-size: 15px; color: var(--текст); }
+  .статья .сколько { font-weight: 700; color: var(--синий-тёмный); white-space: nowrap; }
+  .статья.горит { border-color: var(--оранжевый); background: var(--оранжевый-светлый); }
+  .бюджет-подпись { font-size: 14px; color: var(--текст-мягкий); min-height: 44px; }
+  .бюджет-подпись b { color: var(--синий-тёмный); }
+
+  /* ── таймлайн ────────────────────────────────────────── */
+  .таймлайн { margin: 22px 0 0; padding: 0; list-style: none; position: relative; }
+  .таймлайн::before {
+    content: ""; position: absolute; left: 15px; top: 10px; bottom: 10px; width: 2px;
+    background: var(--линия);
+  }
+  .веха { position: relative; padding: 0 0 24px 52px; }
+  .веха::before {
+    content: ""; position: absolute; left: 8px; top: 6px; width: 16px; height: 16px;
+    border-radius: 50%; background: var(--оранжевый); border: 3px solid #fff;
+    box-shadow: 0 0 0 2px var(--оранжевый);
+  }
+  .веха .когда { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--оранжевый-текст); }
+  .веха .заглавие { font-weight: 700; color: var(--синий-тёмный); font-size: 18px; margin: 2px 0 4px; }
+  .веха p { margin: 0; color: var(--текст-мягкий); font-size: 15px; }
+  .веха .сумма { float: right; font-size: 22px; font-weight: 700; color: var(--синий-тёмный); white-space: nowrap; margin-left: 16px; }
+
+  .риски { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+  .риск { border-radius: 14px; padding: 16px 18px; font-size: 14.5px; }
+  .риск.зелёный { background: var(--зелёный-фон); color: var(--зелёный-текст); }
+  .риск.серый { background: var(--туман); color: var(--текст-мягкий); }
+  .риск b { color: inherit; }
+
+  /* ── стратегия ───────────────────────────────────────── */
+  .заглушка {
+    border: 2px dashed var(--линия); border-radius: 18px; padding: 28px;
+    color: var(--текст-мягкий); background: #fff;
+  }
+  .заглушка p { margin: 0; max-width: 640px; }
+
+  /* ── подвал ──────────────────────────────────────────── */
+  footer { background: var(--синий-тёмный); color: var(--синий-бледный); padding: 40px 0 34px; margin-top: 40px; }
+  footer .знак-низ { width: 92px; height: auto; margin-bottom: 18px; }
+  footer p { margin: 0 0 8px; font-size: 14.5px; }
+  footer a { color: #ffffff; }
+  footer .автор { margin-top: 22px; font-size: 12px; color: #5d739a; }
+
+  /* ── телефон ─────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .хиро h1 { font-size: 32px; }
+    .цифры-хиро { grid-template-columns: 1fr 1fr; }
+    .факты { grid-template-columns: 1fr; }
+    .активы { grid-template-columns: 1fr 1fr; }
+    .эко-сетка { grid-template-columns: 1fr 1fr; }
+    .доверие { grid-template-columns: 1fr; }
+    .бренд-знак { grid-template-columns: 1fr; padding: 22px; }
+    .бренд-пара { grid-template-columns: 1fr; }
+    .телефоны { grid-template-columns: 1fr; }
+    .буллеты { grid-template-columns: 1fr; }
+    .калькулятор-блок { grid-template-columns: 1fr; }
+    .цепочка { grid-template-columns: 1fr; }
+    .мини-карточки { grid-template-columns: 1fr 1fr; }
+    .резюме { grid-template-columns: 1fr; }
+    .финшапка { grid-template-columns: 1fr; }
+    .бюджет { grid-template-columns: 1fr; }
+    .риски { grid-template-columns: 1fr; }
+    h2 { font-size: 26px; }
+    section { padding: 42px 0 24px; }
+    .веха .сумма { float: none; display: block; margin: 4px 0 0; }
+  }
+  @media (max-width: 480px) {
+    .цифры-хиро { gap: 10px; }
+    .цифры-хиро li { padding: 12px 13px; }
+    .цифры-хиро .число { font-size: 19px; }
+    .активы { grid-template-columns: 1fr; }
+    .мини-карточки { grid-template-columns: 1fr; }
+    .эко-сетка { grid-template-columns: 1fr; }
+  }
+  @media (hover: hover) { .стрелки { display: flex; } }
+</style>
+</head>
+<body>
+
+<header class="хиро">
+  <div class="полоса">
+    <svg class="знак-верх" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436 198" role="img" aria-label="fixli">
+  <title>fixli</title>
+  <!--
+    Знак на тёмном фоне — ВЫВОРОТКА, а не инверсия.
+
+    На носителях заказчика (футболки и кепка в макетах найма) выворотка
+    двухцветная: `fix` остаётся фирменным оранжевым, белым становится только
+    `li`. Это факт с носителя, а не наше решение. Знак целиком в белый не
+    выворачивают — так делает пока только `Logo.astro` в варианте `onDark`
+    (через `brightness-0 invert` растра), и это расхождение с носителями,
+    а не образец для повторения.
+
+    Фон под этой вывороткой обязан быть тёмным: оранжевый по белому даёт 2,65
+    и не читается. Проверенные подложки — `fx-navy-deep` и `fx-navy-darkest`.
+
+    Происхождение: наша перетрассировка растра 436 × 198 из материалов
+    заказчика (силуэт по альфа-каналу, marching squares с субпиксельной
+    интерполяцией, распознавание прямых и дуг). Расхождение с исходным PNG
+    1,05 % при 1×, 2,29 % при 4× — мерит `.business/assets/сверка-обводки.mjs`.
+    Файла от дизайнера заказчика у проекта нет; крупнее источника в его
+    материалах не существует, поэтому это потолок, а не выбор.
+
+    Границы применения: экран, печать визитки и бланка, вышивка и шелкография —
+    да. Оклейка фургона метровыми буквами — нет: 1 px исходника на двухметровом
+    борту ≈ 4,6 мм, и волна на дуге станет видна вблизи. Для оклейки берётся
+    исходник дизайнера по ТЗ `.business/assets/тз-логотип-для-анимации.md`.
+
+    Про цвета: здесь они литералами, и это осознанное исключение из правила
+    «значение существует один раз, в brand/tokens.css». Отдельный SVG-файл
+    уезжает в типографию и в рекламный кабинет, где никакого CSS нет. Значения
+    равны токенам fx-orange и fx-navy и проверяются пипеткой по ним:
+    трассированный вектор однажды уже принёс цвета замера (#F28123 / #12448D)
+    вместо цветов бренда, и первый экран сайта полдня показывал знак не в
+    фирменном оранжевом.
+
+    Фигура человека в знаке — это буква `i` целиком: точка это голова, палочка
+    тело, вынос сбоку рука. Таких букв две, зеркальных: оранжевая в `fix` тянет
+    руку вправо, синяя в `li` влево, и они идут навстречу друг другу через `x`
+    и `l`. Буква `l` — простой брусок, фигуры в нём нет.
+    ВНИМАНИЕ, ГРАБЛЯ: в комментарии SVG нельзя писать двойной дефис — это
+    невалидный XML, и браузер не рисует файл ВОВСЕ, показывая alt вместо знака.
+    Поэтому имена токенов здесь пишутся без ведущих дефисов: fx-orange, а не
+    полное имя переменной. Так уже ломалось: четыре файла знака разом отдавали
+    битую картинку, и нашли это глаза на кадре, а не проверка.
+  -->
+  <path
+    id="f"
+    fill="#f38025"
+    d="M 68.68 10.5 L 102.5 10.08 A 4.26 4.26 0 0 1 105.3 15.5 L 105.17 37.5 A 6.91 6.91 0 0 1 98.5 39.53 L 73.5 40.22 A 15.26 15.26 0 0 0 63.89 47.5 A 33.39 33.39 0 0 0 61.19 64.5 L 61.5 70.82 L 64.5 71.69 L 100.5 71.73 L 101.58 73.5 L 93.5 100.53 L 88.5 101.31 L 62.48 101.5 L 61.4 103.5 L 61.08 188.5 L 59.5 189.63 L 29.96 189.5 L 28.87 185.5 L 28.5 102.22 L 22.5 101.26 L 12.5 100.81 L 11.13 99.5 L 11.5 72.26 L 27.56 71.5 L 28.81 68.5 L 29.87 47.5 L 33.71 35.5 L 40.14 25.5 L 49.69 17.5 L 56.5 13.89 L 70.5 10.12 Z"
+  />
+  <path
+    id="i1-stem"
+    fill="#f38025"
+    d="M 132.14 70.5 A 13.67 13.67 0 0 1 144.73 77.5 L 156.5 93.51 L 163.88 99.5 L 173.03 104.5 L 173.5 105.69 A 18.06 18.06 0 0 1 160.5 109.93 L 153.58 110.5 L 153.1 188.5 L 152.5 189.66 L 121.78 189.5 A 8.75 8.75 0 0 1 120.8 183.5 L 120.85 83.5 L 121.98 77.5 A 12.44 12.44 0 0 1 143.93 76.5 Z"
+  />
+  <circle id="i1-dot" cx="138.95" cy="46.42" r="18.82" fill="#f38025" />
+  <path
+    id="x"
+    fill="#f38025"
+    d="M 179 71.5 L 214.5 71.56 A 8.45 8.45 0 0 1 218.5 75.74 L 240.5 103.86 L 241.55 104.5 L 266.81 72.5 L 269.5 71.48 L 304.5 71.55 L 305.41 72.5 L 300.5 80.62 L 262.86 129.5 A 7.85 7.85 0 0 0 265.88 134.5 L 300.5 178.94 L 307.44 188.5 L 307.33 189.5 L 270.5 189.91 L 262.5 180.4 L 242.5 155.11 L 241.5 154.07 L 236.03 160.5 L 213.5 189.55 L 176.5 189.74 A 1.7 1.7 0 0 1 176.5 186.38 L 219.5 131.22 L 219.35 128.5 L 178.5 75.2 L 177.5 72.19 A 7.81 7.81 0 0 1 183.5 71.3 Z"
+  />
+  <path
+    id="l"
+    fill="#ffffff"
+    d="M 330.25 21.5 L 359.5 21.69 L 360.81 22.5 L 360.9 187.5 L 359.5 189.56 L 330.5 189.39 L 329 188.5 L 328.21 172.5 L 328.5 22.47 L 331.5 21.35 Z"
+  />
+  <path
+    id="i2-stem"
+    fill="#ffffff"
+    d="M 408.44 71.5 A 12.39 12.39 0 0 1 423.6 76.5 A 18.17 18.17 0 0 1 425.22 87.5 L 425 188.5 L 419.5 189.6 L 393.5 189.23 L 392.12 186.5 L 391.8 110.5 L 380.5 109.8 L 373.42 106.5 L 373.01 104.5 L 385.13 97.5 A 40.56 40.56 0 0 0 394.82 86.5 L 404.5 73.71 A 12.9 12.9 0 0 1 414.5 70.78 Z"
+  />
+  <circle id="i2-dot" cx="406.28" cy="46.37" r="18.89" fill="#ffffff" />
+</svg>
+    <p class="надзаголовок">Группа компаний · Нетания, центр Израиля</p>
+    <h1>Переезды, сервис и&nbsp;решения для&nbsp;дома под&nbsp;одним брендом</h1>
+    <p class="лид">Действующий прибыльный бизнес: около трёх лет непрерывной работы,
+    собственный бренд и цифровая платформа. Материал для обсуждения финансирования роста.</p>
+    <ul class="цифры-хиро">
+      <li><span class="число">~3&nbsp;года</span><span class="что">непрерывной работы под брендом «Перевозки по&nbsp;Нетании»</span></li>
+      <li><span class="число">30–50</span><span class="что">заказов в&nbsp;месяц: около 30 вне сезона, около 50 летом</span></li>
+      <li><span class="число">60–100&nbsp;тыс.&nbsp;₪</span><span class="что">месячная выручка: вне сезона и&nbsp;в&nbsp;сезон</span></li>
+      <li><span class="число">1&nbsp;000+</span><span class="что">выполненных заказов за&nbsp;время работы</span></li>
+    </ul>
+    <div class="кнопки-хиро">
+      <a class="кнопка" href="#финансирование">План роста и финансирование</a>
+      <a class="кнопка-тихая" href="https://fixlihome.co.il/ru/" target="_blank" rel="noopener">Открыть сайт компании</a>
+    </div>
+    <nav class="оглавление" aria-label="Содержание">
+      <a href="#сегодня">Что уже работает</a>
+      <a href="#экономика">Показатели</a>
+      <a href="#бренд">Бренд</a>
+      <a href="#платформа">Цифровая платформа</a>
+      <a href="#почему">Почему это сработает</a>
+      <a href="#финансирование">Финансирование</a>
+      <a href="#стратегия">Стратегия</a>
+    </nav>
+  </div>
+</header>
+
+<section id="сегодня">
+  <div class="полоса">
+    <p class="метка-секции явь">Сегодня</p>
+    <h2 class="явь">Что уже работает</h2>
+    <p class="подпись явь">Это не стартап с презентацией вместо бизнеса. Компания возит,
+    собирает и чинит каждый день — финансирование масштабирует то, что уже приносит деньги.</p>
+    <div class="факты явь">
+      <div class="факт">
+        <p class="заглавие">Около 3 лет непрерывной работы</p>
+        <p>Бизнес работал под брендом «Перевозки по&nbsp;Нетании» и продолжает под брендом Fixli.
+        Юридическая база — действующий зарегистрированный бизнес с&nbsp;НДС.</p>
+      </div>
+      <div class="факт">
+        <p class="заглавие">Более 13 лет совокупного управленческого опыта</p>
+        <p>Дима — около 3 лет в перевозках; Егор — около 10 лет в развитии, продажах
+        и операционной работе.</p>
+      </div>
+      <div class="факт">
+        <p class="заглавие">Операционная инфраструктура в собственности</p>
+        <p>Mercedes Sprinter, профессиональный инструмент, 5 постоянно задействованных человек
+        и проверенный резерв сотрудников.</p>
+      </div>
+      <div class="факт">
+        <p class="заглавие">Экосистема услуг вокруг переезда</p>
+        <p>Перевозки, упаковка, доставка мебели, хендимен, покраска и уборка — под единым
+        брендом и одним процессом продаж. Один клиент — несколько продаж.</p>
+      </div>
+    </div>
+    <h3 class="явь">Собственные вложения и активы, уже работающие в бизнесе</h3>
+    <ul class="активы явь">
+      <li class="актив"><span class="число">Sprinter</span><span class="что">Mercedes в&nbsp;собственности</span></li>
+      <li class="актив"><span class="число">30&nbsp;тыс.&nbsp;₪</span><span class="что">профессиональный инструмент</span></li>
+      <li class="актив"><span class="число">60&nbsp;тыс.&nbsp;₪</span><span class="что">реклама Facebook за&nbsp;3&nbsp;года</span></li>
+      <li class="актив"><span class="число">10&nbsp;тыс.&nbsp;₪</span><span class="что">бренд, логотип и&nbsp;айдентика</span></li>
+      <li class="актив"><span class="число">60&nbsp;тыс.&nbsp;₪</span><span class="что">свободные собственные средства</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="экономика" class="секция-серое">
+  <div class="полоса">
+    <p class="метка-секции явь">Показатели</p>
+    <h2 class="явь">Фактические показатели</h2>
+    <p class="подпись явь">Бизнес сезонный: лето даёт пик переездов. Переключите — числа
+    ниже покажут оба режима работы.</p>
+    <div class="сезоны явь" role="group" aria-label="Режим сезона">
+      <button type="button" data-сезон="низкий" aria-pressed="true">Вне сезона</button>
+      <button type="button" data-сезон="высокий" aria-pressed="false">Летний сезон</button>
+    </div>
+    <div class="эко-сетка явь">
+      <div class="эко">
+        <span class="число"><span data-выручка>60</span>&nbsp;тыс.&nbsp;₪</span>
+        <span class="что">месячная выручка</span>
+        <span class="шкала"><i data-шкала-выручка style="width:60%"></i></span>
+      </div>
+      <div class="эко">
+        <span class="число">~<span data-заказы>30</span></span>
+        <span class="что">заказов в месяц</span>
+        <span class="шкала"><i data-шкала-заказы style="width:60%"></i></span>
+      </div>
+      <div class="эко">
+        <span class="число">~2&nbsp;000&nbsp;₪</span>
+        <span class="что">средний чек — выводится из фактической выручки и числа заказов</span>
+      </div>
+      <div class="эко">
+        <span class="число">до&nbsp;~50%</span>
+        <span class="что">операционный остаток до налогов, амортизации и крупного ремонта*</span>
+      </div>
+    </div>
+    <p class="сноска явь">* Показатель основан на активном участии владельцев бизнеса в выполнении заказов.</p>
+    <div class="доверие явь">
+      <div class="довод"><span class="число">60 рекомендаций</span><span class="что">в Facebook — 100&nbsp;% положительных</span></div>
+      <div class="довод"><span class="число">653 комментария</span><span class="что">под публикациями компании</span></div>
+      <div class="довод"><span class="число">Клиенты возвращаются</span><span class="что">высокая доля повторных заказов и рекомендаций</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="бренд">
+  <div class="полоса">
+    <p class="метка-секции явь">Бренд</p>
+    <h2 class="явь">Бренд построен целиком — и уже ездит по городу</h2>
+    <p class="подпись явь">Знак, транспорт, форма бригады, печатные документы и реклама —
+    одна система, зафиксированная в брендбуке. В нише, где конкурируют объявлениями,
+    это редкий актив.</p>
+    <div class="бренд-знак явь">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436 198" role="img" aria-label="fixli">
+  <title>fixli</title>
+  <!--
+    Словесный знак Fixli, разобранный на семь именованных объектов.
+
+    Происхождение: наша перетрассировка растра 436 × 198 из материалов
+    заказчика (силуэт по альфа-каналу, marching squares с субпиксельной
+    интерполяцией, распознавание прямых и дуг). Расхождение с исходным PNG
+    1,05 % при 1×, 2,29 % при 4× — мерит `.business/assets/сверка-обводки.mjs`.
+    Файла от дизайнера заказчика у проекта нет; крупнее источника в его
+    материалах не существует, поэтому это потолок, а не выбор.
+
+    Границы применения: экран, печать визитки и бланка, вышивка и шелкография —
+    да. Оклейка фургона метровыми буквами — нет: 1 px исходника на двухметровом
+    борту ≈ 4,6 мм, и волна на дуге станет видна вблизи. Для оклейки берётся
+    исходник дизайнера по ТЗ `.business/assets/тз-логотип-для-анимации.md`.
+
+    Про цвета: здесь они литералами, и это осознанное исключение из правила
+    «значение существует один раз, в brand/tokens.css». Отдельный SVG-файл
+    уезжает в типографию и в рекламный кабинет, где никакого CSS нет. Значения
+    равны токенам fx-orange и fx-navy и проверяются пипеткой по ним:
+    трассированный вектор однажды уже принёс цвета замера (#F28123 / #12448D)
+    вместо цветов бренда, и первый экран сайта полдня показывал знак не в
+    фирменном оранжевом.
+
+    Фигура человека в знаке — это буква `i` целиком: точка это голова, палочка
+    тело, вынос сбоку рука. Таких букв две, зеркальных: оранжевая в `fix` тянет
+    руку вправо, синяя в `li` влево, и они идут навстречу друг другу через `x`
+    и `l`. Буква `l` — простой брусок, фигуры в нём нет.
+    ВНИМАНИЕ, ГРАБЛЯ: в комментарии SVG нельзя писать двойной дефис — это
+    невалидный XML, и браузер не рисует файл ВОВСЕ, показывая alt вместо знака.
+    Поэтому имена токенов здесь пишутся без ведущих дефисов: fx-orange, а не
+    полное имя переменной. Так уже ломалось: четыре файла знака разом отдавали
+    битую картинку, и нашли это глаза на кадре, а не проверка.
+  -->
+  <path
+    id="f"
+    fill="#f38025"
+    d="M 68.68 10.5 L 102.5 10.08 A 4.26 4.26 0 0 1 105.3 15.5 L 105.17 37.5 A 6.91 6.91 0 0 1 98.5 39.53 L 73.5 40.22 A 15.26 15.26 0 0 0 63.89 47.5 A 33.39 33.39 0 0 0 61.19 64.5 L 61.5 70.82 L 64.5 71.69 L 100.5 71.73 L 101.58 73.5 L 93.5 100.53 L 88.5 101.31 L 62.48 101.5 L 61.4 103.5 L 61.08 188.5 L 59.5 189.63 L 29.96 189.5 L 28.87 185.5 L 28.5 102.22 L 22.5 101.26 L 12.5 100.81 L 11.13 99.5 L 11.5 72.26 L 27.56 71.5 L 28.81 68.5 L 29.87 47.5 L 33.71 35.5 L 40.14 25.5 L 49.69 17.5 L 56.5 13.89 L 70.5 10.12 Z"
+  />
+  <path
+    id="i1-stem"
+    fill="#f38025"
+    d="M 132.14 70.5 A 13.67 13.67 0 0 1 144.73 77.5 L 156.5 93.51 L 163.88 99.5 L 173.03 104.5 L 173.5 105.69 A 18.06 18.06 0 0 1 160.5 109.93 L 153.58 110.5 L 153.1 188.5 L 152.5 189.66 L 121.78 189.5 A 8.75 8.75 0 0 1 120.8 183.5 L 120.85 83.5 L 121.98 77.5 A 12.44 12.44 0 0 1 143.93 76.5 Z"
+  />
+  <circle id="i1-dot" cx="138.95" cy="46.42" r="18.82" fill="#f38025" />
+  <path
+    id="x"
+    fill="#f38025"
+    d="M 179 71.5 L 214.5 71.56 A 8.45 8.45 0 0 1 218.5 75.74 L 240.5 103.86 L 241.55 104.5 L 266.81 72.5 L 269.5 71.48 L 304.5 71.55 L 305.41 72.5 L 300.5 80.62 L 262.86 129.5 A 7.85 7.85 0 0 0 265.88 134.5 L 300.5 178.94 L 307.44 188.5 L 307.33 189.5 L 270.5 189.91 L 262.5 180.4 L 242.5 155.11 L 241.5 154.07 L 236.03 160.5 L 213.5 189.55 L 176.5 189.74 A 1.7 1.7 0 0 1 176.5 186.38 L 219.5 131.22 L 219.35 128.5 L 178.5 75.2 L 177.5 72.19 A 7.81 7.81 0 0 1 183.5 71.3 Z"
+  />
+  <path
+    id="l"
+    fill="#12438f"
+    d="M 330.25 21.5 L 359.5 21.69 L 360.81 22.5 L 360.9 187.5 L 359.5 189.56 L 330.5 189.39 L 329 188.5 L 328.21 172.5 L 328.5 22.47 L 331.5 21.35 Z"
+  />
+  <path
+    id="i2-stem"
+    fill="#12438f"
+    d="M 408.44 71.5 A 12.39 12.39 0 0 1 423.6 76.5 A 18.17 18.17 0 0 1 425.22 87.5 L 425 188.5 L 419.5 189.6 L 393.5 189.23 L 392.12 186.5 L 391.8 110.5 L 380.5 109.8 L 373.42 106.5 L 373.01 104.5 L 385.13 97.5 A 40.56 40.56 0 0 0 394.82 86.5 L 404.5 73.71 A 12.9 12.9 0 0 1 414.5 70.78 Z"
+  />
+  <circle id="i2-dot" cx="406.28" cy="46.37" r="18.89" fill="#12438f" />
+</svg>
+      <div>
+        <p><b>В знаке — суть бизнеса.</b> Две фигуры идут навстречу друг другу: оранжевая —
+        работник, синяя — клиент. Буква&nbsp;<b>x</b> между ними — знак умножения:
+        работник&nbsp;×&nbsp;клиент.</p>
+        <p style="margin:0">Слоган компании: <b>«Много задач. Одна команда.»</b></p>
+      </div>
+    </div>
+    <div class="бренд-пара явь">
+      <figure class="карточка-кадр">
+        <img src="бренд/борт.png" alt="Схема оклейки борта фургона: знак fixli, услуги, телефон и адрес сайта" loading="lazy" width="2000" height="1130" />
+        <figcaption>Фирменный транспорт: раскладка оклейки борта — знак, услуги, контакты</figcaption>
+      </figure>
+      <figure class="карточка-кадр">
+        <img src="бренд/футболка.png" alt="Макет фирменной футболки бригады: знак fixli на груди и спине, телефон и сайт" loading="lazy" width="2000" height="1271" />
+        <figcaption>Единая форма бригады — клиент видит команду, а не случайных грузчиков</figcaption>
+      </figure>
+    </div>
+    <h3 class="явь">Реклама в фирменном стиле — готовый кит из 30 макетов</h3>
+    <div class="галерея-обёртка явь">
+      <div class="стрелки">
+        <button type="button" data-листать="-1" aria-label="Прокрутить галерею назад">←</button>
+        <button type="button" data-листать="1" aria-label="Прокрутить галерею вперёд">→</button>
+      </div>
+      <div class="галерея" tabindex="0" aria-label="Примеры рекламных креативов">
+        <figure><img src="бренд/крео-упаковка.jpg" alt="Креатив с фотографией упакованной мебели: защиту даёт одеяло, плёнка поверх" loading="lazy" width="800" height="1000" /><figcaption>Упаковка — настоящее фото с объекта</figcaption></figure>
+        <figure><img src="бренд/крео-телевизор.jpg" alt="Креатив с фотографией повешенного телевизора: со стены старой квартиры — на стену новой" loading="lazy" width="800" height="800" /><figcaption>Хендимен — работа из реального заказа</figcaption></figure>
+        <figure><img src="бренд/крео-переезд.jpg" alt="Типографический креатив: цену называем до выезда, а не на месте" loading="lazy" width="800" height="800" /><figcaption>Оффер переезда — цена до выезда</figcaption></figure>
+        <figure><img src="бренд/крео-расчёт.jpg" alt="Вертикальный сторис-креатив с расчётом стоимости переезда" loading="lazy" width="450" height="800" /><figcaption>Сторис — онлайн-расчёт</figcaption></figure>
+        <figure><img src="бренд/крео-карточка.jpg" alt="Квадратный креатив с фотографией упаковки мебели в одеяла" loading="lazy" width="800" height="800" /><figcaption>Лента — упаковка крупным планом</figcaption></figure>
+      </div>
+    </div>
+    <p class="сноска явь">Полный брендбук и все материалы:
+    <a href="https://docs.fixlihome.co.il/brand/" target="_blank" rel="noopener">docs.fixlihome.co.il/brand</a></p>
+  </div>
+</section>
+
+<section id="платформа" class="секция-серое">
+  <div class="полоса">
+    <p class="метка-секции явь">Цифровая платформа</p>
+    <h2 class="явь">IT-инфраструктура, которой нет у локальных конкурентов</h2>
+    <p class="подпись явь">Сайт на двух языках, онлайн-расчёт цены, собственная CRM
+    и автоответы в мессенджерах — полный контур от рекламы до отчёта «какой канал окупился».
+    Всё уже построено и работает.</p>
+
+    <h3 class="явь">Сайт — fixlihome.co.il</h3>
+    <ul class="буллеты явь">
+      <li>Два языка: русский и иврит, включая RTL-вёрстку</li>
+      <li>Фирменный анимационный ролик на первом экране</li>
+      <li>Скорость и качество: Lighthouse 99–100 из 100</li>
+      <li>Страница-знакомство для клиентов из рекламы</li>
+    </ul>
+    <div class="телефоны явь">
+      <figure class="телефон">
+        <img src="кадры/s01-главная.png" alt="Главная страница сайта на телефоне: переезд под ключ одной командой" loading="lazy" width="780" height="1688" />
+        <figcaption>Главная: ролик, услуги, расчёт</figcaption>
+      </figure>
+      <figure class="телефон">
+        <img src="кадры/s05-знакомство.png" alt="Страница знакомства с фотографиями упаковки и отзывами" loading="lazy" width="780" height="1688" />
+        <figcaption>Страница-знакомство: доказательства и отзывы</figcaption>
+      </figure>
+      <figure class="телефон">
+        <img src="кадры/s06-иврит.png" alt="Ивритская версия сайта" loading="lazy" width="780" height="1688" />
+        <figcaption>Ивритская версия — основной язык рынка</figcaption>
+      </figure>
+    </div>
+
+    <h3 class="явь">Калькулятор: клиент видит цену до первого контакта</h3>
+    <p class="явь" style="max-width:660px; color:var(--текст-мягкий)">Клиент отмечает вещи по комнатам —
+    и сразу видит вилку цены, часы работы и состав бригады. Модель откалибрована
+    на 40 реальных заказах. Попробуйте прямо здесь — это живой сайт, а не макет.</p>
+    <div class="калькулятор-блок явь">
+      <figure class="телефон">
+        <img src="кадры/s02-состав.png" alt="Шаг калькулятора: сетка вещей по комнатам и фургон, который наполняется" loading="lazy" width="780" height="1688" />
+        <figcaption>Клиент выбирает вещи — фургон наполняется</figcaption>
+      </figure>
+      <div class="живой" data-живой>
+        <div class="запуск">
+          <p>Живой калькулятор с боевого сайта — считает настоящими ценами компании.</p>
+          <button type="button" class="кнопка-синяя" data-запустить>Запустить калькулятор</button>
+          <p style="margin-top:14px"><a href="https://fixlihome.co.il/ru/calculator/" target="_blank" rel="noopener">Открыть в новой вкладке</a></p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="явь">Фирменный ролик</h3>
+    <p class="явь" style="max-width:660px; color:var(--текст-мягкий)">Анимационный ролик о компании — стоит
+    на первом экране сайта, есть версия для рекламы в лентах.</p>
+    <div class="видео-рамка явь">
+      <video controls preload="metadata" poster="https://fixlihome.co.il/video/fixli-movie-ru.webp" width="1280" height="720">
+        <source src="https://fixlihome.co.il/video/fixli-movie-ru.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <h3 class="явь">CRM: путь заказа от обращения до отчёта</h3>
+    <p class="явь" style="max-width:660px; color:var(--текст-мягкий)">Собственная система управления:
+    каждое обращение фиксируется с источником, наряд уходит бригаде в Telegram, а в конце месяца
+    видно, какая реклама окупилась — до шекеля. Нажимайте шаги — справа живые экраны системы.</p>
+    <div class="цепочка явь">
+      <div class="шаги" role="group" aria-label="Шаги пути заказа">
+        <button type="button" class="шаг" data-шаг="0" aria-pressed="true">
+          <span class="номер">1</span>
+          <span class="заглавие">Обращение приходит само</span>
+          <span class="пояснение">С сайта, из WhatsApp, Telegram или Messenger — с источником и кодом объявления</span>
+        </button>
+        <button type="button" class="шаг" data-шаг="1" aria-pressed="false">
+          <span class="номер">2</span>
+          <span class="заглавие">Заказ оформляется в два нажатия</span>
+          <span class="пояснение">Адреса, дата, состав — всё уже пришло из опроса клиента</span>
+        </button>
+        <button type="button" class="шаг" data-шаг="2" aria-pressed="false">
+          <span class="номер">3</span>
+          <span class="заглавие">Смена собирается и объявляется</span>
+          <span class="пояснение">Наряд с маршрутом уходит бригаде в Telegram автоматически</span>
+        </button>
+        <button type="button" class="шаг" data-шаг="3" aria-pressed="false">
+          <span class="номер">4</span>
+          <span class="заглавие">Бригадир ведёт чек-лист со смартфона</span>
+          <span class="пояснение">Адреса, задачи, отчёт с фотографиями — офис видит всё вживую</span>
+        </button>
+        <button type="button" class="шаг" data-шаг="4" aria-pressed="false">
+          <span class="номер">5</span>
+          <span class="заглавие">Отчёт: какая реклама окупилась</span>
+          <span class="пояснение">Источник → обращения → заказы → деньги. Решения по бюджету — на цифрах</span>
+        </button>
+      </div>
+      <div class="цепочка-кадр" data-кадры aria-live="polite">
+        <img src="кадры/02-обращения.png" class="виден-кадр" alt="Экран CRM: список обращений с источниками" width="780" height="1688" />
+        <img src="кадры/03-оформление.png" alt="Экран CRM: оформление заказа из обращения" loading="lazy" width="780" height="1688" />
+        <img src="кадры/07-смена-объявлена.png" alt="Экран CRM: смена объявлена, наряд отправлен бригаде" loading="lazy" width="780" height="1688" />
+        <img src="кадры/10-чек-лист.png" alt="Экран смены бригадира: чек-лист по адресам" loading="lazy" width="780" height="1688" />
+        <img src="кадры/14-отчёт-по-источникам.png" alt="Отчёт по источникам: сколько обращений, заказов и денег дал каждый канал" loading="lazy" width="780" height="1688" />
+      </div>
+    </div>
+
+    <h3 class="явь">Ни одно обращение не теряется</h3>
+    <div class="мини-карточки явь">
+      <div class="мини">
+        <p class="заглавие">WhatsApp</p>
+        <p>Приветствие отвечает каждому новому клиенту сразу и ведёт на страницу-знакомство</p>
+      </div>
+      <div class="мини">
+        <p class="заглавие">Messenger</p>
+        <p>Автоответ людям с рекламы Facebook — раньше эти обращения ждали днями</p>
+      </div>
+      <div class="мини">
+        <p class="заглавие">Telegram-бот</p>
+        <p>Проводит опрос и показывает клиенту ту же цену, что калькулятор сайта</p>
+      </div>
+      <div class="мини">
+        <p class="заглавие">Уведомления</p>
+        <p>Заявка с сайта доходит до менеджера в Telegram за полминуты</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="почему">
+  <div class="полоса">
+    <p class="метка-секции явь">Резюме</p>
+    <h2 class="явь">Почему это сработает</h2>
+    <div class="резюме явь" style="margin-top:22px">
+      <div class="довод-большой">
+        <p class="заглавие">Не стартап, а работающий бизнес</p>
+        <p>Денежный поток 60–100&nbsp;тыс.&nbsp;₪ в месяц уже есть. Команда собрана, клиенты
+        рекомендуют, сезонность известна по трём годам работы.</p>
+      </div>
+      <div class="довод-большой">
+        <p class="заглавие">Инфраструктура роста уже построена</p>
+        <p>Бренд, сайт, калькулятор, CRM и автоответы готовы и оплачены. Финансирование
+        не тратится на «подготовку» — только на то, что напрямую растит выручку.</p>
+      </div>
+      <div class="довод-большой">
+        <p class="заглавие">Деньги идут в узкое место</p>
+        <p>Ограничитель сегодня — один автомобиль и одна бригада. Второй автомобиль
+        и вторая бригада удваивают пропускную способность при готовом потоке заказов.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="финансирование" class="секция-серое">
+  <div class="полоса">
+    <p class="метка-секции явь">Финансирование</p>
+    <h2 class="явь">Запрос на финансирование и контролируемый план роста</h2>
+    <p class="подпись явь">Сначала транспорт и команда, затем масштабирование рекламы —
+    так снижается операционный риск.</p>
+    <div class="финшапка явь">
+      <div class="ячейка"><span class="число">200&nbsp;000&nbsp;₪</span><span class="что">запрос на 60 месяцев</span></div>
+      <div class="ячейка"><span class="число">60&nbsp;000&nbsp;₪</span><span class="что">собственный вклад</span></div>
+      <div class="ячейка"><span class="число">5–7&nbsp;тыс.&nbsp;₪</span><span class="что">комфортный платёж в месяц</span></div>
+    </div>
+
+    <div class="структура явь">
+      <h3 style="margin-top:0">Структура финансирования: общий бюджет проекта — 260&nbsp;000&nbsp;₪</h3>
+      <div class="структура-полоса" role="img" aria-label="Кредит 200 тысяч шекелей — 77 процентов, собственные средства 60 тысяч — 23 процента">
+        <span class="кредит">Кредит — 200&nbsp;тыс.&nbsp;₪ (77%)</span>
+        <span class="своё">Свои — 60&nbsp;тыс.&nbsp;₪</span>
+      </div>
+      <p class="структура-легенда"><i style="background:var(--синий)"></i>Кредит — 200&nbsp;тыс.&nbsp;₪ (77%)<i style="background:var(--оранжевый)"></i>Свои — 60&nbsp;тыс.&nbsp;₪ (23%)</p>
+    </div>
+
+    <div class="бюджет явь">
+      <div>
+        <h3 style="margin-top:0">План использования бюджета</h3>
+        <div class="бюджет-полоса" data-бюджет-полоса aria-hidden="true"></div>
+        <p class="бюджет-подпись" data-бюджет-подпись>Наведите на полосу или выберите статью — увидите её долю.</p>
+      </div>
+      <ul class="статьи" data-статьи>
+        <li class="статья" data-статья="0"><span class="цветик"></span><span class="имя">Расширение автопарка и приобретение транспорта</span><span class="сколько">70&nbsp;тыс.&nbsp;₪</span></li>
+        <li class="статья" data-статья="1"><span class="цветик"></span><span class="имя">Брендирование и оснащение автомобилей</span><span class="сколько">20&nbsp;тыс.&nbsp;₪</span></li>
+        <li class="статья" data-статья="2"><span class="цветик"></span><span class="имя">Сайт и цифровая инфраструктура продаж</span><span class="сколько">8&nbsp;тыс.&nbsp;₪</span></li>
+        <li class="статья" data-статья="3"><span class="цветик"></span><span class="имя">AI, CRM и автоматизация процессов</span><span class="сколько">40&nbsp;тыс.&nbsp;₪</span></li>
+        <li class="статья" data-статья="4"><span class="цветик"></span><span class="имя">Стартовый рекламный бюджет</span><span class="сколько">25&nbsp;тыс.&nbsp;₪</span></li>
+        <li class="статья" data-статья="5"><span class="цветик"></span><span class="имя">Оборотные средства и резерв ликвидности</span><span class="сколько">97&nbsp;тыс.&nbsp;₪</span></li>
+      </ul>
+    </div>
+    <p class="сноска явь">Распределение между первоначальным взносом по лизингу и покупкой сервисного
+    микроавтобуса уточняется после одобрения и выбора автомобиля.</p>
+
+    <h3 class="явь">План роста и источник возврата</h3>
+    <ol class="таймлайн явь">
+      <li class="веха">
+        <span class="сумма">60–100&nbsp;тыс.&nbsp;₪</span>
+        <span class="когда">Сейчас</span>
+        <p class="заглавие">Действующий бизнес с одним автомобилем</p>
+        <p>30–50 заказов в месяц; работающая перевозочная и сервисная команда.</p>
+      </li>
+      <li class="веха">
+        <span class="сумма">цель 200&nbsp;тыс.&nbsp;₪</span>
+        <span class="когда">6–9 месяцев</span>
+        <p class="заглавие">Два автомобиля и две перевозочные бригады</p>
+        <p>Хендимен, покраска и уборка — как дополнительные продажи тем же клиентам.</p>
+      </li>
+      <li class="веха">
+        <span class="сумма">от 150&nbsp;тыс.&nbsp;₪</span>
+        <span class="когда">Уровень прибыльности</span>
+        <p class="заглавие">Покрытие лизинга, зарплат, страховок и рекламы</p>
+        <p>По действующей операционной модели бизнеса.</p>
+      </li>
+      <li class="веха">
+        <span class="сумма">300–400&nbsp;тыс.&nbsp;₪</span>
+        <span class="когда">Сезонный потенциал</span>
+        <p class="заглавие">Дополнительная загрузка в летние месяцы</p>
+        <p>Не используется как база для расчёта возврата — только запас прочности.</p>
+      </li>
+    </ol>
+
+    <div class="риски явь">
+      <div class="риск зелёный"><b>Модель загрузки большого грузовика:</b> 2–3 дня доставки премиальной
+      мебели + 2–3 дня перевозок еженедельно.</div>
+      <div class="риск серый"><b>Текущая кредитная дисциплина:</b> остаток около 25&nbsp;тыс.&nbsp;₪,
+      платёж около 1,2&nbsp;тыс.&nbsp;₪ в месяц, без просрочек.</div>
+    </div>
+  </div>
+</section>
+
+<section id="стратегия">
+  <div class="полоса">
+    <p class="метка-секции явь">Стратегия</p>
+    <h2 class="явь">Стратегия развития группы</h2>
+    <div class="заглушка явь" style="margin-top:18px">
+      <p>Раздел готовится: здесь встанет стратегия развития — новые направления, этапы
+      и цели за горизонтом первого года. Текст пишут основатели; страница обновится
+      по этой же ссылке.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="полоса">
+    <svg class="знак-низ" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436 198" role="img" aria-label="fixli">
+  <title>fixli</title>
+  <!--
+    Знак на тёмном фоне — ВЫВОРОТКА, а не инверсия.
+
+    На носителях заказчика (футболки и кепка в макетах найма) выворотка
+    двухцветная: `fix` остаётся фирменным оранжевым, белым становится только
+    `li`. Это факт с носителя, а не наше решение. Знак целиком в белый не
+    выворачивают — так делает пока только `Logo.astro` в варианте `onDark`
+    (через `brightness-0 invert` растра), и это расхождение с носителями,
+    а не образец для повторения.
+
+    Фон под этой вывороткой обязан быть тёмным: оранжевый по белому даёт 2,65
+    и не читается. Проверенные подложки — `fx-navy-deep` и `fx-navy-darkest`.
+
+    Происхождение: наша перетрассировка растра 436 × 198 из материалов
+    заказчика (силуэт по альфа-каналу, marching squares с субпиксельной
+    интерполяцией, распознавание прямых и дуг). Расхождение с исходным PNG
+    1,05 % при 1×, 2,29 % при 4× — мерит `.business/assets/сверка-обводки.mjs`.
+    Файла от дизайнера заказчика у проекта нет; крупнее источника в его
+    материалах не существует, поэтому это потолок, а не выбор.
+
+    Границы применения: экран, печать визитки и бланка, вышивка и шелкография —
+    да. Оклейка фургона метровыми буквами — нет: 1 px исходника на двухметровом
+    борту ≈ 4,6 мм, и волна на дуге станет видна вблизи. Для оклейки берётся
+    исходник дизайнера по ТЗ `.business/assets/тз-логотип-для-анимации.md`.
+
+    Про цвета: здесь они литералами, и это осознанное исключение из правила
+    «значение существует один раз, в brand/tokens.css». Отдельный SVG-файл
+    уезжает в типографию и в рекламный кабинет, где никакого CSS нет. Значения
+    равны токенам fx-orange и fx-navy и проверяются пипеткой по ним:
+    трассированный вектор однажды уже принёс цвета замера (#F28123 / #12448D)
+    вместо цветов бренда, и первый экран сайта полдня показывал знак не в
+    фирменном оранжевом.
+
+    Фигура человека в знаке — это буква `i` целиком: точка это голова, палочка
+    тело, вынос сбоку рука. Таких букв две, зеркальных: оранжевая в `fix` тянет
+    руку вправо, синяя в `li` влево, и они идут навстречу друг другу через `x`
+    и `l`. Буква `l` — простой брусок, фигуры в нём нет.
+    ВНИМАНИЕ, ГРАБЛЯ: в комментарии SVG нельзя писать двойной дефис — это
+    невалидный XML, и браузер не рисует файл ВОВСЕ, показывая alt вместо знака.
+    Поэтому имена токенов здесь пишутся без ведущих дефисов: fx-orange, а не
+    полное имя переменной. Так уже ломалось: четыре файла знака разом отдавали
+    битую картинку, и нашли это глаза на кадре, а не проверка.
+  -->
+  <path
+    id="f"
+    fill="#f38025"
+    d="M 68.68 10.5 L 102.5 10.08 A 4.26 4.26 0 0 1 105.3 15.5 L 105.17 37.5 A 6.91 6.91 0 0 1 98.5 39.53 L 73.5 40.22 A 15.26 15.26 0 0 0 63.89 47.5 A 33.39 33.39 0 0 0 61.19 64.5 L 61.5 70.82 L 64.5 71.69 L 100.5 71.73 L 101.58 73.5 L 93.5 100.53 L 88.5 101.31 L 62.48 101.5 L 61.4 103.5 L 61.08 188.5 L 59.5 189.63 L 29.96 189.5 L 28.87 185.5 L 28.5 102.22 L 22.5 101.26 L 12.5 100.81 L 11.13 99.5 L 11.5 72.26 L 27.56 71.5 L 28.81 68.5 L 29.87 47.5 L 33.71 35.5 L 40.14 25.5 L 49.69 17.5 L 56.5 13.89 L 70.5 10.12 Z"
+  />
+  <path
+    id="i1-stem"
+    fill="#f38025"
+    d="M 132.14 70.5 A 13.67 13.67 0 0 1 144.73 77.5 L 156.5 93.51 L 163.88 99.5 L 173.03 104.5 L 173.5 105.69 A 18.06 18.06 0 0 1 160.5 109.93 L 153.58 110.5 L 153.1 188.5 L 152.5 189.66 L 121.78 189.5 A 8.75 8.75 0 0 1 120.8 183.5 L 120.85 83.5 L 121.98 77.5 A 12.44 12.44 0 0 1 143.93 76.5 Z"
+  />
+  <circle id="i1-dot" cx="138.95" cy="46.42" r="18.82" fill="#f38025" />
+  <path
+    id="x"
+    fill="#f38025"
+    d="M 179 71.5 L 214.5 71.56 A 8.45 8.45 0 0 1 218.5 75.74 L 240.5 103.86 L 241.55 104.5 L 266.81 72.5 L 269.5 71.48 L 304.5 71.55 L 305.41 72.5 L 300.5 80.62 L 262.86 129.5 A 7.85 7.85 0 0 0 265.88 134.5 L 300.5 178.94 L 307.44 188.5 L 307.33 189.5 L 270.5 189.91 L 262.5 180.4 L 242.5 155.11 L 241.5 154.07 L 236.03 160.5 L 213.5 189.55 L 176.5 189.74 A 1.7 1.7 0 0 1 176.5 186.38 L 219.5 131.22 L 219.35 128.5 L 178.5 75.2 L 177.5 72.19 A 7.81 7.81 0 0 1 183.5 71.3 Z"
+  />
+  <path
+    id="l"
+    fill="#ffffff"
+    d="M 330.25 21.5 L 359.5 21.69 L 360.81 22.5 L 360.9 187.5 L 359.5 189.56 L 330.5 189.39 L 329 188.5 L 328.21 172.5 L 328.5 22.47 L 331.5 21.35 Z"
+  />
+  <path
+    id="i2-stem"
+    fill="#ffffff"
+    d="M 408.44 71.5 A 12.39 12.39 0 0 1 423.6 76.5 A 18.17 18.17 0 0 1 425.22 87.5 L 425 188.5 L 419.5 189.6 L 393.5 189.23 L 392.12 186.5 L 391.8 110.5 L 380.5 109.8 L 373.42 106.5 L 373.01 104.5 L 385.13 97.5 A 40.56 40.56 0 0 0 394.82 86.5 L 404.5 73.71 A 12.9 12.9 0 0 1 414.5 70.78 Z"
+  />
+  <circle id="i2-dot" cx="406.28" cy="46.37" r="18.89" fill="#ffffff" />
+</svg>
+    <p>Fixli — переезды, сервис и решения для дома. Нетания, работаем по центру Израиля.</p>
+    <p>Сайт: <a href="https://fixlihome.co.il/ru/" target="_blank" rel="noopener">fixlihome.co.il</a> ·
+    WhatsApp: +972&nbsp;55-294-7783</p>
+    <p style="margin-top:18px">Материал подготовлен для обсуждения финансирования. Страница закрыта
+    от поисковой индексации и открывается только по прямой ссылке.</p>
+    <p class="автор">Made by Dmitry Khinkis</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var тихо = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* появление при прокрутке */
+  var явь = [].slice.call(document.querySelectorAll(".явь"));
+  if (тихо || !("IntersectionObserver" in window)) {
+    явь.forEach(function (эл) { эл.classList.add("виден"); });
+  } else {
+    var наблюдатель = new IntersectionObserver(function (записи) {
+      записи.forEach(function (з) {
+        if (з.isIntersecting) { з.target.classList.add("виден"); наблюдатель.unobserve(з.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px" });
+    явь.forEach(function (эл) { наблюдатель.observe(эл); });
+  }
+
+  /* сезонный переключатель */
+  var сезоны = { низкий: { выручка: 60, заказы: 30 }, высокий: { выручка: 100, заказы: 50 } };
+  var кнопкиСезона = [].slice.call(document.querySelectorAll("[data-сезон]"));
+  var полеВыручка = document.querySelector("[data-выручка]");
+  var полеЗаказы = document.querySelector("[data-заказы]");
+  var шкалаВыручка = document.querySelector("[data-шкала-выручка]");
+  var шкалаЗаказы = document.querySelector("[data-шкала-заказы]");
+  function вести(поле, к) {
+    var от = parseInt(поле.textContent, 10) || 0;
+    if (тихо || от === к) { поле.textContent = String(к); return; }
+    var старт = null;
+    function шаг(t) {
+      if (старт === null) старт = t;
+      var доля = Math.min((t - старт) / 450, 1);
+      поле.textContent = String(Math.round(от + (к - от) * доля));
+      if (доля < 1) requestAnimationFrame(шаг);
+    }
+    requestAnimationFrame(шаг);
+  }
+  кнопкиСезона.forEach(function (кнопка) {
+    кнопка.addEventListener("click", function () {
+      var режим = сезоны[кнопка.dataset["сезон"]];
+      кнопкиСезона.forEach(function (к) { к.setAttribute("aria-pressed", String(к === кнопка)); });
+      вести(полеВыручка, режим.выручка);
+      вести(полеЗаказы, режим.заказы);
+      шкалаВыручка.style.width = режим.выручка + "%";
+      шкалаЗаказы.style.width = (режим.заказы * 2) + "%";
+    });
+  });
+
+  /* бюджет */
+  var статьиДанные = [
+    { имя: "Транспорт", сумма: 70, цвет: "#12438f" },
+    { имя: "Брендирование машин", сумма: 20, цвет: "#3a66ad" },
+    { имя: "Сайт и цифровая инфраструктура", сумма: 8, цвет: "#6f93cd" },
+    { имя: "AI, CRM и автоматизация", сумма: 40, цвет: "#f38025" },
+    { имя: "Стартовая реклама", сумма: 25, цвет: "#f7ab63" },
+    { имя: "Оборотные средства и резерв", сумма: 97, цвет: "#a9c0e4" }
+  ];
+  var всего = статьиДанные.reduce(function (с, ст) { return с + ст.сумма; }, 0);
+  var полоса = document.querySelector("[data-бюджет-полоса]");
+  var подпись = document.querySelector("[data-бюджет-подпись]");
+  var строки = [].slice.call(document.querySelectorAll("[data-статья]"));
+  var сегменты = статьиДанные.map(function (ст, i) {
+    var с = document.createElement("span");
+    с.style.background = ст.цвет;
+    с.style.flexBasis = (ст.сумма / всего * 100) + "%";
+    полоса.appendChild(с);
+    var цветик = строки[i].querySelector(".цветик");
+    if (цветик) цветик.style.background = ст.цвет;
+    return с;
+  });
+  var выбрано = -1;
+  function показать(i) {
+    выбрано = i;
+    полоса.classList.toggle("выбрано", i >= 0);
+    сегменты.forEach(function (с, j) { с.classList.toggle("горит", j === i); });
+    строки.forEach(function (с, j) { с.classList.toggle("горит", j === i); });
+    if (i < 0) {
+      подпись.textContent = "Наведите на полосу или выберите статью — увидите её долю.";
+    } else {
+      var ст = статьиДанные[i];
+      var доля = Math.round(ст.сумма / всего * 100);
+      подпись.innerHTML = "<b>" + ст.имя + "</b> — " + ст.сумма + " тыс. ₪, " +
+        доля + " % бюджета проекта.";
+    }
+  }
+  сегменты.forEach(function (с, i) {
+    с.addEventListener("mouseenter", function () { показать(i); });
+    с.addEventListener("click", function () { показать(выбрано === i ? -1 : i); });
+  });
+  полоса.addEventListener("mouseleave", function () { if (выбрано >= 0) показать(выбрано); });
+  строки.forEach(function (строка, i) {
+    строка.addEventListener("click", function () { показать(выбрано === i ? -1 : i); });
+  });
+
+  /* CRM-цепочка */
+  var шаги = [].slice.call(document.querySelectorAll("[data-шаг]"));
+  var кадры = [].slice.call(document.querySelectorAll("[data-кадры] img"));
+  шаги.forEach(function (шаг) {
+    шаг.addEventListener("click", function () {
+      var i = parseInt(шаг.dataset["шаг"], 10);
+      шаги.forEach(function (ш, j) { ш.setAttribute("aria-pressed", String(j === i)); });
+      кадры.forEach(function (к, j) { к.classList.toggle("виден-кадр", j === i); });
+    });
+  });
+
+  /* галерея */
+  var галерея = document.querySelector(".галерея");
+  [].slice.call(document.querySelectorAll("[data-листать]")).forEach(function (кнопка) {
+    кнопка.addEventListener("click", function () {
+      галерея.scrollBy({ left: 280 * parseInt(кнопка.dataset["листать"], 10), behavior: тихо ? "auto" : "smooth" });
+    });
+  });
+
+  /* живой калькулятор */
+  var живой = document.querySelector("[data-живой]");
+  var запустить = document.querySelector("[data-запустить]");
+  if (запустить) {
+    запустить.addEventListener("click", function () {
+      var рамка = document.createElement("iframe");
+      рамка.src = "https://fixlihome.co.il/ru/calculator/";
+      рамка.title = "Живой калькулятор стоимости переезда Fixli";
+      живой.innerHTML = "";
+      живой.appendChild(рамка);
+    });
+  }
+})();
+</script>
+</body>
+</html>
