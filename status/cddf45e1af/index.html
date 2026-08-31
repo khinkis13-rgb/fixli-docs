@@ -543,36 +543,101 @@
    * очищена и подтверждена». Этот документ и есть внешняя публикация.
    */
 
-  .такты { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 26px 0 10px; }
+  /* Такты — дорожка, а не три равноправные карточки: порядок в них и есть
+     содержание («капиталоёмкие шаги не опережают спрос»), а три одинаковых
+     прямоугольника подряд его не сообщают. Поэтому номер стоит цифрой, а зазор
+     сетки занимает связка.
+
+     Цифра `aria-hidden`: её работа — вес и направление взгляда, а очерёдность
+     диктору сообщает сам порядок карточек в разметке.
+
+     Рост карточек слева направо (предлагался) НЕ сделан: на 900 px они встают в
+     столбик, и «рост» превращается в случайный разнобой ширин. */
+  .такты { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 26px 0 10px; }
   .такт {
     position: relative; background: var(--туман); border-radius: 16px;
     padding: 18px 20px 18px 22px; border-left: 4px solid var(--оранжевый);
+  }
+  /* Цифра остаётся декором, и это осознанно: контраст .10 к туману — 1,19, то
+     есть как текст она не читается вовсе. Читать её и не нужно — очерёдность
+     сообщают слово рядом («Сначала»), порядок карточек и связка между ними;
+     сними цифру совсем — не потеряется ничего. Поэтому `aria-hidden`, и поэтому
+     же она НЕ несёт того, чего нет в словах. */
+  .такт .цифра {
+    position: absolute; right: 14px; top: 4px; font-size: 44px; line-height: 1;
+    font-weight: 800; color: rgba(18, 67, 143, .10); pointer-events: none;
   }
   .такт .номер {
     display: block; font-size: 12px; font-weight: 700; letter-spacing: .1em;
     text-transform: uppercase; color: var(--оранжевый-текст); margin-bottom: 6px;
   }
-  .такт p { margin: 0; font-size: 15.5px; font-weight: 600; color: var(--синий-тёмный); }
+  .такт p { position: relative; margin: 0; font-size: 15.5px; font-weight: 600; color: var(--синий-тёмный); }
+  /* Связка стоит в зазоре сетки (20 px), поэтому ничего не двигает и не меняет
+     высоту ряда. Последний такт её не несёт — стрелка в пустоту обещала бы
+     четвёртый шаг, которого в плане нет. */
+  .такт::after {
+    content: "→"; position: absolute; right: -16px; top: 50%; transform: translateY(-50%);
+    font-size: 15px; line-height: 1; font-weight: 700; color: var(--оранжевый);
+  }
+  .такт:last-child::after { content: none; }
 
   /* круг экосистемы */
   .эко-круг { display: grid; grid-template-columns: 420px 1fr; gap: 34px; align-items: center; margin-top: 8px; }
-  .эко-схема { width: 100%; max-width: 420px; margin: 0 auto; }
+  /* Очень слабое свечение из центра: вся конструкция растёт из одной
+     клиентской базы, и фон говорит это раньше, чем текст. Радиус подобран так,
+     чтобы к кромке кольца оно уже сошло на нет и не спорило с заливками. */
+  .эко-схема {
+    width: 100%; max-width: 420px; margin: 0 auto;
+    background: radial-gradient(circle at 50% 46%, rgba(18, 67, 143, .09), rgba(18, 67, 143, 0) 60%);
+  }
   .эко-схема .сектор { cursor: pointer; }
+  /* У `<g tabindex>` Chromium рисует своё кольцо фокуса и по клику мышью: замер
+     даёт `:focus-visible` false при outline 5px, то есть рамка приходит от UA, а
+     не от правила ниже. Нажавший мышью получал прямоугольник вокруг сектора.
+     Снимаем UA-кольцо, своё для клавиатуры оставляем. */
+  .эко-схема .сектор:focus { outline: none; }
   .эко-схема .сектор:focus-visible { outline: 3px solid var(--синий-тёмный); outline-offset: 2px; }
   /* Гаснет ТОЛЬКО заливка. Пока затухание висело на всей группе, оно гасило и
      подпись — то есть роняло контраст текста ровно у четырёх секторов из пяти. */
   .эко-схема .заливка { transition: opacity .18s, transform .18s; transform-origin: 230px 185px; }
-  .эко-схема .сектор[aria-pressed="false"] .заливка { opacity: .5; }
-  .эко-схема .сектор[aria-pressed="true"] .заливка { transform: scale(1.04); }
+  .эко-схема .сектор[aria-pressed="false"] .заливка { opacity: .45; }
+  /* Выбранный сектор выезжает НАРУЖУ по своей биссектрисе, а не увеличивается от
+     центра: увеличение читается как «стало больше по величине», то есть как
+     утверждение о доле направления, которого мы не делаем. Вектор выноса задан
+     у каждого сектора в разметке, потому что он свой на каждом угле. */
+  .эко-схема .сектор[aria-pressed="true"] .заливка {
+    transform: translate(var(--вынос-x, 0), var(--вынос-y, 0));
+  }
+  /* Состояние прямо на кольце. На 700 px и уже — снимается: кегль задан в
+     единицах viewBox, и на телефоне это около 8 реальных пикселей. Потери нет,
+     то же состояние стоит словами в карточке рядом. */
+  .эко-схема .состояние { font-size: 11.5px; font-weight: 600; fill: var(--текст-мягкий); }
+  .эко-схема .сектор[aria-pressed="true"] .состояние { fill: var(--оранжевый-текст); }
   /* Подписи снаружи кольца, поэтому цвет у всех один и это цвет по белому фону. */
   .эко-схема .имя { font-size: 15.5px; font-weight: 700; fill: var(--синий-тёмный); }
   .эко-схема .сектор[aria-pressed="true"] .имя { fill: var(--оранжевый-текст); }
+  @media (max-width: 700px) { .эко-схема .состояние { display: none; } }
   .эко-ядро { font-weight: 700; fill: var(--синий-тёмный); text-anchor: middle; }
   .эко-ядро.мелко { font-size: 12.5px; font-weight: 600; fill: var(--текст-мягкий); }
   .эко-карточка { min-height: 210px; }
   .эко-карточка .шапка { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
   .эко-карточка .точка { width: 14px; height: 14px; border-radius: 4px; flex: none; }
   .эко-карточка h4 { margin: 0; font-size: 21px; color: var(--синий-тёмный); }
+  /* Счётчик — ориентир «где я в пятёрке», поэтому он крупный и бледный, а не
+     подпись. Скрыт от диктора: положение ему уже сообщают пять озвученных
+     секторов-кнопок, а «01 / 05» при каждой смене читалось бы вслух впустую. */
+  /* Счётчик стоит НАД меткой, а не в её строке: на 1280 карточка шире тысячи
+     пикселей, и прижатый вправо номер отрывался от всего, к чему относится.
+
+     Цвет — не «полупрозрачный номер» из предложения, а замер: при .22 контраст
+     к белому 1,47, то есть номер, который просят прочитать, прочитать нельзя.
+     Взято .60 — #718EBC, контраст 3,33 при кегле 26 px bold, то есть AA для
+     крупного текста. Бледнее делать нечего: у текста есть порог, у декора нет,
+     а это текст. */
+  .эко-карточка .счёт {
+    display: block; margin-bottom: 6px; font-size: 26px; font-weight: 800;
+    line-height: 1; color: rgba(18, 67, 143, .60);
+  }
   .эко-карточка .роль {
     font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
     color: var(--оранжевый-текст);
@@ -757,6 +822,9 @@
        Лента этапов остаётся горизонтальной прокруткой — это её форма, а не
        уступка: шесть этапов в столбик снова дают простыню. */
     .такты { grid-template-columns: 1fr; }
+    /* В столбик связка разворачивается вниз: вбок ей уже некуда, а без неё три
+       карточки снова читаются как перечень, а не как порядок. */
+    .такт::after { content: "↓"; right: auto; left: 26px; top: auto; bottom: -17px; transform: none; }
     .эко-круг { grid-template-columns: 1fr; gap: 22px; }
     .эко-карточка { min-height: 0; }
     .этап-сетка { grid-template-columns: 1fr; }
@@ -1391,20 +1459,23 @@
 
     <div class="такты явь">
       <div class="такт">
+        <span class="цифра" aria-hidden="true">01</span>
         <span class="номер">Сначала</span>
         <p>Усилить то, что уже работает</p>
       </div>
       <div class="такт">
+        <span class="цифра" aria-hidden="true">02</span>
         <span class="номер">Затем</span>
         <p>Превратить опыт в систему</p>
       </div>
       <div class="такт">
+        <span class="цифра" aria-hidden="true">03</span>
         <span class="номер">И только потом</span>
         <p>Масштабировать инфраструктуру</p>
       </div>
     </div>
 
-    <h3 class="явь">Что продаём: пять направлений на одной клиентской базе</h3>
+    <h3 class="явь">Пять направлений роста</h3>
     <p class="подпись явь">Fixli — не каталог мастеров, а сервис ответственности: переданная
     задача остаётся нашей до готового результата. Нажмите сектор.</p>
 
@@ -1415,25 +1486,30 @@
         Секторы — кнопки, поэтому работают и с клавиатуры.
       -->
       <svg class="эко-схема" viewBox="-16 0 492 400" role="group" aria-label="Пять направлений Fixli вокруг общей клиентской базы">
-        <g data-эко="0" class="сектор" role="button" tabindex="0" aria-pressed="true" aria-label="Moving">
+        <g data-эко="0" class="сектор" style="--вынос-x: 4.7px; --вынос-y: -6.5px" role="button" tabindex="0" aria-pressed="true" aria-label="Moving">
           <path class="заливка" fill="#12438f" d="M232.9 45.0 A140 140 0 0 1 362.2 139.0 L309.3 157.4 A84 84 0 0 0 231.8 101.0 Z" />
           <text class="имя" x="327.6" y="55.7" text-anchor="start">Moving</text>
+          <text class="состояние" x="327.6" y="72.7" text-anchor="start">сегодня</text>
         </g>
-        <g data-эко="1" class="сектор" role="button" tabindex="0" aria-pressed="false" aria-label="Cleaning">
+        <g data-эко="1" class="сектор" style="--вынос-x: 7.6px; --вынос-y: 2.5px" role="button" tabindex="0" aria-pressed="false" aria-label="Cleaning">
           <path class="заливка" fill="#3a66ad" d="M364.0 144.5 A140 140 0 0 1 314.6 296.5 L280.8 251.9 A84 84 0 0 0 310.4 160.7 Z" />
           <text class="имя" x="387.9" y="241.3" text-anchor="start">Cleaning</text>
+          <text class="состояние" x="387.9" y="258.3" text-anchor="start">этап 2</text>
         </g>
-        <g data-эко="2" class="сектор" role="button" tabindex="0" aria-pressed="false" aria-label="Handyman">
+        <g data-эко="2" class="сектор" style="--вынос-x: 0px; --вынос-y: 8px" role="button" tabindex="0" aria-pressed="false" aria-label="Handyman">
           <path class="заливка" fill="#6f93cd" d="M309.9 300.0 A140 140 0 0 1 150.1 300.0 L182.1 254.0 A84 84 0 0 0 277.9 254.0 Z" />
           <text class="имя" x="230.0" y="356.0" text-anchor="middle">Handyman</text>
+          <text class="состояние" x="230.0" y="373.0" text-anchor="middle">сегодня</text>
         </g>
-        <g data-эко="3" class="сектор" role="button" tabindex="0" aria-pressed="false" aria-label="Painting">
+        <g data-эко="3" class="сектор" style="--вынос-x: -7.6px; --вынос-y: 2.5px" role="button" tabindex="0" aria-pressed="false" aria-label="Painting">
           <path class="заливка" fill="#f7ab63" d="M145.4 296.5 A140 140 0 0 1 96.0 144.5 L149.6 160.7 A84 84 0 0 0 179.2 251.9 Z" />
           <text class="имя" x="72.1" y="241.3" text-anchor="end">Painting</text>
+          <text class="состояние" x="72.1" y="258.3" text-anchor="end">этап 2</text>
         </g>
-        <g data-эко="4" class="сектор" role="button" tabindex="0" aria-pressed="false" aria-label="Solutions">
+        <g data-эко="4" class="сектор" style="--вынос-x: -4.7px; --вынос-y: -6.5px" role="button" tabindex="0" aria-pressed="false" aria-label="Solutions">
           <path class="заливка" fill="#f38025" d="M97.8 139.0 A140 140 0 0 1 227.1 45.0 L228.2 101.0 A84 84 0 0 0 150.7 157.4 Z" />
           <text class="имя" x="132.4" y="55.7" text-anchor="end">Solutions</text>
+          <text class="состояние" x="132.4" y="72.7" text-anchor="end">этап 5</text>
         </g>
         <!-- подписи вынесены НАРУЖУ кольца: внутри они вылезали за обе кромки
              («Cleaning» и «Painting» резались краем), а затухание невыбранного
@@ -1444,9 +1520,11 @@
       </svg>
 
       <div class="эко-карточка" data-эко-карточка aria-live="polite">
+        <span class="счёт" data-эко-счёт aria-hidden="true">01 / 05</span>
         <div class="шапка">
           <span class="точка" data-эко-точка style="background:#12438f"></span>
           <span class="роль" data-эко-роль>Главный вход</span>
+          
         </div>
         <h4 data-эко-имя>Moving</h4>
         <p data-эко-текст>Переезды, доставки, сложные монтажи — от базовой перевозки до
@@ -2221,6 +2299,7 @@
   var экоИмя = document.querySelector("[data-эко-имя]");
   var экоТекст = document.querySelector("[data-эко-текст]");
   var экоСостояние = document.querySelector("[data-эко-состояние]");
+  var экоСчёт = document.querySelector("[data-эко-счёт]");
 
   function выбратьЭко(i) {
     var д = экоДанные[i];
@@ -2231,6 +2310,7 @@
     экоТекст.textContent = д.текст;
     экоСостояние.textContent = д.состояние;
     экоСостояние.classList.toggle("идёт", д.идёт);
+    экоСчёт.textContent = "0" + (i + 1) + " / 05";
   }
   экоСекторы.forEach(function (с, i) {
     с.addEventListener("click", function () { выбратьЭко(i); });
