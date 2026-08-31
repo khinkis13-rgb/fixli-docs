@@ -1,0 +1,1202 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дорожная карта Fixli: сентябрь → январь</title>
+
+<!-- Из поиска страницу закрывают эти теги, а не robots.txt: запрет в robots.txt
+     убил бы превью ссылки в WhatsApp и Telegram, а её отправляют именно туда.
+     От посторонних глаз страницу закрывает неугадываемый сегмент в адресе —
+     тот же выбор, что у отчёта партнёрам, страницы предложения и запроса фото. -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="bingbot" content="noindex, nofollow">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Fixli">
+<meta property="og:title" content="Дорожная карта Fixli: сентябрь → январь">
+<meta property="og:description" content="Десять задач → пять шагов. На этой неделе 15 дел, у каждого понятный объём. Всего в карте 44.">
+<meta property="og:image" content="https://docs.fixlihome.co.il/status/4e9a71c05b/og-card.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Карточка Fixli: 5 шагов, 15 дел на этой неделе, 44 в карте">
+<meta property="og:url" content="https://docs.fixlihome.co.il/status/4e9a71c05b/">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Дорожная карта Fixli: сентябрь → январь">
+<meta name="twitter:description" content="Десять задач → пять шагов. На этой неделе 15 дел, у каждого понятный объём. Всего в карте 44.">
+<meta name="twitter:image" content="https://docs.fixlihome.co.il/status/4e9a71c05b/og-card.jpg">
+<meta name="twitter:image:alt" content="Карточка Fixli: 5 шагов, 15 дел на этой неделе, 44 в карте">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%2312438f%22/%3E%3Ccircle cx=%2216%22 cy=%228.5%22 r=%223.4%22 fill=%22%23f38025%22/%3E%3Crect x=%2213%22 y=%2214%22 width=%226%22 height=%2212%22 rx=%222.4%22 fill=%22%23f38025%22/%3E%3C/svg%3E">
+
+<style>
+:root {
+    --навигация: #12438f;
+    --навигация-тёмная: #06182f;
+    --оранжевый: #f38025;
+    --оранжевый-текст: #b5540b;
+    --текст: #1c2733;
+    --текст-мягкий: #4a5867;
+    --фон: #ffffff;
+    --туман: #f4f7fb;
+    --линия: #d9e2ee;
+    --жёлтый-фон: #fff8e6;
+    --жёлтая-линия: #e8b93a;
+  }
+
+  /* Страница светлая, и она об этом говорит вслух. Найдено 21 августа на
+     панели и на сайте: браузер красит каретку, выделение и прочую свою мелочь
+     по объявленной схеме документа, а не по нашим краскам, — и в тёмной теме
+     телефона выделение текста приветствия могло выйти неразборчивым ровно
+     там, где его копируют. Тёмной темы у бренда нет вовсе. */
+  html { color-scheme: light; }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--фон);
+    color: var(--текст);
+    font: 400 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .полоса { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  header {
+    background: var(--туман);
+    border-bottom: 1px solid var(--линия);
+    padding: 40px 0 36px;
+  }
+
+  /* Знак ставится файлом, а не набирается: буквы в нём нарисованы (вырез-рука
+     в обеих «i», «f» выше «l» на 6 %), и подстановкой шрифта их не повторить.
+     Правило брендбука, раздел 01. */
+  .знак { display: block; width: 104px; height: auto; margin: 0 0 22px; }
+
+  h1 { margin: 0 0 12px; font-size: 30px; line-height: 1.2; color: var(--навигация-тёмная); }
+  .лид { margin: 0; color: var(--текст-мягкий); font-size: 18px; }
+
+  /* Выбор окна. Он стоит первым экраном намеренно: страницу открывают двое,
+     и первое, что должен увидеть человек, — своё имя, а не общий список. */
+  .выбор { display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0 0; }
+  .выбор a {
+    flex: 1 1 200px;
+    display: block;
+    text-decoration: none;
+    background: var(--фон);
+    border: 1px solid var(--линия);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .выбор a:hover { border-color: var(--оранжевый); }
+  .выбор b { display: block; font-size: 20px; color: var(--навигация-тёмная); }
+  .выбор span { display: block; margin-top: 4px; font-size: 15px; color: var(--текст-мягкий); }
+
+  /* Опись того, что внутри окна. Точка вместо маркера списка: полноценные
+     буллиты в карточке спорят по весу с самим именем, а без маркера строки
+     сливаются в абзац. Первая строка — дело, поэтому она темнее остальных:
+     из пяти строк должно быть видно, какая из них требует действия. */
+  .выбор ul { margin: 12px 0 0; padding: 0; list-style: none; }
+  .выбор li {
+    position: relative;
+    padding-inline-start: 14px;
+    margin: 0 0 3px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--текст-мягкий);
+  }
+  .выбор li::before {
+    content: '·';
+    position: absolute;
+    inset-inline-start: 2px;
+    color: var(--оранжевый);
+    font-weight: 700;
+  }
+  .выбор li.дело-строка { color: var(--текст); font-weight: 600; }
+
+  .окно { margin: 46px 0 0; border: 1px solid var(--линия); border-radius: 16px; overflow: hidden; }
+  .окно__шапка { background: var(--навигация-тёмная); color: #fff; padding: 22px 24px; }
+  .окно__шапка h2 { margin: 0; font-size: 25px; line-height: 1.2; color: #fff; }
+  .окно__шапка p { margin: 6px 0 0; color: #a9c0e4; font-size: 16px; }
+  .окно__тело { padding: 22px 24px 26px; }
+
+  h2 { margin: 0 0 6px; font-size: 23px; line-height: 1.25; color: var(--навигация-тёмная); }
+  h3 { margin: 28px 0 8px; font-size: 19px; color: var(--навигация-тёмная); }
+  h3:first-child { margin-top: 0; }
+  h4 { margin: 18px 0 6px; font-size: 16px; color: var(--навигация); }
+  p { margin: 0 0 14px; }
+  ol, ul { margin: 0 0 14px; padding-inline-start: 24px; }
+  li { margin: 0 0 6px; }
+
+  .метка {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--жёлтый-фон);
+    color: var(--оранжевый-текст);
+    border: 1px solid var(--жёлтая-линия);
+    white-space: nowrap;
+  }
+
+  .дело { border: 1px solid var(--линия); border-radius: 12px; padding: 18px 20px; margin: 0 0 16px; }
+  .дело__шапка { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: baseline; margin-bottom: 10px; }
+  .дело__имя { font-weight: 700; font-size: 18px; color: var(--навигация-тёмная); }
+  .дело p:last-child { margin-bottom: 0; }
+  .зачем { color: var(--текст-мягкий); }
+
+  .вопрос {
+    background: var(--туман);
+    border-inline-start: 4px solid var(--оранжевый);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin: 0 0 14px;
+  }
+  .вопрос__текст { font-weight: 700; color: var(--навигация-тёмная); margin: 0 0 8px; }
+  .вопрос p:last-child { margin: 0; color: var(--текст-мягкий); }
+
+  /* Текст, который человек копирует пальцем с телефона. Рамка и своя подложка
+     нужны, чтобы было видно, где он начинается и где кончается: в прошлой
+     инструкции границу отмечали линиями из дефисов, и они уезжали в буфер. */
+  .копия {
+    position: relative;
+    border: 1px solid var(--линия);
+    border-radius: 12px;
+    background: var(--туман);
+    padding: 16px 18px;
+    margin: 0 0 8px;
+  }
+  .копия pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font: 400 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-user-select: all;
+    user-select: all;
+  }
+  /* Кнопка приезжает скрытой и показывается скриптом. Без скрипта её не видно
+     вовсе — кнопки-пустышки в этом проекте запрещены прямо: элемент либо
+     работает, либо его нет. Текст при этом копируется выделением всегда. */
+  .копировать {
+    display: none;
+    appearance: none;
+    border: 0;
+    cursor: pointer;
+    font: 700 15px/1 inherit;
+    background: var(--оранжевый);
+    color: var(--навигация-тёмная);
+    /* Высота задана целью нажатия, а не отступами: при padding 11px кнопка
+       выходила 37 px — меньше нормы 44, и это на единственном действии
+       страницы. Замер 2026-08-24. */
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 10px;
+  }
+  .копировать:hover { background: var(--оранжевый-текст); color: #fff; }
+  .подпись-копии { margin: 0 0 18px; font-size: 15px; color: var(--текст-мягкий); }
+
+  a { color: var(--оранжевый-текст); }
+  a:hover { color: var(--навигация); }
+
+  .кнопка {
+    display: inline-block;
+    background: var(--оранжевый);
+    color: var(--навигация-тёмная);
+    font-weight: 700;
+    text-decoration: none;
+    padding: 13px 22px;
+    border-radius: 10px;
+    margin: 4px 0 0;
+  }
+  .кнопка:hover { background: var(--оранжевый-текст); color: #fff; }
+
+  /* Табличка работ. Строками, а не таблицей: на 390 px таблица в четыре
+     колонки обрезает последний столбец — тот самый «зачем», ради которого
+     строку и читают. Та же грабля стоила правки кассе и разбору рекламы. */
+  .где-мы { margin: 26px 0 0; padding: 0; list-style: none; }
+  .где-мы li {
+    position: relative;
+    padding: 0 0 0 22px;
+    margin: 0 0 8px;
+    color: var(--текст-мягкий);
+  }
+  .где-мы li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 11px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--оранжевый);
+  }
+  .где-мы b { color: var(--текст); }
+
+  /* Чипы вместо карточек: список работ стоит ниже таблицей, и три карточки
+     во весь экран отодвигали первый же тезис на второй экран телефона. */
+  .выбор--чипы a { flex: 0 1 auto; padding: 11px 16px; }
+  .выбор--чипы b { font-size: 17px; }
+
+  .работы { margin: 14px 0 0; }
+  .работа {
+    border: 1px solid var(--линия);
+    border-left: 4px solid var(--линия);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 0 0 10px;
+  }
+  .работа--сегодня { border-left-color: var(--оранжевый); }
+  .работа--вопрос { border-left-color: var(--навигация); }
+  .работа__верх {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: baseline;
+  }
+  /* Заголовок занимает строку целиком, чипы всегда идут под ним: пока они
+     стояли в одном потоке, часть строк уносила «Игорь» на вторую строку,
+     а часть нет — четырнадцать работ читались вразнобой (найдено глазами). */
+  .работа__что { flex: 1 0 100%; font-weight: 700; color: var(--навигация-тёмная); }
+  .чип {
+    display: inline-block;
+    border: 1px solid var(--линия);
+    border-radius: 999px;
+    padding: 1px 9px;
+    font-size: 13px;
+    color: var(--текст-мягкий);
+    background: var(--туман);
+    white-space: nowrap;
+  }
+  .чип--кто { border-color: #b8c8de; color: var(--навигация); background: #eef4fc; }
+  .работа__зачем { margin: 8px 0 0; color: var(--текст-мягкий); font-size: 16px; }
+  .работа__куда {
+    display: inline-block;
+    margin: 8px 0 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  h3.группа { margin: 26px 0 0; font-size: 19px; }
+  h3.группа + p.группа-подпись { margin: 4px 0 0; color: var(--текст-мягкий); font-size: 15px; }
+
+  .правило {
+    border: 1px dashed var(--линия);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 18px 0 0;
+    color: var(--текст-мягкий);
+  }
+  .правило strong { color: var(--текст); }
+
+  footer {
+    margin-top: 52px;
+    border-top: 1px solid var(--линия);
+    padding: 24px 0 40px;
+    color: var(--текст-мягкий);
+    font-size: 15px;
+  }
+  .знак-автора { margin-top: 18px; font-size: 12px; color: #9aa7b4; }
+
+  @media (max-width: 520px) {
+    h1 { font-size: 25px; }
+    .окно__шапка h2 { font-size: 21px; }
+    .окно__шапка, .окно__тело { padding-inline: 16px; }
+  }
+
+  /* ─────────────────── дорожная карта ─────────────────── */
+
+  .выбор-строка { margin: 22px 0 0; font-size: 16px; color: var(--текст-мягкий); }
+
+  /* Полоса шагов. Стоит первым экраном, потому что просьба была именно такая:
+     видеть, с чего начинать и куда придём. На телефоне едет вбок — шесть плиток
+     в столбик снова дают простыню, а край следующей плитки виден, поэтому
+     понятно, что полоса едет. Прокрутка внутри блока, страница вбок не идёт. */
+  .полоса-шагов {
+    display: flex;
+    gap: 10px;
+    margin: 30px 0 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .полоса-шагов::-webkit-scrollbar { height: 6px; }
+  .полоса-шагов::-webkit-scrollbar-thumb { background: var(--линия); border-radius: 3px; }
+  .полоса-шагов__шаг {
+    flex: 0 0 150px;
+    scroll-snap-align: start;
+    background: var(--фон);
+    border: 1px solid var(--линия);
+    border-top: 3px solid var(--линия);
+    border-radius: 12px;
+    padding: 12px 14px 13px;
+  }
+  .полоса-шагов__шаг--сейчас { border-top-color: var(--оранжевый); background: #fff8f1; }
+  .полоса-шагов__номер {
+    display: block;
+    font-size: 12px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--текст-мягкий);
+  }
+  .полоса-шагов__шаг--сейчас .полоса-шагов__номер { color: var(--оранжевый-текст); }
+  .полоса-шагов__имя {
+    display: block;
+    margin-top: 3px;
+    font-size: 15.5px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--навигация-тёмная);
+  }
+  .полоса-шагов__когда,
+  .полоса-шагов__дел { display: block; margin-top: 4px; font-size: 13px; color: var(--текст-мягкий); }
+  .полоса-подпись { margin: 12px 0 0; font-size: 15px; color: var(--текст-мягкий); }
+
+  .шаг { margin: 40px 0 0; padding-top: 26px; border-top: 1px solid var(--линия); }
+  .шаг__шапка { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+  .шаг__номер {
+    font-size: 12.5px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--оранжевый-текст);
+    font-weight: 700;
+  }
+  .шаг__имя { margin: 0; flex: 1 0 100%; font-size: 24px; line-height: 1.25; color: var(--навигация-тёмная); }
+  .шаг__когда {
+    border: 1px solid var(--линия);
+    border-radius: 999px;
+    padding: 3px 11px;
+    font-size: 13.5px;
+    color: var(--текст-мягкий);
+  }
+  /* Мета шага стоит до списка дел: «метрика» и «закрыт, когда» — это условие
+     перехода, и без него человек читает дела, не зная зачем. */
+  .шаг__мета { margin: 16px 0 0; background: var(--туман); border-radius: 12px; padding: 16px 18px; }
+  .шаг__мета-строка { margin: 0 0 8px; font-size: 16px; }
+  .шаг__мета-строка:last-child { margin-bottom: 0; }
+  .шаг__мета-строка > span { color: var(--текст-мягкий); }
+
+  .группа-пунктов { margin: 22px 0 0; }
+  .кто {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: var(--навигация);
+    background: #eef4fc;
+    border: 1px solid #b8c8de;
+    border-radius: 999px;
+    display: inline-block;
+    padding: 3px 13px;
+  }
+  /* Пункт: квадрат слева — знак состояния, а не кнопка. Пока отметки не живут
+     в базе, нажимаемая галочка была бы кнопкой, которая ничего не делает, —
+     поэтому у квадрата нет ни курсора, ни отклика на наведение. */
+  .пункт { display: flex; gap: 12px; padding: 13px 0; border-top: 1px solid var(--линия); }
+  .группа-пунктов .пункт:first-of-type { border-top: none; padding-top: 4px; }
+  .пункт__квадрат {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    margin-top: 4px;
+    border: 2px solid var(--линия);
+    border-radius: 5px;
+  }
+  .пункт__тело { min-width: 0; }
+  .пункт__что {
+    margin: 0;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--навигация-тёмная);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .пункт__когда { margin: 5px 0 0; font-size: 15.5px; color: var(--текст-мягкий); }
+  .пункт__куда { margin: 5px 0 0; font-size: 15.5px; }
+
+  /* Таблицы реестра печатаются строками: колонок нет вовсе, поэтому на телефоне
+     нечего обрезать. Панель уже платила этим в кассе — за краем оставался
+     последний столбец, то есть ровно то число, ради которого таблицу смотрят. */
+  .строки { margin: 16px 0 0; }
+  .строка { padding: 14px 0; border-top: 1px solid var(--линия); }
+  .строка:first-child { border-top: none; padding-top: 2px; }
+  .строка__что { margin: 0 0 6px; font-weight: 700; color: var(--навигация-тёмная); }
+  .строка__пара { margin: 0 0 4px; font-size: 15.5px; }
+  .строка__пара:last-child { margin-bottom: 0; }
+  .строка__пара > span { color: var(--текст-мягкий); }
+
+  .точки { margin: 14px 0 0; padding: 0; list-style: none; }
+  .точки li { position: relative; padding-inline-start: 15px; margin: 0 0 7px; }
+  .точки li::before {
+    content: '·';
+    position: absolute;
+    inset-inline-start: 4px;
+    color: var(--оранжевый);
+    font-weight: 700;
+  }
+  .памятка { margin: 14px 0 0; padding-inline-start: 22px; }
+  .памятка li { margin: 0 0 9px; }
+  .разд { margin: 40px 0 0; padding-top: 26px; border-top: 1px solid var(--линия); }
+  .разд h3.группа { margin-top: 0; font-size: 22px; color: var(--навигация-тёмная); }
+  code {
+    background: var(--туман);
+    border: 1px solid var(--линия);
+    border-radius: 5px;
+    padding: 1px 5px;
+    font-size: 14px;
+    /* Код ключа не рвётся посередине: разорванный ключ читается как два разных.
+       Та же грабля, что с кодом объявления в разборе трёх кабинетов. */
+    white-space: nowrap;
+  }
+  .подпись { font-size: 15px; color: var(--текст-мягкий); }
+
+  @media (max-width: 520px) {
+    .шаг__имя { font-size: 21px; }
+    .полоса-шагов__шаг { flex-basis: 142px; }
+  }
+
+  /* Раскрытие вместо простыни. Первая сборка дала 22,5 экрана телефона — тот же
+     дефект, которым болела презентация партнёрам. Ноль байт своего JavaScript:
+     раскрытие делает <details>, поэтому работает и при выключенных скриптах. */
+  details.шаг, details.разд { display: block; }
+  summary.шаг__шапка, summary.разд__шапка {
+    cursor: pointer;
+    list-style: none;
+    /* Цель нажатия у заголовка-раскрытия — во всю ширину и не меньше 44 px. */
+    min-height: 44px;
+    padding: 8px 0;
+  }
+  summary.шаг__шапка::-webkit-details-marker,
+  summary.разд__шапка::-webkit-details-marker { display: none; }
+  summary.шаг__шапка::after, summary.разд__шапка::after {
+    content: '＋';
+    margin-inline-start: auto;
+    color: var(--оранжевый-текст);
+    font-size: 17px;
+    line-height: 1;
+  }
+  details[open] > summary.шаг__шапка::after,
+  details[open] > summary.разд__шапка::after { content: '−'; }
+  .шаг__имя { font-weight: 700; }
+  .шаг__дел {
+    border: 1px solid var(--линия);
+    border-radius: 999px;
+    padding: 3px 11px;
+    font-size: 13.5px;
+    color: var(--текст-мягкий);
+  }
+  .разд__шапка {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--навигация-тёмная);
+  }
+  /* Ссылка «куда нажимать» — палец, а не курсор: 18 px высоты нашёл замер. */
+  .пункт__куда a {
+    display: inline-block;
+    padding: 6px 0;
+    min-height: 24px;
+    font-weight: 600;
+  }
+
+  .вложенный { margin: 18px 0 0; background: var(--туман); border-radius: 12px; padding: 4px 18px 2px; }
+  .вложенный[open] { padding-bottom: 14px; }
+  .вложенный__шапка {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    min-height: 44px;
+    padding: 10px 0;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--навигация-тёмная);
+  }
+  .вложенный__шапка::-webkit-details-marker { display: none; }
+  .вложенный__шапка::after {
+    content: '＋';
+    margin-inline-start: auto;
+    color: var(--оранжевый-текст);
+    line-height: 1;
+  }
+  .вложенный[open] > .вложенный__шапка::after { content: '−'; }
+
+  /* На широком экране полоса шагов не едет, а переносится. Дефект нашли глаза
+     на снимке 1280: шаг 4 был подрезан, шага 5 не видно вовсе — то есть «куда
+     придём» обрезалось ровно там, где места хватает. Прокрутка остаётся формой
+     полосы только на телефоне, где шесть плиток в столбик дают простыню. */
+  @media (min-width: 900px) {
+    .полоса-шагов { flex-wrap: wrap; overflow: visible; }
+    .полоса-шагов__шаг { flex: 1 1 205px; }
+  }
+  /* Маркер раскрытия стоит рядом с заголовком, а не у края полосы: на 1280 он
+     отрывался от текста и читался случайным знаком. */
+  summary.разд__шапка::after { margin-inline-start: 10px; }
+
+  /* Состояние отметок. Строка честная в трёх положениях: «загружаются»,
+     «сделано N из M» и «не загрузились — квадраты ничего не значат». */
+  .состояние {
+    margin: 22px 0 0;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: var(--туман);
+    font-size: 15px;
+    color: var(--текст-мягкий);
+  }
+  .состояние--живое { background: #eef4fc; color: var(--навигация); }
+  .пункт--сделано .пункт__квадрат {
+    background: var(--навигация);
+    border-color: var(--навигация);
+    position: relative;
+  }
+  .пункт--сделано .пункт__квадрат::after {
+    content: '✓';
+    position: absolute;
+    inset: -3px 0 0;
+    text-align: center;
+    color: #fff;
+    font-size: 13px;
+    line-height: 18px;
+  }
+  .пункт--сделано .пункт__что { color: var(--текст-мягкий); text-decoration: line-through; }
+  .пункт--взято .пункт__квадрат { border-color: var(--оранжевый); }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="полоса">
+    <svg class="знак" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436 198" role="img" aria-label="fixli">
+  <title>fixli</title>
+  
+  <path
+    id="f"
+    fill="#f38025"
+    d="M 68.68 10.5 L 102.5 10.08 A 4.26 4.26 0 0 1 105.3 15.5 L 105.17 37.5 A 6.91 6.91 0 0 1 98.5 39.53 L 73.5 40.22 A 15.26 15.26 0 0 0 63.89 47.5 A 33.39 33.39 0 0 0 61.19 64.5 L 61.5 70.82 L 64.5 71.69 L 100.5 71.73 L 101.58 73.5 L 93.5 100.53 L 88.5 101.31 L 62.48 101.5 L 61.4 103.5 L 61.08 188.5 L 59.5 189.63 L 29.96 189.5 L 28.87 185.5 L 28.5 102.22 L 22.5 101.26 L 12.5 100.81 L 11.13 99.5 L 11.5 72.26 L 27.56 71.5 L 28.81 68.5 L 29.87 47.5 L 33.71 35.5 L 40.14 25.5 L 49.69 17.5 L 56.5 13.89 L 70.5 10.12 Z"
+  />
+  <path
+    id="i1-stem"
+    fill="#f38025"
+    d="M 132.14 70.5 A 13.67 13.67 0 0 1 144.73 77.5 L 156.5 93.51 L 163.88 99.5 L 173.03 104.5 L 173.5 105.69 A 18.06 18.06 0 0 1 160.5 109.93 L 153.58 110.5 L 153.1 188.5 L 152.5 189.66 L 121.78 189.5 A 8.75 8.75 0 0 1 120.8 183.5 L 120.85 83.5 L 121.98 77.5 A 12.44 12.44 0 0 1 143.93 76.5 Z"
+  />
+  <circle id="i1-dot" cx="138.95" cy="46.42" r="18.82" fill="#f38025" />
+  <path
+    id="x"
+    fill="#f38025"
+    d="M 179 71.5 L 214.5 71.56 A 8.45 8.45 0 0 1 218.5 75.74 L 240.5 103.86 L 241.55 104.5 L 266.81 72.5 L 269.5 71.48 L 304.5 71.55 L 305.41 72.5 L 300.5 80.62 L 262.86 129.5 A 7.85 7.85 0 0 0 265.88 134.5 L 300.5 178.94 L 307.44 188.5 L 307.33 189.5 L 270.5 189.91 L 262.5 180.4 L 242.5 155.11 L 241.5 154.07 L 236.03 160.5 L 213.5 189.55 L 176.5 189.74 A 1.7 1.7 0 0 1 176.5 186.38 L 219.5 131.22 L 219.35 128.5 L 178.5 75.2 L 177.5 72.19 A 7.81 7.81 0 0 1 183.5 71.3 Z"
+  />
+  <path
+    id="l"
+    fill="#12438f"
+    d="M 330.25 21.5 L 359.5 21.69 L 360.81 22.5 L 360.9 187.5 L 359.5 189.56 L 330.5 189.39 L 329 188.5 L 328.21 172.5 L 328.5 22.47 L 331.5 21.35 Z"
+  />
+  <path
+    id="i2-stem"
+    fill="#12438f"
+    d="M 408.44 71.5 A 12.39 12.39 0 0 1 423.6 76.5 A 18.17 18.17 0 0 1 425.22 87.5 L 425 188.5 L 419.5 189.6 L 393.5 189.23 L 392.12 186.5 L 391.8 110.5 L 380.5 109.8 L 373.42 106.5 L 373.01 104.5 L 385.13 97.5 A 40.56 40.56 0 0 0 394.82 86.5 L 404.5 73.71 A 12.9 12.9 0 0 1 414.5 70.78 Z"
+  />
+  <circle id="i2-dot" cx="406.28" cy="46.37" r="18.89" fill="#12438f" />
+</svg>
+    <h1>Дорожная карта: сентябрь → январь</h1>
+    <p class="лид">Десять задач из чата — это не десять параллельных дел, а один двигатель и его обслуживание. Ниже они разложены на пять шагов: что делаем на этой неделе, что за чем идёт, кто за что отвечает и что отложено — с условием возврата, а не «нет».</p>
+    <p class="выбор-строка">Сейчас идёт шаг 0 — он раскрыт ниже, в нём 15 дел с именами. Остальные шаги открываются нажатием.</p>
+  </div>
+</header>
+
+<main class="полоса">
+<div class="полоса-шагов" role="list" aria-label="Шаги карты">
+<div class="полоса-шагов__шаг полоса-шагов__шаг--сейчас" role="listitem"><span class="полоса-шагов__номер">Шаг 0</span><span class="полоса-шагов__имя">Не терять то, за что уже заплатили</span><span class="полоса-шагов__когда">эта неделя, 1–7 сентября</span><span class="полоса-шагов__дел">15 дел</span></div>
+<div class="полоса-шагов__шаг" role="listitem"><span class="полоса-шагов__номер">Шаг 1</span><span class="полоса-шагов__имя">Один двигатель на полную</span><span class="полоса-шагов__когда">сентябрь</span><span class="полоса-шагов__дел">20 дел</span></div>
+<div class="полоса-шагов__шаг" role="listitem"><span class="полоса-шагов__номер">Шаг 2</span><span class="полоса-шагов__имя">B2B пилотом, а не контрактом</span><span class="полоса-шагов__когда">сентябрь — октябрь</span><span class="полоса-шагов__дел">9 дел</span></div>
+<div class="полоса-шагов__шаг" role="listitem"><span class="полоса-шагов__номер">Шаг 3</span><span class="полоса-шагов__имя">Заказы внутри системы</span><span class="полоса-шагов__когда">октябрь — ноябрь</span><span class="полоса-шагов__дел">блоками</span></div>
+<div class="полоса-шагов__шаг" role="listitem"><span class="полоса-шагов__номер">Шаг 4</span><span class="полоса-шагов__имя">Вторая услуга на той же базе</span><span class="полоса-шагов__когда">ноябрь — декабрь</span><span class="полоса-шагов__дел">блоками</span></div>
+<div class="полоса-шагов__шаг" role="listitem"><span class="полоса-шагов__номер">Шаг 5</span><span class="полоса-шагов__имя">Точка выхода в ноль</span><span class="полоса-шагов__когда">январь</span><span class="полоса-шагов__дел">блоками</span></div>
+</div>
+<p class="состояние" id="состояние-отметок">Отметки приходят из панели — сейчас загружаются.</p>
+<p class="полоса-подпись">Шаг 0 идёт сейчас. У шагов не сроки, а условия перехода: месяцы стоят ориентиром, потому что дата, поставленная сегодня на январь, к январю оказывается неправдой.</p>
+<details class="разд" open><summary class="разд__шапка">Почему не всё сразу: три ресурса, а не десять задач</summary>
+<p>Ресурсов три, и они разной редкости:</p>
+<div class="строки">
+<div class="строка">
+<p class="строка__что"><b>Руки Игоря и Димы</b></p>
+<p class="строка__пара"><span>Сколько его:</span> двое, и в сентябре они же физически работают на заказах</p>
+<p class="строка__пара"><span>Кто на нём:</span> задачи 2, 7, 8, 9 из списка — B2B, склад, малярка, уборка</p>
+</div>
+<div class="строка">
+<p class="строка__что"><b>Деньги</b></p>
+<p class="строка__пара"><span>Сколько его:</span> получены, расходуются аккуратно, основные траты — с выручки</p>
+<p class="строка__пара"><span>Кто на нём:</span> задачи 1, 7, 8, 9, 10</p>
+</div>
+<div class="строка">
+<p class="строка__что"><b>Наш код</b></p>
+<p class="строка__пара"><span>Сколько его:</span> не дефицит: готов процентов на восемьдесят</p>
+<p class="строка__пара"><span>Кто на нём:</span> задачи 3, 4, 5, 10</p>
+</div>
+</div>
+<p>Отсюда главный вывод: <b>список не десять параллельных дел, а один двигатель и его обслуживание.</b> Шесть задач из десяти дерутся за одни и те же две пары рук, и именно это делает список непролазным — не его длина.</p>
+<details class="вложенный"><summary class="вложенный__шапка">Откуда эти числа</summary>
+<p><b>Арифметика против «открыть сразу четыре направления».</b> Сегодня реклама даёт около 22 обращений в неделю на весь кабинет. Алгоритму Meta нужно порядка 50 событий в неделю <b>на группу объявлений</b>, чтобы перестать перебирать людей наугад. Одно направление уже недокормлено; четыре направления — это по 5–6 обращений на каждое: ни одно не обучится и ни про одно нельзя будет сказать, работает оно или нет. Плюс тот же счёт по деньгам: рекламный бюджет точки 1 из сметы Димы, потраченный на одно направление, живёт больше года; поделённый на три — меньше полугода.</p>
+<p><b>Где сейчас теряются уже оплаченные деньги.</b> Обращения покупаются и приходят, а через систему не прошёл ни один живой клиент; из 68 вопросов под постами 41 остался без ответа, медиана первого ответа — 76 дней. То есть до вопроса «какой таргетолог лучше» стоит вопрос «кто отвечает первым и через сколько минут», и он закрывается двадцатью минутами в телефоне Игоря, а не деньгами.</p>
+<p><b>Куда мы придём — арифметика точки 1</b> (140 000 ₪/мес, «уровень выхода в ноль» по письму Димы от 19 августа). При средней перевозке 2 000 ₪ это ≈70 заказов в месяц, то есть 3–4 заказа в рабочий день против «до 20 в месяц» сегодня — рост примерно в три с половиной раза. Если конверсия обращения в заказ останется той же (наша оценка ≈20 %, точного числа нет ни у кого — его даст шаг 3), понадобится около 330 обращений в месяц, и рекламный бюджет из сметы точки 1 ровно на это и рассчитан — смета сходится. Но <b>главный рычаг не бюджет, а конверсия</b>: поднять её с 20 % до 30 % дешевле, чем купить ещё треть обращений, и делается это ответом в первые минуты, ценой до звонка и доказательствами — то есть шагом 0.</p>
+<p>---</p>
+</details>
+</details>
+<details class="шаг" id="шаг-0" open>
+<summary class="шаг__шапка">
+<span class="шаг__номер">Шаг 0</span>
+<span class="шаг__имя">Не терять то, за что уже заплатили</span>
+<span class="шаг__когда">эта неделя, 1–7 сентября</span>
+<span class="шаг__дел">15 дел</span>
+</summary>
+<div class="шаг__мета">
+<p class="шаг__мета-строка"><span>Денег:</span> ноль</p>
+<p class="шаг__мета-строка"><span>Метрика шага:</span> время первого ответа клиенту и число обращений, оставшихся без ответа</p>
+<p class="шаг__мета-строка"><span>Шаг закрыт, когда:</span> каждый написавший получает ответ в первые минуты, у каждого обращения известен источник, а Мидраг живой</p>
+</div>
+<div class="группа-пунктов">
+<h4 class="кто">Игорь</h4>
+<div class="пункт" data-дело="ш0-приветствие">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Включить приветствие в WhatsApp<span class="чип">5 мин</span></p>
+<p class="пункт__когда">Готово, когда: с чужого номера приходит автоответ со ссылкой</p>
+<p class="пункт__куда"><a href="https://docs.fixlihome.co.il/status/1df20ae18d/igor/">страница Игоря</a></p>
+</div></div>
+<div class="пункт" data-дело="ш0-быстрые-ответы">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Завести пять быстрых ответов<span class="чип">10 мин</span></p>
+<p class="пункт__когда">Готово, когда: по косой черте вставляется каждый из пяти</p>
+<p class="пункт__куда"><a href="https://docs.fixlihome.co.il/status/1df20ae18d/igor/">страница Игоря</a></p>
+</div></div>
+<div class="пункт" data-дело="ш0-бот-слово">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Написать нашему боту одно слово<span class="чип">1 мин</span></p>
+<p class="пункт__когда">Готово, когда: пришло уведомление о тестовой заявке с сайта</p>
+<p class="пункт__куда"><a href="https://docs.fixlihome.co.il/status/1df20ae18d/igor/">страница Игоря</a></p>
+</div></div>
+<div class="пункт" data-дело="ш0-разрешение-клиентка">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Спросить у клиентки разрешение на видеоотзыв<span class="чип">1 сообщение</span></p>
+<p class="пункт__когда">Готово, когда: ответ «да» или «нет» получен</p>
+<p class="пункт__куда"><a href="https://docs.fixlihome.co.il/status/1df20ae18d/igor/">текст просьбы</a></p>
+</div></div>
+<div class="пункт" data-дело="ш0-разрешение-работник">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Спросить у работника разрешение на кадры с лицом<span class="чип">1 сообщение</span></p>
+<p class="пункт__когда">Готово, когда: ответ получен</p>
+<p class="пункт__куда"><a href="https://docs.fixlihome.co.il/status/1df20ae18d/igor/">текст просьбы</a></p>
+</div></div>
+<div class="пункт" data-дело="ш0-шабат">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Ответить: работаем ли в шабат и в пятницу после обеда<span class="чип">1 строка</span></p>
+<p class="пункт__когда">Готово, когда: ответ в чате</p>
+</div></div>
+<div class="пункт" data-дело="ш0-документ">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Прислать документ о регистрации — с номером <bdi dir="rtl">ע.מ. / ח.פ.</bdi><span class="чип">фото</span></p>
+<p class="пункт__когда">Готово, когда: файл в чате</p>
+</div></div>
+</div>
+<div class="группа-пунктов">
+<h4 class="кто">Дима</h4>
+<div class="пункт" data-дело="ш0-мидраг">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Довести подключение к Мидрагу до включения<span class="чип">ведётся</span></p>
+<p class="пункт__когда">Готово, когда: профиль виден в поиске Мидрага</p>
+</div></div>
+<div class="пункт" data-дело="ш0-графы-кассы">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Подтвердить девять граф кассы и куда писать взнос учредителя<span class="чип">10 мин голосом</span></p>
+<p class="пункт__когда">Готово, когда: ответ в чате</p>
+<p class="пункт__куда"><a href="https://docs.fixlihome.co.il/status/1df20ae18d/dima/">страница Димы</a></p>
+</div></div>
+<div class="пункт" data-дело="ш0-грузовик-решение">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Выбрать из двух вариантов грузовика один и назвать срок<span class="чип">решение</span></p>
+<p class="пункт__когда">Готово, когда: вариант назван</p>
+</div></div>
+</div>
+<div class="группа-пунктов">
+<h4 class="кто">Дмитрий</h4>
+<div class="пункт" data-дело="ш0-первое-слово-meta">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Переписать текст, которым Meta встречает человека с объявления<span class="чип">30 мин</span></p>
+<p class="пункт__когда">Готово, когда: в кабинете стоит наш текст, а не дефолт Meta</p>
+</div></div>
+<div class="пункт" data-дело="ш0-метка-исполнителя">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Ввести код объявления с буквой исполнителя во все активные кампании<span class="чип">1 ч</span></p>
+<p class="пункт__когда">Готово, когда: ни одного активного объявления без кода</p>
+<p class="пункт__куда"><a href="https://docs.fixlihome.co.il/status/1df20ae18d/ads/">правки в кабинете</a></p>
+</div></div>
+<div class="пункт" data-дело="ш0-сервер-дешевле">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Уменьшить сервер до 4 ГБ, пока не кончилось промо<span class="чип">1 ч</span></p>
+<p class="пункт__когда">Готово, когда: счёт стал меньше, панель отвечает</p>
+</div></div>
+<div class="пункт" data-дело="ш0-текст-рассылки">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Написать текст рассылки по базе клиентов<span class="чип">2 ч</span></p>
+<p class="пункт__когда">Готово, когда: текст и картинка готовы, лежат на согласовании</p>
+</div></div>
+</div>
+<div class="группа-пунктов">
+<h4 class="кто">Игорь + Дмитрий</h4>
+<div class="пункт" data-дело="ш0-входящие-правило">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Договориться о правиле: «Входящие» Страницы смотрятся раз в день<span class="чип">5 мин</span></p>
+<p class="пункт__когда">Готово, когда: правило названо в чате</p>
+</div></div>
+</div>
+</details>
+<details class="шаг" id="шаг-1">
+<summary class="шаг__шапка">
+<span class="шаг__номер">Шаг 1</span>
+<span class="шаг__имя">Один двигатель на полную</span>
+<span class="шаг__когда">сентябрь</span>
+<span class="шаг__дел">20 дел</span>
+</summary>
+<div class="шаг__мета">
+<p class="шаг__мета-строка"><span>О чём шаг:</span> весь бюджет и всё внимание — на собственный спрос (переезды), а не на четыре направления сразу. Плюс самый дешёвый источник заказов, который уже есть: база своих клиентов, где готовность платить на 30 % больше доказана их же опытом</p>
+<p class="шаг__мета-строка"><span>Метрика шага:</span> обращений в неделю и цена обращения по каждому источнику и подрядчику</p>
+<p class="шаг__мета-строка"><span>Шаг закрыт, когда:</span> известна цена обращения по каждому каналу, в кабинете нет объявления без кода, база обзвонена вся</p>
+</div>
+<div class="группа-пунктов">
+<h4 class="кто">Игорь</h4>
+<div class="пункт" data-дело="ш1-рассылка-1">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Отправить рассылку первой трети базы<span class="чип">1 ч</span></p>
+<p class="пункт__когда">Готово, когда: отправлено ≈330 контактам</p>
+</div></div>
+<div class="пункт" data-дело="ш1-рассылка-2">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Разобрать ответы первой трети, потом отправить второй<span class="чип">1 ч</span></p>
+<p class="пункт__когда">Готово, когда: отправлено, ответы разобраны</p>
+</div></div>
+<div class="пункт" data-дело="ш1-рассылка-3">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Отправить третьей трети<span class="чип">1 ч</span></p>
+<p class="пункт__когда">Готово, когда: вся база обзвонена</p>
+</div></div>
+<div class="пункт" data-дело="ш1-бот-прогон">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Пройти опрос в нашем боте до конца самому<span class="чип">10 мин</span></p>
+<p class="пункт__когда">Готово, когда: дошёл до цены и телефона, сказал, что не так</p>
+</div></div>
+<div class="пункт" data-дело="ш1-услуги-ревизия">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Сверить девять услуг сайта с тем, что компания правда делает сама<span class="чип">10 мин</span></p>
+<p class="пункт__когда">Готово, когда: сказано по каждой: своя, через подрядчика или нет вовсе</p>
+</div></div>
+<div class="пункт" data-дело="ш1-замер-борта">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Замерить рулеткой высоту борта машины<span class="чип">10 мин</span></p>
+<p class="пункт__когда">Готово, когда: число названо — по нему чертёж превращается в заказ</p>
+</div></div>
+</div>
+<div class="группа-пунктов">
+<h4 class="кто">Дима</h4>
+<div class="пункт" data-дело="ш1-подрядчики-бюджет">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Назвать каждому подрядчику его бюджет — не меньше 2 500 ₪/мес<span class="чип">решение</span></p>
+<p class="пункт__когда">Готово, когда: суммы названы обоим письменно</p>
+</div></div>
+<div class="пункт" data-дело="ш1-подрядчики-гонорар">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Договориться о гонораре: фикс или процент, до старта<span class="чип">30 мин</span></p>
+<p class="пункт__когда">Готово, когда: условие названо обоим</p>
+</div></div>
+<div class="пункт" data-дело="ш1-один-кабинет">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Объяснить обоим правило: кабинет один, различает буква в коде<span class="чип">15 мин</span></p>
+<p class="пункт__когда">Готово, когда: оба подтвердили</p>
+</div></div>
+<div class="пункт" data-дело="ш1-плёнка-подрядчик">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Найти подрядчика оклейки и отдать ему готовое ТЗ<span class="чип">2 звонка</span></p>
+<p class="пункт__когда">Готово, когда: цена названа, ТЗ отправлено</p>
+</div></div>
+<div class="пункт" data-дело="ш1-форма-бригады">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Заказать футболки бригаде по готовому ТЗ швейнику<span class="чип">1 ч</span></p>
+<p class="пункт__когда">Готово, когда: заказ размещён. Без единой формы половину кадров снять нельзя</p>
+</div></div>
+</div>
+<div class="группа-пунктов">
+<h4 class="кто">Дмитрий</h4>
+<div class="пункт" data-дело="ш1-каталоги">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Зарегистрироваться в четырёх каталогах<span class="чип">2 ч</span></p>
+<p class="пункт__когда">Готово, когда: профили заведены или названа причина отказа</p>
+</div></div>
+<div class="пункт" data-дело="ш1-замер-неделя">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Замер раз в неделю: обращения, цена, источник, подрядчик<span class="чип">1 ч/нед</span></p>
+<p class="пункт__когда">Готово, когда: таблица в чате каждую пятницу</p>
+</div></div>
+<div class="пункт" data-дело="ш1-иврит-вычитка">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Отдать носителю пакет из 68 текстов и внести правки<span class="чип">3 ч</span></p>
+<p class="пункт__когда">Готово, когда: ивритские тексты перестали быть черновиком</p>
+</div></div>
+<div class="пункт" data-дело="ш1-сайт-услуги">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Привести страницы услуг в соответствие с ответом<span class="чип">3 ч</span></p>
+<p class="пункт__когда">Готово, когда: на сайте нет услуги, которую нельзя назвать своей</p>
+</div></div>
+</div>
+<div class="группа-пунктов">
+<h4 class="кто">Кристина</h4>
+<div class="пункт" data-дело="ш1-страница-оформить">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Дооформить страницу в Facebook: обложка, аватар, описание<span class="чип">1 ч</span></p>
+<p class="пункт__когда">Готово, когда: страница выглядит как бренд, файлы из кита</p>
+</div></div>
+<div class="пункт" data-дело="ш1-органика-старт">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Начать публикации по календарю: три поста в неделю<span class="чип">30 мин/пост</span></p>
+<p class="пункт__когда">Готово, когда: первая неделя опубликована</p>
+</div></div>
+<div class="пункт" data-дело="ш1-instagram-старт">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Те же посты в Instagram<span class="чип">20 мин/пост</span></p>
+<p class="пункт__когда">Готово, когда: первая неделя опубликована</p>
+</div></div>
+<div class="пункт" data-дело="ш1-marketplace">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Подать три объявления в Marketplace<span class="чип">40 мин</span></p>
+<p class="пункт__когда">Готово, когда: три объявления живы</p>
+</div></div>
+</div>
+<div class="группа-пунктов">
+<h4 class="кто">Игорь или Дима</h4>
+<div class="пункт" data-дело="ш1-иврит-носитель">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Найти носителя иврита на вычитку<span class="чип">контакт</span></p>
+<p class="пункт__когда">Готово, когда: человек назван и согласен</p>
+</div></div>
+</div>
+</details>
+<details class="шаг" id="шаг-2">
+<summary class="шаг__шапка">
+<span class="шаг__номер">Шаг 2</span>
+<span class="шаг__имя">B2B пилотом, а не контрактом (идёт параллельно шагу 1)</span>
+<span class="шаг__когда">сентябрь — октябрь</span>
+<span class="шаг__дел">9 дел</span>
+</summary>
+<div class="шаг__мета">
+<p class="шаг__мета-строка"><span>О чём шаг:</span> конфликт назвал сам Дима, и он настоящий: одна машина, работа на пять дней в неделю, руками основателей. Ответ — не «брать или не брать», а <b>пилот</b>: одна-две доставки в неделю. Цель пилота не выручка (≈500 ₪/день до налога), а два актива, которых деньгами не купить: технология, записанная в Библию Fixli, и вход в премиальные дома</p>
+<p class="шаг__мета-строка"><span>Метрика шага:</span> доставок в неделю, часов на доставку, число записанных правил Библии</p>
+<p class="шаг__мета-строка"><span>Шаг закрыт, когда:</span> три доставки прошли своими руками, экономика доставки посчитана, первые правила записаны</p>
+<p class="шаг__мета-строка"><span>Второй грузовик берётся, когда:</span> загрузка первой машины держится два месяца подряд — не раньше и не «под контракт»</p>
+</div>
+<div class="группа-пунктов">
+<h4 class="кто">Игорь</h4>
+<div class="пункт" data-дело="ш2-натура-встреча">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Встретиться с мебельной компанией и договориться о пилоте<span class="чип">встреча</span></p>
+<p class="пункт__когда">Готово, когда: условие пилота названо: 1–2 доставки в неделю</p>
+</div></div>
+<div class="пункт" data-дело="ш2-кадры-премиум">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Снять кадры с премиальных доставок в креативы<span class="чип">по кадру</span></p>
+<p class="пункт__когда">Готово, когда: кадры пришли, разрешения есть</p>
+</div></div>
+</div>
+<div class="группа-пунктов">
+<h4 class="кто">Дима</h4>
+<div class="пункт" data-дело="ш2-экономика-доставки">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Посчитать доставку в кассе отдельной статьёй<span class="чип">1 ч</span></p>
+<p class="пункт__когда">Готово, когда: видно, сколько остаётся с доставки</p>
+</div></div>
+</div>
+<div class="группа-пунктов">
+<h4 class="кто">Дмитрий</h4>
+<div class="пункт" data-дело="ш2-библия-1">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Собрать надиктованное в первую версию Библии Fixli<span class="чип">4 ч</span></p>
+<p class="пункт__когда">Готово, когда: документ есть, правила пронумерованы</p>
+</div></div>
+<div class="пункт" data-дело="ш2-библия-в-чеклист">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Перенести правила в чек-лист смены<span class="чип">2 ч</span></p>
+<p class="пункт__когда">Готово, когда: бригадир видит пункты на объекте</p>
+</div></div>
+</div>
+<div class="группа-пунктов">
+<h4 class="кто">Игорь + Дима</h4>
+<div class="пункт" data-дело="ш2-договор-пилот">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Подписать договор на объём, который переживает одна машина<span class="чип">1 неделя</span></p>
+<p class="пункт__когда">Готово, когда: договор подписан</p>
+</div></div>
+<div class="пункт" data-дело="ш2-доставка-1">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Первая доставка своими руками, с диктовкой после<span class="чип">день</span></p>
+<p class="пункт__когда">Готово, когда: доставка сделана, надиктовано 20 минут</p>
+</div></div>
+<div class="пункт" data-дело="ш2-доставка-2">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Вторая доставка, с диктовкой<span class="чип">день</span></p>
+<p class="пункт__когда">Готово, когда: то же</p>
+</div></div>
+<div class="пункт" data-дело="ш2-доставка-3">
+<span class="пункт__квадрат" aria-hidden="true"></span>
+<div class="пункт__тело">
+<p class="пункт__что">Третья доставка, с диктовкой<span class="чип">день</span></p>
+<p class="пункт__когда">Готово, когда: то же</p>
+</div></div>
+</div>
+</details>
+<details class="шаг" id="шаг-3">
+<summary class="шаг__шапка">
+<span class="шаг__номер">Шаг 3</span>
+<span class="шаг__имя">Заказы внутри системы</span>
+<span class="шаг__когда">октябрь — ноябрь</span>
+<span class="шаг__дел">разбор блоками</span>
+</summary>
+<div class="шаг__мета">
+<p class="шаг__мета-строка"><span>О чём шаг:</span> это ответ на «первична не реклама, а система управления». Дашборд и «что делать завтра» наполняются <b>только</b> заказами: пока заказы идут мимо системы, визуализировать нечего. Поэтому шаг стоит третьим, а не первым</p>
+<p class="шаг__мета-строка"><span>Метрика шага:</span> доля заказов, прошедших через панель, и число дней с закрытой кассой</p>
+<p class="шаг__мета-строка"><span>Шаг закрыт, когда:</span> прошёл месяц, где все заказы и все траты внутри системы — с этого месяца впервые считается настоящая экономика: обращение → заказ → маржа</p>
+<p class="шаг__мета-строка"><span>Блоками:</span> привычка заводить заказ (2 минуты на заказ, оба партнёра); касса дня каждый день; грузчики привязаны к боту и получают смены; отчёт по источникам отвечает, какая реклама окупилась</p>
+</div>
+
+</details>
+<details class="шаг" id="шаг-4">
+<summary class="шаг__шапка">
+<span class="шаг__номер">Шаг 4</span>
+<span class="шаг__имя">Вторая услуга на той же базе</span>
+<span class="шаг__когда">ноябрь — декабрь</span>
+<span class="шаг__дел">разбор блоками</span>
+</summary>
+<div class="шаг__мета">
+<p class="шаг__мета-строка"><span>О чём шаг:</span> здесь ждут задачи 8 и 9 из списка — малярка и премиум-уборка, — и здесь же решается, какая из них первая. <b>Выбор по данным, а не по вкусу:</b> что чаще спрашивают в переписке и что чаще берут те, кто уже заказал переезд</p>
+<p class="шаг__мета-строка"><span>Метрика шага:</span> заказов второй услуги от существующих клиентов</p>
+<p class="шаг__мета-строка"><span>Условие открытия услуги:</span> у неё есть цена, исполнитель и человек, отвечающий за качество</p>
+</div>
+
+</details>
+<details class="шаг" id="шаг-5">
+<summary class="шаг__шапка">
+<span class="шаг__номер">Шаг 5</span>
+<span class="шаг__имя">Точка выхода в ноль</span>
+<span class="шаг__когда">январь</span>
+<span class="шаг__дел">разбор блоками</span>
+</summary>
+<div class="шаг__мета">
+<p class="шаг__мета-строка"><span>Откуда срок:</span> план Димы от 19 августа — 4–4,5 месяца от старта</p>
+<p class="шаг__мета-строка"><span>Что должно быть верно:</span> ≈70 заказов в месяц при среднем чеке около 2 000 ₪; известная цена обращения по каждому каналу; две бригады; B2B даёт базовую загрузку; все заказы и деньги внутри системы</p>
+<p class="шаг__мета-строка"><span>Что открывается после:</span> склад, «Дерех», аутлет премиум-мебели, комплексный переезд как флагман, голосовой оператор — каждое со своим условием, а не «когда-нибудь»</p>
+</div>
+<p>---</p>
+</details>
+<details class="разд" open><summary class="разд__шапка">Кто за что отвечает</summary>
+<div class="строки">
+<div class="строка">
+<p class="строка__что"><b>Игорь</b></p>
+<p class="строка__пара"><span>Зона:</span> продажи, B2B-контакты, качество, найм</p>
+<p class="строка__пара"><span>В карте это:</span> шаг 0 — двадцать минут в телефоне; шаг 1 — база; шаг 2 — мебельная компания</p>
+</div>
+<div class="строка">
+<p class="строка__что"><b>Дима</b></p>
+<p class="строка__пара"><span>Зона:</span> деньги и касса, подрядчики по рекламе, Мидраг, грузовик и лизинг</p>
+<p class="строка__пара"><span>В карте это:</span> шаг 0 — Мидраг и графы; шаг 1 — бюджеты и условия подрядчикам</p>
+</div>
+<div class="строка">
+<p class="строка__что"><b>Дмитрий</b></p>
+<p class="строка__пара"><span>Зона:</span> продукт (сайт, CRM, ассистент, айдентика) <b>и цифры по всем направлениям</b></p>
+<p class="строка__пара"><span>В карте это:</span> шаг 0 — первое слово Meta и метки; шаг 1 — замер каждую пятницу; шаг 2 — Библия</p>
+</div>
+<div class="строка">
+<p class="строка__что"><b>Кристина</b></p>
+<p class="строка__пара"><span>Зона:</span> соцсети и страница — задача 6 из списка</p>
+<p class="строка__пара"><span>В карте это:</span> шаг 1: тексты и креативы на 12 недель уже написаны, нужны публикации</p>
+</div>
+<div class="строка">
+<p class="строка__что"><b>Подрядчики</b></p>
+<p class="строка__пара"><span>Зона:</span> двое по рекламе в одном кабинете; плёнка и одежда; маляры и уборка — позже</p>
+<p class="строка__пара"><span>В карте это:</span> шаг 1 и шаг 4</p>
+</div>
+</div>
+</details>
+<details class="разд"><summary class="разд__шапка">Отложено сознательно — и при каком условии вернётся</summary>
+<div class="строки">
+<div class="строка">
+<p class="строка__что">Склад в Нетании и реклама услуг склада</p>
+<p class="строка__пара"><span>Из списка:</span> 7</p>
+<p class="строка__пара"><span>Вернётся, когда:</span> Шаг 4 пройден и есть спрос из переписки: люди сами спрашивают про хранение</p>
+</div>
+<div class="строка">
+<p class="строка__что">Малярный департамент</p>
+<p class="строка__пара"><span>Из списка:</span> 8</p>
+<p class="строка__пара"><span>Вернётся, когда:</span> Шаг 4: выбран как первая или вторая услуга по данным</p>
+</div>
+<div class="строка">
+<p class="строка__что">Премиум-уборка как департамент</p>
+<p class="строка__пара"><span>Из списка:</span> 9</p>
+<p class="строка__пара"><span>Вернётся, когда:</span> Там же. Сегодня уборка на сайте есть, но документ Игоря запрещает называть её своей</p>
+</div>
+<div class="строка">
+<p class="строка__что">«Дерех», аутлет, кнопка «купить с доставкой»</p>
+<p class="строка__пара"><span>Из списка:</span> вне списка</p>
+<p class="строка__пара"><span>Вернётся, когда:</span> После первого лета: концепт превосходит возможности реализации — слова самого Игоря</p>
+</div>
+<div class="строка">
+<p class="строка__что">Голосовой оператор</p>
+<p class="строка__пара"><span>Из списка:</span> вне списка</p>
+<p class="строка__пара"><span>Вернётся, когда:</span> Когда текстовый вход замерен и известно, сколько обращений на нём теряется</p>
+</div>
+<div class="строка">
+<p class="строка__что">WhatsApp-бот вместо приложения</p>
+<p class="строка__пара"><span>Из списка:</span> вне списка</p>
+<p class="строка__пара"><span>Вернётся, когда:</span> Юрлицо и вторая SIM: номер, отданный в Cloud API, перестаёт работать в приложении</p>
+</div>
+<div class="строка">
+<p class="строка__что">HR-агенты</p>
+<p class="строка__пара"><span>Из списка:</span> задача 3 из первых шести</p>
+<p class="строка__пара"><span>Вернётся, когда:</span> Перед сезоном, весной: «людей мы найдём»</p>
+</div>
+</div>
+</details>
+<details class="разд"><summary class="разд__шапка">Правила, по которым построена карта</summary>
+<ol class="памятка">
+<li>1. <b>Мелко расписан текущий шаг и следующий.</b> Дальние шаги стоят блоками с условием входа: расписывать на месяцы вперёд — значит выдумывать. Карта дорисовывается по мере приближения, и это не недоделка, а её конструкция.</li>
+<li>2. <b>Одно главное дело у человека в моменте.</b> Остальное лежит в «ждёт» с условием старта. Это прямой ответ на «бросаемся на это, потом туда, потом забили».</li>
+<li>3. <b>Галочка = одно действие с понятным объёмом</b> — от одной минуты до пары часов, с явным «сделано, когда». Если дело не помещается — оно дробится, а не остаётся крупным.</li>
+<li>4. <b>Новое направление не открывается рекламой</b> — только предложением тем, кто уже заказывал. Причина в арифметике: см. «Почему не всё сразу».</li>
+<li>5. <b>Мощность растёт за подтверждённой загрузкой,</b> а не под ожидание контракта. Это принцип из стратегии самого Димы («мощность растёт последней»).</li>
+<li>6. <b>Чего нет в системе — того не было.</b> Заказ, который прошёл мимо панели, не попадает ни в отчёт по источникам, ни в кассу, ни в вопрос «какая реклама окупилась».</li>
+</ol>
+</details>
+</main>
+
+<footer class="полоса">
+<p class="подпись">Собрано 1 сентября 2026 по десяти задачам из общего чата и стратегии по этапам. В карте 44 дел, из них 15 — на этой неделе. Отмечать сделанное будем в панели: пока отметки не живут в базе, галочка на этой странице была бы кнопкой, которая ничего не делает.</p><p class="подпись">Суммы финансирования на страницу не выносились — как и кассовые числа компании на соседних документах.</p>
+  <p class="знак-автора">Made by Dmitry Khinkis</p>
+</footer>
+
+<script>
+  /* Кнопка копирования показывается только здесь — то есть только когда она
+     действительно работает. Без скрипта её не видно, а текст всё равно
+     копируется выделением: в блоке стоит `user-select: all`, одно касание
+     выделяет его целиком. */
+  document.querySelectorAll('.копировать').forEach(function (кнопка) {
+    if (!navigator.clipboard) return;
+    кнопка.style.display = 'inline-block';
+    кнопка.addEventListener('click', function () {
+      var узел = document.getElementById(кнопка.dataset['копировать']);
+      navigator.clipboard.writeText(узел.textContent).then(
+        function () {
+          кнопка.textContent = 'Скопировано';
+          setTimeout(function () { кнопка.textContent = 'Скопировать текст'; }, 2000);
+        },
+        function () {
+          /* Отказ буфера — не повод врать про успех: подсказываем выделение. */
+          кнопка.textContent = 'Не вышло — выделите текст';
+        },
+      );
+    });
+  });
+</script>
+
+
+<script>
+  /* Отметки живут в панели, а не на этой странице: там у галочки есть автор
+     и время, и там же её ставят. Здесь — только показ.
+
+     Своего состояния страница не держит и ничего не утверждает, пока ответ
+     не пришёл: пустой квадрат означает «неизвестно», а не «не сделано», и
+     строка выше говорит об этом словами. Отметить отсюда нельзя намеренно —
+     кнопка без входа означала бы, что галочку может поставить любой, кто
+     знает адрес. */
+  (function () {
+    var строка = document.getElementById('состояние-отметок');
+    var адрес = 'https://panel.fixlihome.co.il/api/plan/4e9a71c05b';
+    fetch(адрес, { cache: 'no-store' })
+      .then(function (ответ) {
+        if (!ответ.ok) throw new Error('панель ответила ' + ответ.status);
+        return ответ.json();
+      })
+      .then(function (данные) {
+        var сделано = 0;
+        var всего = 0;
+        document.querySelectorAll('[data-дело]').forEach(function (пункт) {
+          всего += 1;
+          var состояние = данные.status[пункт.getAttribute('data-дело')];
+          if (!состояние) return;
+          if (состояние.done) {
+            пункт.classList.add('пункт--сделано');
+            сделано += 1;
+          } else if (состояние.taken) {
+            пункт.classList.add('пункт--взято');
+          }
+        });
+        строка.textContent = 'Сделано ' + сделано + ' из ' + всего +
+          '. Отметки ставятся в панели.';
+        строка.classList.add('состояние--живое');
+      })
+      .catch(function () {
+        /* Молча ничего не показать нельзя: пустые квадраты рядом с молчащей
+           строкой человек прочитает как «ничего не сделано». */
+        строка.textContent = 'Отметки не загрузились — квадраты ниже ничего не значат. ' +
+          'Актуальное состояние видно в панели.';
+      });
+  })();
+</script>
+</body>
+</html>
