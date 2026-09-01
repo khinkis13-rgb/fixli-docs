@@ -855,6 +855,11 @@
     .доверие { grid-template-columns: 1fr; }
     .бренд-знак { grid-template-columns: 1fr; padding: 22px; }
     .бренд-пара { grid-template-columns: 1fr; }
+    /* .поровну объявлен вне медиазапроса и специфичнее (0,2,0 против 0,1,0), поэтому
+       без этой строки пара машин оставалась в два столбца и на 390 px давала кадры
+       по 165 px — миниатюру вместо показа. Нашёл замер, глазами это читалось как
+       «просто мелкие картинки». */
+    .бренд-пара.поровну { grid-template-columns: 1fr; }
     .экраны { grid-template-columns: 1fr; max-width: 390px; }
     .буллеты { grid-template-columns: 1fr; }
     .калькулятор-блок { grid-template-columns: 1fr; }
@@ -1188,6 +1193,12 @@
       <figure class="карточка-кадр">
         <img src="бренд/машина-isuzu.jpg" alt="Макет грузовика Isuzu в фирменной оклейке Fixli" loading="lazy" />
         <figcaption>Макет: следующая машина парка — та же раскладка на длинном кузове</figcaption>
+      </figure>
+    </div>
+<div class="кадр-во-всю явь">
+      <figure class="карточка-кадр">
+        <img src="бренд/машина-isuzu-улица.jpg" alt="Макет грузовика Isuzu Fixli у жилого дома с открытым кузовом" loading="lazy" />
+        <figcaption>Макет: та же раскладка на объекте — так машина выглядит у подъезда клиента</figcaption>
       </figure>
     </div>
 
@@ -1892,12 +1903,6 @@
         <div class="парк-ряд" data-парк-ряд></div>
         <p class="парк-вывод" data-парк-вывод></p>
       </div>
-    </div>
-    <div class="кадр-во-всю явь">
-      <figure class="карточка-кадр">
-        <img src="бренд/машина-isuzu-улица.jpg" alt="Макет грузовика Isuzu Fixli у жилого дома с открытым кузовом" loading="lazy" />
-        <figcaption>Макет: так выглядит следующий шаг парка на объекте</figcaption>
-      </figure>
     </div>
 
     <h3 class="явь">Девять месяцев: сентябрь → лето</h3>
