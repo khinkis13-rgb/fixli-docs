@@ -308,6 +308,26 @@
     .окно__шапка h2 { font-size: 21px; }
     .окно__шапка, .окно__тело { padding-inline: 16px; }
   }
+
+/* Длинные тексты и пошаговые инструкции нужны глазам ровно один раз — в момент
+   вставки, и то не всегда: кнопка «Скопировать» стоит снаружи и работает при
+   свёрнутом блоке. Пока они были развёрнуты, страница Игоря шла двумя
+   простынями подряд, между которыми терялось всё остальное (13,6 экрана). */
+.свёрнуто { margin: 12px 0 0; border: 1px solid var(--линия); border-radius: 10px; background: var(--туман); }
+.свёрнуто > summary {
+  cursor: pointer;
+  padding: 12px 14px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: var(--навигация);
+  border-radius: 10px;
+}
+.свёрнуто > summary:focus-visible { outline: 2px solid var(--оранжевый-текст); outline-offset: 2px; }
+.свёрнуто[open] > summary { border-bottom: 1px solid var(--линия); border-radius: 10px 10px 0 0; }
+.свёрнуто > *:not(summary) { margin: 12px 14px; }
+.свёрнуто ol { padding-inline-start: 22px; }
 </style>
 </head>
 <body>
