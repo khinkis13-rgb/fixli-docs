@@ -342,3 +342,22 @@ thead th {
     display: none;
   }
 }
+
+/* Пакеты подрядчикам — единственное действие на этой странице, поэтому они
+   выделены, а не лежат в общем списке ссылок. До 1 сентября их не было вовсе:
+   страница давала ТЗ и знак по отдельности, без чертежей и без скачивания, и
+   подрядчик не понимал, что забирать. */
+.пакеты { list-style: none; padding: 0; margin: 18px 0 0; }
+.пакеты li { margin: 0 0 12px; }
+.пакеты a {
+  display: inline-block;
+  min-height: 44px;
+  padding: 12px 18px;
+  margin-inline-end: 8px;
+  border-radius: 10px;
+  background: var(--fx-orange);
+  color: var(--fx-navy-deep);
+  font-weight: var(--fx-weight-semibold);
+  text-decoration: none;
+}
+.пакеты a:focus-visible { outline: 2px solid var(--fx-navy); outline-offset: 2px; }
